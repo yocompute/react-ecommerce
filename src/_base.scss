@@ -17,10 +17,25 @@ $info-bg: rgb(69,69,69);
 $info-fg: white;
 
 $head-h: 60px;
+$head-bar-h: 60px;
 $bottom-bar-h: 60px;
 $bottom-btn-w: 125px;
 
 $pagination-h: 36px;
+
+.header{
+  z-index: 9900;
+  width: 100%;
+  border-bottom: 1px solid $border-color;
+
+  .header-bar{
+    width: 100%;
+    height: $head-bar-h;
+    background: $bg-color;
+    margin: 0px;
+    padding: 0px;
+  }
+}
 
 .page{
   position: fixed;

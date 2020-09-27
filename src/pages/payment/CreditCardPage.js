@@ -8,6 +8,8 @@ import { QuantityInput } from '../../components/common/QuantityInput'
 import { updateCart } from '../../actions/cart'
 import {createPaymentAsync} from '../../actions/payment'
 
+import Header from '../../components/common/Header'
+
 const CreditCardPage = ({merchant, product, updateCart}) => {
 
     const [quantity, setQuantity] = useState(0);
@@ -37,8 +39,7 @@ const CreditCardPage = ({merchant, product, updateCart}) => {
 
     return (
         <div>
-            <div>Credit Card</div>
-
+            <Header title={'Credit Card'}></Header>
                 {/* <Link style={{ textDecoration: 'none' }} to={{ pathname: `/order-history` }} > */}
                     <Button onClick={handlePlaceOrder}>Place Order</Button>
                 {/* </Link> */}
