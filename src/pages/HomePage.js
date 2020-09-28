@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import ProductList from '../components/product/ProductList';
 import {fetchProductsAsync} from '../actions/product'
 import {setMerchant} from '../actions/merchant'
+import Header from '../components/common/Header'
 import Footer from '../components/common/Footer'
 
 import './HomePage.scss'
@@ -31,6 +32,7 @@ const HomePage = ({match, fetchProductsAsync, products, setMerchant}) => {
 
     return (
         <div className='page'>
+            <Header title={'Home Page'}></Header>
             <div className="product-list-area">
                 <ProductList data={products} />
             </div>

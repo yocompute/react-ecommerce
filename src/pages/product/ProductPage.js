@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
 import { updateCart } from '../../actions/cart'
 
+import Header from '../../components/common/Header'
+
 
 const ProductPage = ({merchant, product, updateCart}) => {
 
@@ -30,7 +32,8 @@ const ProductPage = ({merchant, product, updateCart}) => {
     }
 
     return (
-        <div>Product Detail
+        <div>
+            <Header title={'Product Detail'}></Header>            
             {
                 product &&
                 <div>
