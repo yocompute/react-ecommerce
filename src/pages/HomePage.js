@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
 import ProductList from '../components/product/ProductList';
+import ProductGrid from '../components/product/ProductGrid';
 import {fetchProductsAsync} from '../actions/product'
 import {setMerchant} from '../actions/merchant'
 import Header from '../components/common/Header'
@@ -34,7 +35,7 @@ const HomePage = ({match, fetchProductsAsync, products, setMerchant}) => {
         <div className='page'>
             <Header title={'Home Page'}></Header>
             <div className="product-list-area">
-                <ProductList data={products} />
+                <ProductGrid data={products} />
             </div>
         {/* <SignupSelect></SignupSelect> */}
 
