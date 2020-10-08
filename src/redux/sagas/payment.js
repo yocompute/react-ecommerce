@@ -1,5 +1,5 @@
 import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
-import PaymentApi from '../services/PaymentApi';
+import PaymentApi from '../../services/PaymentApi';
 
 export function* fetchPayments(action){
     try{

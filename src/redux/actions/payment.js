@@ -1,4 +1,4 @@
-import PaymentApi from '../services/PaymentApi';
+// import PaymentApi from '../services/PaymentApi';
 
 const ACTION_PAYMENT = {
     FETCH_PAYMENTS: 'FETCH_PAYMENTS',

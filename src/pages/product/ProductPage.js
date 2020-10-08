@@ -5,7 +5,7 @@ import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../actions/cart'
+import { updateCart } from '../../redux/actions/cart'
 
 import Header from '../../components/common/Header'
 

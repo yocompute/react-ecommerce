@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 import ProductList from '../components/product/ProductList';
 import ProductGrid from '../components/product/ProductGrid';
-import {fetchProductsAsync} from '../actions/product'
-import {setMerchant} from '../actions/merchant'
+import {fetchProductsAsync} from '../redux/actions/product'
+import {setMerchant} from '../redux/actions/merchant'
 import Header from '../components/common/Header'
 import Footer from '../components/common/Footer'
 
@@ -39,7 +39,7 @@ const HomePage = ({match, fetchProductsAsync, products, setMerchant}) => {
             </div>
         {/* <SignupSelect></SignupSelect> */}
 
-        <Footer type="button" enable={true} onNext={handleNext} amount={0}></Footer>
+        <Footer type="menu" enable={true} onNext={handleNext} amount={0}></Footer>
         </div>
     )
 }

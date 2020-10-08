@@ -1,5 +1,5 @@
 import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
-import ProductApi from '../services/ProductApi';
+import ProductApi from '../../services/ProductApi';
 
 export function* fetchProducts(action){
     try{
