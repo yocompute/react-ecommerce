@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { QuantityInput } from '../common/QuantityInput'
 import { Link } from 'react-router-dom';
-import { setProduct } from '../../actions/product'
+import { setProduct } from '../../redux/actions/product'
 
 import DefaultImage from '../../assets/Default-Image.jpg'
 import './ProductList.scss'

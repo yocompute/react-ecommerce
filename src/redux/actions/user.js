@@ -1,4 +1,4 @@
-import UserApi from '../services/UserApi';
+// import UserApi from '../../services/UserApi';
 
 const ACTION_USER = {
     FETCH_USERS: 'FETCH_USERS',

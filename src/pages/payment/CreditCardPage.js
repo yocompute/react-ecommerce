@@ -5,8 +5,8 @@ import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../actions/cart'
-import {createPaymentAsync} from '../../actions/payment'
+import { updateCart } from '../../redux/actions/cart'
+import {createPaymentAsync} from '../../redux/actions/payment'
 
 import Header from '../../components/common/Header'
 
