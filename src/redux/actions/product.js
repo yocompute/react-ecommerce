@@ -1,4 +1,4 @@
-import ProductApi from '../services/ProductApi';
+// import ProductApi from '../services/ProductApi';
 
 const ACTION_PRODUCT = {
     FETCH_PRODUCTS: 'FETCH_PRODUCTS',
