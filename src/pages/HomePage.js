@@ -4,28 +4,29 @@ import PropTypes from "prop-types";
 
 import ProductList from '../components/product/ProductList';
 import ProductGrid from '../components/product/ProductGrid';
-import {fetchProductsAsync} from '../redux/actions/product'
-import {setMerchant} from '../redux/actions/merchant'
 import Header from '../components/common/Header'
 import Footer from '../components/common/Footer'
+
+import {setMerchant} from '../redux/merchant/merchant.actions'
+import {fetchProducts} from '../redux/product/product.actions'
 
 import './HomePage.scss'
 
 const DEFAULT_MERCHANT_ID = '5c9542ce0851a5096e044d16';
 
-const HomePage = ({match, fetchProductsAsync, products, setMerchant}) => {
+const HomePage = ({match, fetchProducts, products, setMerchant}) => {
 
     useEffect(() => {
         if (match.params && match.params.id) {
             const merchantId = match.params.id;
             setMerchant({_id: merchantId });
-            fetchProductsAsync({merchantId});
+            fetchProducts({merchantId});
         }else{
             const merchantId = DEFAULT_MERCHANT_ID;
             setMerchant({_id: merchantId });
-            fetchProductsAsync({merchantId});
+            fetchProducts({merchantId});
         }
-    }, [fetchProductsAsync]);
+    }, [fetchProducts]);
 
     const handleNext = () => {
 
@@ -59,5 +60,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {fetchProductsAsync, setMerchant}
+    {fetchProducts, setMerchant}
 )(HomePage);

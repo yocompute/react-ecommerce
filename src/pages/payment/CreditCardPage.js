@@ -5,8 +5,8 @@ import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../redux/actions/cart'
-import {createPaymentAsync} from '../../redux/actions/payment'
+import { updateCart } from '../../redux/cart/cart.actions'
+// import {createPaymentAsync} from '../../redux/payment/payment.actions'
 
 import Header from '../../components/common/Header'
 
@@ -32,9 +32,9 @@ const CreditCardPage = ({merchant, product, updateCart}) => {
     }
 
     function handlePlaceOrder(){
-        createPaymentAsync({
-            // userId
-        }); // {userId, payment: {method, cc, exp, cvd, addr}, cart}
+        // createPaymentAsync({
+        //     // userId
+        // }); // {userId, payment: {method, cc, exp, cvd, addr}, cart}
     }
 
     return (

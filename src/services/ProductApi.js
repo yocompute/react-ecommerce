@@ -1,10 +1,11 @@
+
 import Api from "./Api";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const ProductApi = {
 
-    getProducts(query = null) {
+    get(query = null) {
         const url = process.env.REACT_APP_LOCAL_DATA ? `/products.json` : Api.buildUrl(API_URL, 'products', query);
 
         return new Promise(resolve => {

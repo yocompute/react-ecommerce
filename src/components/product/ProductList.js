@@ -1,64 +1,70 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+// import React, { useEffect, useState } from 'react';
+// import { connect } from 'react-redux';
 
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 
-import { QuantityInput } from '../common/QuantityInput'
-import { Link } from 'react-router-dom';
-import { setProduct } from '../../redux/actions/product'
+// import { QuantityInput } from '../common/QuantityInput'
+// import { Link } from 'react-router-dom';
+// import { setProduct } from '../../redux/actions/product'
 
-import DefaultImage from '../../assets/Default-Image.jpg'
-import './ProductList.scss'
+// import DefaultImage from '../../assets/Default-Image.jpg'
 
-const ProductList = ({ data, setProduct }) => {
+// import {Product} from './Product'
+// import './ProductList.scss'
 
-    // const [quantity, setQuantity] = useState(0);
 
-    function handleSelect(product) {
-        setProduct(product);
-    }
+// const ProductList = ({ list, setProduct }) => {
 
-    // function handleIncrease(v) {
+//     // const [list, setProducts] = useState([]);
 
-    // }
-    // function handleDecrease(v) {
+//     function handleSelect(product) {
+//         setProduct(product);
+//     }
 
-    // }
-    // function handleQuantityChange(v) {
+//     // function handleIncrease(v) {
 
-    // }
+//     // }
+//     // function handleDecrease(v) {
 
-    function getPictureUrl(d) {
-        return d.pictures[0];
-    }
-    return (
-        data && data.length ?
-            data.map(d => 
-                <Link key={d._id}
-                    style={{ textDecoration: 'none' }}
-                    to={{ pathname: `/products/${d._id}` }}
-                    onClick={e => handleSelect(d)} >
-                        <Grid container  className="product-row">
-                            <Grid item xs={6} m={0} className="pic-col">
-                            <img src={DefaultImage} />
-                            </Grid>
-                            <Grid item xs={6}> 
-                                <div>{d.name}</div>
-                                <div>${d.price}</div>
-                            </Grid>
-                        </Grid>
-                </Link>
-            )
-            :
-            <div>No Available Products</div>
-    )
-}
+//     // }
+//     // function handleQuantityChange(v) {
 
-const mapStateToProps = state => ({
-    product: state.product
-});
+//     // }
 
-export default connect(
-    mapStateToProps,
-    { setProduct }
-)(ProductList);
+//     function getPictureUrl(d) {
+//         return d.pictures[0];
+//     }
+
+//     return (
+//         list && list.length ?
+//             list.map(d => 
+//                 <Link key={d._id}
+//                     style={{ textDecoration: 'none' }}
+//                     to={{ pathname: `/products/${d._id}` }}
+//                     onClick={e => handleSelect(d)} >
+
+//                         <Product data={d}/>
+//                         {/* <Grid container  className="product-row">
+//                             <Grid item xs={6} m={0} className="pic-col">
+//                             <img src={DefaultImage} />
+//                             </Grid>
+//                             <Grid item xs={6}> 
+//                                 <div>{d.name}</div>
+//                                 <div>${d.price}</div>
+//                             </Grid>
+//                         </Grid> */}
+//                 </Link>
+//             )
+//             :
+//             <div>No Available Products</div>
+//     )
+// }
+
+// const mapStateToProps = state => ({
+//     product: state.product
+// });
+
+// export default connect(
+//     mapStateToProps,
+//     { setProduct }
+// )(ProductList);

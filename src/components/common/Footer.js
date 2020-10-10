@@ -12,7 +12,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import RestoreIcon from '@material-ui/icons/Restore';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { selectQuantity } from '../../redux/selectors/cart';
+import { selectQuantity } from '../../redux/cart/cart.selectors';
 
 import './Footer.scss';
 
