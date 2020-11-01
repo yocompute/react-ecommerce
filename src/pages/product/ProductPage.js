@@ -5,9 +5,9 @@ import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../redux/actions/cart'
+import { updateCart } from '../../redux/cart/cart.actions'
 
-import Header from '../../components/common/Header'
+// import Header from '../../components/common/Header'
 
 
 const ProductPage = ({merchant, product, updateCart}) => {
@@ -33,7 +33,7 @@ const ProductPage = ({merchant, product, updateCart}) => {
 
     return (
         <div>
-            <Header title={'Product Detail'}></Header>            
+            {/* <Header title={'Product Detail'}></Header>             */}
             {
                 product &&
                 <div>
