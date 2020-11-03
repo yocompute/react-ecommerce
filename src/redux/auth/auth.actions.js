@@ -12,7 +12,7 @@ export const SIGNUP = 'auth/SIGNUP';
 export const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS';
 export const SIGNUP_FAIL = 'auth/SIGNUP_FAIL';
 
-export const SET_AUTH = 'auth/SET_AUTH';
+export const LOGOUT = 'auth/LOGOUT';
 
 // action creators
 export const fetchAuth = () => ({
@@ -29,9 +29,8 @@ export const fetchAuthFail = error => ({
     error
 })
 
-export const setAuth = (payload) => ({
-    type: SET_AUTH,
-    payload
+export const logout = () => ({
+    type: LOGOUT
 })
 
 export const login = (data) => ({
@@ -39,9 +38,9 @@ export const login = (data) => ({
     data
 })
 
-export const loginSuccess = (auth) => ({
+export const loginSuccess = (tokenId) => ({
     type: LOGIN_SUCCESS,
-    auth
+    tokenId
 })
 
 export const loginFail = error => ({
@@ -49,17 +48,17 @@ export const loginFail = error => ({
     error
 })
 
-export const createUser = (data) => ({
+export const signup = (data) => ({
     type: SIGNUP,
     data
 })
 
-export const createUserSuccess = (auth) => ({
+export const signupSuccess = (tokenId) => ({
     type: SIGNUP_SUCCESS,
-    auth
+    tokenId
 })
 
-export const createUserFail = error => ({
+export const signupFail = error => ({
     type: SIGNUP_FAIL,
     error
 })

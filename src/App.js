@@ -11,7 +11,7 @@ import LocalSignupPage from './pages/auth/LocalSignupPage'
 import Layout from './layout/index'
 import { fetchAuth } from './redux/auth/auth.sagas'
 
-function App({loggedIn}) {
+function App({isLoggedIn}) {
   // const loggedIn = false;
   useEffect(() => {
     fetchAuth();
@@ -20,7 +20,7 @@ function App({loggedIn}) {
   return (
     <Router>
       {
-      loggedIn
+      isLoggedIn
       ? <Layout />
       : <Switch>
             <Route path="/login-select" component={LoginSelectPage} />
@@ -35,7 +35,7 @@ function App({loggedIn}) {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth
+  isLoggedIn: state.tokenId
 });
 
 export default connect(

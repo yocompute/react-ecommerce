@@ -10,9 +10,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import PhoneForm from '../../components/auth/PhoneForm';
-import EmailForm from '../../components/auth/EmailForm';
+import EmailLoginForm from '../../components/auth/EmailLoginForm';
 
-import { setAuth, login } from '../../redux/auth/auth.actions'
+import { logout, login } from '../../redux/auth/auth.actions'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(6),
     }
 }));
-const LocalLoginPage = ({ isLoggedIn, setAuth, login }) => {
+const LocalLoginPage = ({ isLoggedIn, logout, login }) => {
     const classes = useStyles();
     const [type, setType] = useState("email");
 
@@ -34,7 +34,7 @@ const LocalLoginPage = ({ isLoggedIn, setAuth, login }) => {
     }
 
     const handleSignIn = (data) => {
-        setAuth(true);
+        // logout(true);
         login(data);
     }
 
@@ -58,7 +58,7 @@ const LocalLoginPage = ({ isLoggedIn, setAuth, login }) => {
                         </Typography>
                         {type === "email" && (
                             // <Box p={3}>
-                            <EmailForm type="login" btnText="Sign in" onSubmit={handleSignIn} />
+                            <EmailLoginForm btnText="Sign in" onSubmit={handleSignIn} />
                             // </Box>
                         )}
                         {type === "phone" && (
@@ -72,16 +72,14 @@ const LocalLoginPage = ({ isLoggedIn, setAuth, login }) => {
     )
 }
 
-// export default LocalLoginPage;
-
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth,
+    isLoggedIn: state.tokenId,
 });
 
 export default connect(
     mapStateToProps,
     {
-        setAuth,
+        // logout,
         login
     }
 )(LocalLoginPage);

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const EmailForm = ({ type, onSubmit, btnText }) => {
+const EmailLoginForm = ({ onSubmit, btnText }) => {
   const classes = useStyles();
   const { register, handleSubmit, watch, errors } = useForm();
 
@@ -95,8 +95,6 @@ const EmailForm = ({ type, onSubmit, btnText }) => {
         </Button>
       </div>
 
-      {
-        type === 'login' &&
         <Grid container>
           <Grid item xs>
             <Link href="#" variant="body2">
@@ -109,19 +107,8 @@ const EmailForm = ({ type, onSubmit, btnText }) => {
             </Link>
           </Grid>
         </Grid>
-      }
-      {
-        type === 'signup' &&
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Link variant="body2" to={"/local-login"}>
-              Already have an account? Sign in
-            </Link>
-          </Grid>
-        </Grid>
-      }
     </form>
   )
 }
 
-export default EmailForm;
+export default EmailLoginForm;

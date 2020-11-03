@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +17,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 // import AppDrawer from './AppDrawer';
+
+import { logout } from '../redux/auth/auth.actions';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -81,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({title}) {
+function Header({title, logout}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -106,6 +110,12 @@ export default function Header({title}) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    logout();
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -118,7 +128,7 @@ export default function Header({title}) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -236,3 +246,14 @@ export default function Header({title}) {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  isLoggedIn: state.tokenId,
+});
+
+export default connect(
+  mapStateToProps,
+  {
+      logout
+  }
+)(Header);

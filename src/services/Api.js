@@ -10,6 +10,10 @@ const Api = {
     return axios.get(url);
   },
 
+  post(url, data) {
+    return axios.post(url, data);
+  },
+
   /**
    * @param {*} rootUrl
    * @param {*} path 

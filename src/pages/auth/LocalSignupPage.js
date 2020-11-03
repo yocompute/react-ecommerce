@@ -10,11 +10,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import PhoneForm from '../../components/auth/PhoneForm';
-import EmailForm from '../../components/auth/EmailForm';
+import EmailSignupForm from '../../components/auth/EmailSignupForm';
 
-
-
-// import { setAuth, login } from '../../redux/auth/auth.actions'
+import { logout, signup } from '../../redux/auth/auth.actions'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const LocalSignupPage = () => {
+const LocalSignupPage = ({signup}) => {
     const classes = useStyles();
     const [type, setType] = useState("email");
 
@@ -37,8 +35,8 @@ const LocalSignupPage = () => {
     }
 
     const handleSignup = (data) => {
-        // setAuth(true);
-        // login(data);
+        // logout(true);
+        signup(data);
     }
 
     const handleSendCode = () => {
@@ -57,7 +55,7 @@ const LocalSignupPage = () => {
                 </Typography>
                 {type === "email" && (
                     // <Box p={3}>
-                    <EmailForm type="signup" btnText="Sign up" onSubmit={handleSignup} />
+                    <EmailSignupForm btnText="Sign up" onSubmit={handleSignup} />
                     // </Box>
                 )}
                 {type === "phone" && (
@@ -69,5 +67,14 @@ const LocalSignupPage = () => {
         </Container>
     )    
 }
+const mapStateToProps = state => ({
+    isLoggedIn: state.tokenId,
+});
 
-export default LocalSignupPage;
+export default connect(
+    mapStateToProps,
+    {
+        // logout,
+        signup
+    }
+)(LocalSignupPage);
