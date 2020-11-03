@@ -35,7 +35,6 @@ const LocalSignupPage = ({signup}) => {
     }
 
     const handleSignup = (data) => {
-        // logout(true);
         signup(data);
     }
 
@@ -45,6 +44,10 @@ const LocalSignupPage = ({signup}) => {
 
     return (
         <Container component="main" maxWidth="xs">
+            {
+                isLoggedIn
+                    ? <Redirect from="/local-signup" to="/" />
+                    :
             <div className={classes.paper}>
                 <Tabs variant="fullWidth" value={type} onChange={handleChange}>
                     <Tab value="email" label="Email" />
@@ -64,6 +67,7 @@ const LocalSignupPage = ({signup}) => {
                     // </Box>
                 )}
             </div>
+        }
         </Container>
     )    
 }
@@ -74,7 +78,6 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     {
-        // logout,
         signup
     }
 )(LocalSignupPage);
