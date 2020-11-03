@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     width: "160px"
-//     display: 'none',
-//     [theme.breakpoints.up('sm')]: {
-//       display: 'block',
-//     },
+        // display: 'none',
+        // [theme.breakpoints.up('sm')]: {
+        //   display: 'block',
+        // },
   },
   search: {
     position: 'relative',
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
-      width: 'auto',
+      width: '180px',
     },
   },
   searchIcon: {
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({title, logout}) {
+function Header({ title, logout }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -159,7 +159,11 @@ function Header({title, logout}) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleMenuClose}>
+        <p>Profile</p>
+      </MenuItem>
+      <MenuItem onClick={handleLogout}><p>Logout</p></MenuItem>
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -169,13 +173,13 @@ function Header({title, logout}) {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -254,6 +258,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-      logout
+    logout
   }
 )(Header);

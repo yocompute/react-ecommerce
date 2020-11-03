@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import PhoneForm from '../../components/auth/PhoneForm';
 import EmailSignupForm from '../../components/auth/EmailSignupForm';
 
-import { logout, signup } from '../../redux/auth/auth.actions'
+import { signup } from '../../redux/auth/auth.actions'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const LocalSignupPage = ({signup}) => {
+const LocalSignupPage = ({isLoggedIn, signup}) => {
     const classes = useStyles();
     const [type, setType] = useState("email");
 

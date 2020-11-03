@@ -9,10 +9,21 @@ import Routes from '../Routes'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+
     page: {
-        display: 'flex',
+        // display: 'flex',
         height: '100%'
     },
+    header: {
+        width: '100%',
+        height: '64px'
+    },
+    content: {
+        width: '100%',
+        height: '100vh',
+        overflow: 'auto',
+    },
+
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
     },
@@ -38,11 +49,7 @@ const useStyles = makeStyles((theme) => ({
     // menuButtonHidden: {
     //     display: 'none',
     // },
-    content: {
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-    },
+
     container: {
         padding: theme.spacing(4)
     },
@@ -80,10 +87,12 @@ export default function Layout() {
     }
     return (
         <div className={classes.page}>
-            <Header 
-                sidebarExpanded={sidebarExpanded}
-                onToggle={handleSidebarToggle}
-            />
+            <div className={classes.header} >
+                <Header 
+                    sidebarExpanded={sidebarExpanded}
+                    onToggle={handleSidebarToggle}
+                />
+            </div>
 
             {/* <Sidebar
                 expanded={sidebarExpanded}
@@ -91,7 +100,7 @@ export default function Layout() {
             /> */}
 
             <div className={classes.content} >
-                <div className={classes.appBarSpacer} />
+                {/* <div className={classes.appBarSpacer} /> */}
                 <div className={fixedHeightPaper}>
                     <Routes />
                 </div>
