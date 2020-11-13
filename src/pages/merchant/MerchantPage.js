@@ -1,42 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+// import ProductList from '../components/product/ProductList';
+// import ProductGrid from '../components/product/ProductGrid';
+import {fetchProducts} from '../../redux/product/product.actions'
+// import {setMerchant} from '../redux/merchant/merchant.actions'
+// import Header from '../components/common/Header'
+import Footer from '../../layout/Footer'
 
-import DigitInput from '../../components/common/DigitInput';
+// import './HomePage.scss'
 
-const MerchantPage = () => {
-    const [code, setVerificationCode] = useState("");
+const DEFAULT_MERCHANT_ID = '5c9542ce0851a5096e044d16';
 
-    const handleChange = (v) => {
-        console.log(v);
-        setVerificationCode(v);
-    }
+const HomePage = ({match, fetchProducts, products}) => {
 
-    const handleSubmit = () => {
-        console.log(code);
+    useEffect(() => {
+        if (match.params && match.params.id) {
+            const merchantId = match.params.id;
+            // setMerchant({_id: merchantId });
+            fetchProducts({merchantId});
+        }else{
+            const merchantId = DEFAULT_MERCHANT_ID;
+            // setMerchant({_id: merchantId });
+            fetchProducts({merchantId});
+        }
+    }, [fetchProducts]);
+
+    const handleNext = () => {
+
     }
 
     return (
-        <Container maxWidth="sm">
-            <Paper variant="outlined">
-                <Grid item xs={12} sm={12}>
-                    <Box m={3}>
-                        <DigitInput onChangeDigit={handleChange} />
-                    </Box>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                    <Box m={3}>
-                        <Button variant="outlined" fullWidth={true} onClick={handleSubmit}>Next</Button>
-                    </Box>
-                </Grid>
-            </Paper>
-        </Container>
+        <div className='page'>
+            {/* <Header title={'Home Page'}></Header> */}
+            <div className="product-list-area">
+                {/* <ProductGrid data={products} /> */}
+            </div>
+        {/* <SignupSelect></SignupSelect> */}
+
+        <Footer type="menu" enable={true} onNext={handleNext} amount={0}></Footer>
+        </div>
     )
 }
 
-export default MerchantPage;
+HomePage.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+        id: PropTypes.string
+        })
+    }),
+    history: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+    products: state.products
+});
+
+export default connect(
+    mapStateToProps,
+    {
+        fetchProducts, 
+        // setMerchant
+    }
+)(HomePage);

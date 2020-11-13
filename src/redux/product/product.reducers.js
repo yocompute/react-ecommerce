@@ -1,5 +1,5 @@
 
-import {FETCH_PRODUCTS_SUCCESS, SET_PRODUCT} from '../product/product.actions';
+import {FETCH_PRODUCTS_SUCCESS, SET_PRODUCT} from './product.actions';
 
 export const productsReducer = (state=null, action) => {
     if(action && action.type === FETCH_PRODUCTS_SUCCESS){

@@ -12,10 +12,11 @@ import LocalLoginPage from './pages/auth/LocalLoginPage'
 import LocalSignupPage from './pages/auth/LocalSignupPage';
 
 
-// import DashbordPage from './pages/dashbord/index'
+import MerchantPage from './pages/merchant/MerchantPage';
 // import UserListPage from './pages/user/UserListPage'
+// import BrandListPage from './pages/brand/BrandListPage'
+// import ProductListPage from './pages/product/ProductListPage'
 // import OrderListPage from './pages/order/OrderListPage'
-
 
 const Routes = () => {
     return (<Switch>
@@ -30,7 +31,8 @@ const Routes = () => {
             <Route path="/payments" component={PaymentHistoryPage} />
             {/* <Route path="/users" component={UserListPage} /> */}
             {/* <Route path="/orders" component={OrderListPage} /> */}
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={MerchantPage} />
+            {/* <Route exact path="/" component={HomePage} /> */}
         </Switch>
         
     )
