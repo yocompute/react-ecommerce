@@ -5,10 +5,10 @@ import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../redux/actions/cart'
-import {createPaymentAsync} from '../../redux/actions/payment'
+import { updateCart } from '../../redux/cart/cart.actions'
+import {createPayment} from '../../redux/payment/payment.actions'
 
-import Header from '../../components/common/Header'
+// import Header from '../../components/common/Header'
 
 const CreditCardPage = ({merchant, product, updateCart}) => {
 
@@ -32,14 +32,14 @@ const CreditCardPage = ({merchant, product, updateCart}) => {
     }
 
     function handlePlaceOrder(){
-        createPaymentAsync({
+        createPayment({
             // userId
         }); // {userId, payment: {method, cc, exp, cvd, addr}, cart}
     }
 
     return (
         <div>
-            <Header title={'Credit Card'}></Header>
+            {/* <Header title={'Credit Card'}></Header> */}
                 {/* <Link style={{ textDecoration: 'none' }} to={{ pathname: `/order-history` }} > */}
                     <Button onClick={handlePlaceOrder}>Place Order</Button>
                 {/* </Link> */}

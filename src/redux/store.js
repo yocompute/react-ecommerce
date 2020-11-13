@@ -1,22 +1,28 @@
-import { combineReducers } from "redux";
-import { createStore, applyMiddleware } from "redux";
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+
 import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './sagas';
 
-import { user } from './reducers/user'
-import { products, product } from './reducers/product';
-import { cart } from './reducers/cart';
-import { merchant } from './reducers/merchant';
+import { authReducer } from './auth/auth.reducers';
+import { usersReducer, userReducer } from './user/user.reducers';
+import { brandsReducer, brandReducer } from './brand/brand.reducers';
+import { productsReducer, productReducer } from './product/product.reducers';
+import { cartReducer } from './cart/cart.reducers';
+import { merchantReducer } from './merchant/merchant.reducers';
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 
 export const rootReducer = combineReducers({
-  user,
-  products,
-  product,
-  cart,
-  merchant,
+  tokenId: authReducer,
+  users: usersReducer,
+  user: userReducer,
+  brands: brandsReducer,
+  brand: brandReducer,
+  products: productsReducer,
+  product: productReducer,
+  cart: cartReducer,
+  merchant: merchantReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
