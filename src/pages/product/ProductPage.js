@@ -5,12 +5,12 @@ import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
 import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../redux/actions/cart'
+import { updateCart } from '../../redux/cart/cart.actions'
 
-import Header from '../../components/common/Header'
+// import Header from '../../components/common/Header'
 
 
-const ProductPage = ({merchant, product, updateCart}) => {
+const ProductPage = ({brand, product, updateCart}) => {
 
     const [quantity, setQuantity] = useState(0);
 
@@ -33,7 +33,7 @@ const ProductPage = ({merchant, product, updateCart}) => {
 
     return (
         <div>
-            <Header title={'Product Detail'}></Header>            
+            {/* <Header title={'Product Detail'}></Header>             */}
             {
                 product &&
                 <div>
@@ -53,7 +53,7 @@ const ProductPage = ({merchant, product, updateCart}) => {
                     val={quantity}>
                 </QuantityInput>
 
-                <Link style={{ textDecoration: 'none' }} to={{ pathname: `/merchants/${merchant._id}` }} >
+                <Link style={{ textDecoration: 'none' }} to={{ pathname: `/brands/${brand._id}` }} >
                     <Button>Add to Order</Button>
                 </Link>
         </div>
@@ -71,7 +71,7 @@ const ProductPage = ({merchant, product, updateCart}) => {
 
 const mapStateToProps = state => ({
     product: state.product,
-    merchant: state.merchant
+    brand: state.brand
 });
 
 export default connect(

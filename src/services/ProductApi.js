@@ -1,28 +1,29 @@
-import Api from "./Api";
+import Api from './Api';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const ProductApi = {
 
-    getProducts(query = null) {
-        const url = process.env.REACT_APP_LOCAL_DATA ? `/products.json` : Api.buildUrl(API_URL, 'products', query);
+  async get(query) {
+    const url = process.env.REACT_APP_MODE === 'local' ? '/products.json' : Api.buildUrl(API_URL, 'products', query);
 
-        return new Promise(resolve => {
-            Api.get(url).then(res => {
-                if (res && res.status === 200) {
-                    resolve(res.data);
-                } else {
-                    // redirect to error page and log error message
-                    console.log(res.statusText);
-                    resolve([]);
-                }
-            });
-        });
-    },
-}
+    return await Api.get(url);
+  },
+
+  async create(entity) {
+    const url = process.env.REACT_APP_MODE === 'local' ? '/products.json' : Api.buildUrl(API_URL, 'products');
+
+    return await Api.post(url, entity);
+  },
+
+  async update(entity) {
+    const url = process.env.REACT_APP_MODE === 'local' ? '/products.json' : Api.buildUrl(API_URL, 'products');
+
+    return await Api.put(url, entity);
+  },
+};
 
 export default ProductApi;
-
 
 // export default {
 //   getProductList: (page, pageSize, search = "", params = null, sort = []) => {
