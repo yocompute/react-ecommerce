@@ -5,7 +5,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const UserApi = {
 
   async get(query) {
-    const url = 'http://localhost:8006/api/users'; // process.env.REACT_APP_MODE === 'local' ? '/users.json' : Api.buildUrl(API_URL, 'users', query);
+    const url = process.env.REACT_APP_MODE === 'local' ? '/users.json' : Api.buildUrl(API_URL, 'users', query);
 
     return await Api.get(url);
   },
