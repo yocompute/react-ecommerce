@@ -7,8 +7,9 @@ export const SET_PRODUCT = 'product/SET_PRODUCT';
 
 
 // action creators
-export const fetchProducts = (payload) => ({
-    type: FETCH_PRODUCTS
+export const fetchProducts = (query) => ({
+    type: FETCH_PRODUCTS,
+    query
 })
 
 export const fetchProductsSuccess = (products = []) => ({

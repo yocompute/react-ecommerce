@@ -1,27 +1,27 @@
 // action types
-export const FETCH_MERCHANTS = 'merchant/FETCH_MERCHANTS';
-export const FETCH_MERCHANTS_SUCCESS = 'merchant/FETCH_MERCHANTS_SUCCESS';
-export const FETCH_MERCHANTS_FAIL = 'merchant/FETCH_MERCHANTS_FAIL';
+export const FETCH_MERCHANTS = 'brand/FETCH_MERCHANTS';
+export const FETCH_MERCHANTS_SUCCESS = 'brand/FETCH_MERCHANTS_SUCCESS';
+export const FETCH_MERCHANTS_FAIL = 'brand/FETCH_MERCHANTS_FAIL';
 
-export const SET_MERCHANT = 'merchant/SET_MERCHANT';
+export const SET_MERCHANT = 'brand/SET_MERCHANT';
 
 
 // action creators
-export const fetchMerchants = (payload) => ({
+export const fetchBrands = (payload) => ({
     type: FETCH_MERCHANTS
 })
 
-export const fetchMerchantsSuccess = (merchants = []) => ({
+export const fetchBrandsSuccess = (brands = []) => ({
     type: FETCH_MERCHANTS_SUCCESS,
-    merchants
+    brands
 })
 
-export const fetchMerchantsFail = (error) => ({
+export const fetchBrandsFail = (error) => ({
     type: FETCH_MERCHANTS_FAIL,
     error
 })
 
-export const setMerchant = merchant => ({
+export const setBrand = brand => ({
     type: SET_MERCHANT,
-    merchant
+    brand
 })

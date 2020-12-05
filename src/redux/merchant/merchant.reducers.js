@@ -1,16 +1,16 @@
 
-import {FETCH_MERCHANTS_SUCCESS, SET_MERCHANT} from '../merchant/merchant.actions';
+import {FETCH_MERCHANTS_SUCCESS, SET_MERCHANT} from '../brand/brand.actions';
 
-export const merchantsReducer = (state=null, action) => {
+export const brandsReducer = (state=null, action) => {
     if(action && action.type === FETCH_MERCHANTS_SUCCESS){
-        return [ ...action.merchants ];
+        return [ ...action.brands ];
     }
     return state;
 }
 
-export const merchantReducer = (state=null, action) => {
+export const brandReducer = (state=null, action) => {
     if(action && action.type === SET_MERCHANT){
-        return { ...action.merchant};
+        return { ...action.brand};
     }
     return state;
 }
