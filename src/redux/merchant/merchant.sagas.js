@@ -1,12 +1,12 @@
 import { put, call, select, takeLatest } from 'redux-saga/effects'
-import MerchantApi from '../../services/MerchantApi'
-import { fetchMerchantsFail, fetchMerchantsSuccess } from './merchant.actions';
+import BrandApi from '../../services/BrandApi'
+import { fetchBrandsFail, fetchBrandsSuccess } from './brand.actions';
 
-export function* fetchMerchants(){
+export function* fetchBrands(){
     try{
-        const merchants = yield call(MerchantApi.get);
-        yield put(fetchMerchantsSuccess(merchants));
+        const brands = yield call(BrandApi.get);
+        yield put(fetchBrandsSuccess(brands));
     }catch(error){
-        yield put(fetchMerchantsFail(error));
+        yield put(fetchBrandsFail(error));
     }
 }

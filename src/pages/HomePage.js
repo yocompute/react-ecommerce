@@ -5,25 +5,25 @@ import PropTypes from "prop-types";
 import ProductList from '../components/product/ProductList';
 import ProductGrid from '../components/product/ProductGrid';
 import {fetchProducts} from '../redux/product/product.actions'
-import {setMerchant} from '../redux/merchant/merchant.actions'
+import {setBrand} from '../redux/brand/brand.actions'
 // import Header from '../components/common/Header'
 import Footer from '../layout/Footer'
 
 import './HomePage.scss'
 
-const DEFAULT_MERCHANT_ID = '5c9542ce0851a5096e044d16';
+const DEFALUT_BRAND_ID = '5fcb99645e8e066332a6714b';
 
-const HomePage = ({match, fetchProducts, products, setMerchant}) => {
+const HomePage = ({match, fetchProducts, products, setBrand}) => {
 
     useEffect(() => {
         if (match.params && match.params.id) {
-            const merchantId = match.params.id;
-            setMerchant({_id: merchantId });
-            fetchProducts({merchantId});
+            const brand = match.params.id;
+            setBrand({_id: brand });
+            fetchProducts({brand});
         }else{
-            const merchantId = DEFAULT_MERCHANT_ID;
-            setMerchant({_id: merchantId });
-            fetchProducts({merchantId});
+            const brand = DEFALUT_BRAND_ID;
+            setBrand({_id: brand });
+            fetchProducts({brand});
         }
     }, [fetchProducts]);
 
@@ -59,5 +59,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {fetchProducts, setMerchant}
+    {fetchProducts, setBrand}
 )(HomePage);

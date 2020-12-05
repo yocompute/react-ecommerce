@@ -12,7 +12,7 @@ import LocalLoginPage from './pages/auth/LocalLoginPage'
 import LocalSignupPage from './pages/auth/LocalSignupPage';
 
 
-import MerchantPage from './pages/merchant/MerchantPage';
+import BrandPage from './pages/brand/BrandPage';
 // import UserListPage from './pages/user/UserListPage'
 // import BrandListPage from './pages/brand/BrandListPage'
 // import ProductListPage from './pages/product/ProductListPage'
@@ -20,7 +20,7 @@ import MerchantPage from './pages/merchant/MerchantPage';
 
 const Routes = () => {
     return (<Switch>
-            <Route path="/merchants/:id" component={HomePage} />
+            <Route path="/brands/:id" component={HomePage} />
             <Route path="/order" component={OrderPage} />
             <Route path="/products/:id" component={ProductPage} />
             <Route path="/creditcard" component={CreditCardPage} />
@@ -31,7 +31,7 @@ const Routes = () => {
             <Route path="/payments" component={PaymentHistoryPage} />
             {/* <Route path="/users" component={UserListPage} /> */}
             {/* <Route path="/orders" component={OrderListPage} /> */}
-            <Route exact path="/" component={MerchantPage} />
+            <Route exact path="/" component={BrandPage} />
             {/* <Route exact path="/" component={HomePage} /> */}
         </Switch>
         

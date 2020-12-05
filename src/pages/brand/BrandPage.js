@@ -3,27 +3,25 @@ import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
 // import ProductList from '../components/product/ProductList';
-// import ProductGrid from '../components/product/ProductGrid';
+import ProductGrid from '../../components/product/ProductGrid';
 import {fetchProducts} from '../../redux/product/product.actions'
-// import {setMerchant} from '../redux/merchant/merchant.actions'
+import { fetchBrand } from '../../redux/brand/brand.actions'
 // import Header from '../components/common/Header'
 import Footer from '../../layout/Footer'
 
-// import './HomePage.scss'
+const DEFAULT_BRAND_ID = '5fcb99645e8e066332a6714b';
 
-const DEFAULT_MERCHANT_ID = '5c9542ce0851a5096e044d16';
-
-const HomePage = ({match, fetchProducts, products}) => {
+const BrandPage = ({match, fetchBrand, fetchProducts, products}) => {
 
     useEffect(() => {
         if (match.params && match.params.id) {
-            const merchantId = match.params.id;
-            // setMerchant({_id: merchantId });
-            fetchProducts({merchantId});
+            const brand = match.params.id;
+            fetchBrand({_id: brand });
+            fetchProducts({brand});
         }else{
-            const merchantId = DEFAULT_MERCHANT_ID;
-            // setMerchant({_id: merchantId });
-            fetchProducts({merchantId});
+            const brand = DEFAULT_BRAND_ID;
+            fetchBrand({_id: brand });
+            fetchProducts({brand});
         }
     }, [fetchProducts]);
 
@@ -35,7 +33,7 @@ const HomePage = ({match, fetchProducts, products}) => {
         <div className='page'>
             {/* <Header title={'Home Page'}></Header> */}
             <div className="product-list-area">
-                {/* <ProductGrid data={products} /> */}
+                <ProductGrid data={products} />
             </div>
         {/* <SignupSelect></SignupSelect> */}
 
@@ -44,7 +42,7 @@ const HomePage = ({match, fetchProducts, products}) => {
     )
 }
 
-HomePage.propTypes = {
+BrandPage.propTypes = {
     match: PropTypes.shape({
         params: PropTypes.shape({
         id: PropTypes.string
@@ -61,6 +59,6 @@ export default connect(
     mapStateToProps,
     {
         fetchProducts, 
-        // setMerchant
+        fetchBrand
     }
-)(HomePage);
+)(BrandPage);

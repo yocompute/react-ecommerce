@@ -10,7 +10,7 @@ import {createPayment} from '../../redux/payment/payment.actions'
 
 // import Header from '../../components/common/Header'
 
-const CreditCardPage = ({merchant, product, updateCart}) => {
+const CreditCardPage = ({brand, product, updateCart}) => {
 
     const [quantity, setQuantity] = useState(0);
 
@@ -58,7 +58,7 @@ const CreditCardPage = ({merchant, product, updateCart}) => {
 
 const mapStateToProps = state => ({
     product: state.product,
-    merchant: state.merchant
+    brand: state.brand
 });
 
 export default connect(

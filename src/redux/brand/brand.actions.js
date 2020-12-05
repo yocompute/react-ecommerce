@@ -3,6 +3,10 @@ export const FETCH_BRANDS = 'brand/FETCH_BRANDS';
 export const FETCH_BRANDS_SUCCESS = 'brand/FETCH_BRANDS_SUCCESS';
 export const FETCH_BRANDS_FAIL = 'brand/FETCH_BRANDS_FAIL';
 
+export const FETCH_BRAND = 'brand/FETCH_BRAND';
+export const FETCH_BRAND_SUCCESS = 'brand/FETCH_BRAND_SUCCESS';
+export const FETCH_BRAND_FAIL = 'brand/FETCH_BRAND_FAIL';
+
 export const CREATE_BRAND = 'brand/CREATE_BRAND';
 export const CREATE_BRAND_SUCCESS = 'brand/CREATE_BRAND_SUCCESS';
 export const CREATE_BRAND_FAIL = 'brand/CREATE_BRAND_FAIL';
@@ -29,6 +33,21 @@ export const fetchBrandsFail = (error) => ({
     error
 })
 
+
+export const fetchBrand = (query) => ({
+    type: FETCH_BRAND,
+    query
+})
+
+export const fetchBrandSuccess = (brand) => ({
+    type: FETCH_BRAND_SUCCESS,
+    brand
+})
+
+export const fetchBrandFail = (error) => ({
+    type: FETCH_BRAND_FAIL,
+    error
+})
 
 export const createBrand = (data) => ({
     type: CREATE_BRAND,
