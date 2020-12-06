@@ -1,7 +1,10 @@
-import { put, call, takeLatest } from 'redux-saga/effects'
+import { put, call, takeLatest } from 'redux-saga/effects';
+
+
 import PaymentApi from '../../services/PaymentApi'
 import { FETCH_PAYMENTS, CREATE_PAYMENT,
-    fetchPaymentsFail, fetchPaymentsSuccess } from './payment.actions';
+    fetchPaymentsFail, fetchPaymentsSuccess, createPaymentSuccess, createPaymentFail } from './payment.actions';
+import { clearCart } from '../cart/cart.actions';
 
 export function* fetchPayments(query){
     try{
@@ -22,18 +25,19 @@ export function* fetchPayments(query){
 //     }
 // }
 
-
 export function* createPayment(action){
     try{
-        const payload = yield call(PaymentApi.createPayment, action.payload)
-        yield put({type: 'CREATE_PAYMENT_SUCCESS', payload})
+        const payment = yield call(PaymentApi.create, action.data);
+        yield put(createPaymentSuccess(payment));
+        yield call(action.history.push, '/payments');
+        yield put(clearCart());
     } catch (error){
-        yield put({type: 'CREATE_PAYMENT_FAIL', error})
+        yield put(createPaymentFail(error));
     }
 }
 
 
-export function* watchFetchPayments(){
+export function* watchPayments(){
     yield takeLatest(FETCH_PAYMENTS, fetchPayments)
     yield takeLatest(CREATE_PAYMENT, createPayment)
 }
