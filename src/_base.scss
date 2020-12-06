@@ -57,8 +57,8 @@ $pagination-h: 36px;
 
 .footer{
   z-index: 9900;
-  position: fixed;
-  bottom: 0px;
+  position: absolute;
+  bottom: 36px;
   width: 100%;
   border-top: 1px solid $border-color;
 }

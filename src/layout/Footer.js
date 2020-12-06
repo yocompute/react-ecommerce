@@ -22,6 +22,10 @@ const Menu = {
   SETTINGS: 'Settings'
 }
 const useStyles = makeStyles({
+  footer:{
+    position: 'fixed',
+    bottom: '0px'
+  },
   root: {
     width: 500,
   },
@@ -31,9 +35,9 @@ const Footer = ({ type, user, quantity }) => {
   const classes = useStyles();
   const [menu, setMenu] = useState(Menu.HOME)
 
-  return <div className="footer">
+  return <div className={classes.footer}>
     {
-      type === 'menu' && window.matchMedia(`(max-width: 768px)`).matches &&
+      window.matchMedia(`(max-width: 768px)`).matches &&
       <BottomNavigation
         value={menu}
         onChange={(event, newValue) => {

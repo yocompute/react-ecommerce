@@ -1,32 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux'
-import PropTypes from "prop-types"
+import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
-import Button from '@material-ui/core/Button'
-import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../redux/cart/cart.actions'
+import Button from '@material-ui/core/Button';
+import { QuantityInput } from '../../components/common/QuantityInput';
+import { updateCart } from '../../redux/cart/cart.actions';
+import {setPage} from '../../redux/page/page.actions';
+import {PRODUCT_PAGE} from '../../const';
+import { selectProductQuantity } from '../../redux/cart/cart.selectors';
 
-// import Header from '../../components/common/Header'
+const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
 
-
-const ProductPage = ({brand, product, updateCart}) => {
-
-    const [quantity, setQuantity] = useState(0);
+    useEffect(() => {
+        setPage(PRODUCT_PAGE);
+    }, [setPage])
 
     function handleSelect() {
 
     }
 
-    function handleUpdate(quantity) {
+    function handleUpdate(n) {
         if(product){
             updateCart({
                 productId: product._id,
                 productName: product.name,
+                brandId: brand._id,
                 price: product.price,
                 cost: product.cost,
-                taxRate: product.taxRate,
-                quantity
+                saleTaxRate: product.saleTaxRate,
+                purchaseTaxRate: product.purchaseTaxRate,
+                quantity: n
             });
         }
     }
@@ -50,8 +54,8 @@ const ProductPage = ({brand, product, updateCart}) => {
 
                 <QuantityInput
                     onChange={handleUpdate}
-                    val={quantity}>
-                </QuantityInput>
+                    val={quantity}
+                />
 
                 <Link style={{ textDecoration: 'none' }} to={{ pathname: `/brands/${brand._id}` }} >
                     <Button>Add to Order</Button>
@@ -60,21 +64,23 @@ const ProductPage = ({brand, product, updateCart}) => {
     )
 }
 
-// ProductPage.propTypes = {
-//     match: PropTypes.shape({
-//         params: PropTypes.shape({
-//         id: PropTypes.string
-//         })
-//     }),
-//     history: PropTypes.object
-// };
+ProductPage.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            id: PropTypes.string
+        })
+    }),
+    history: PropTypes.object
+};
+
 
 const mapStateToProps = state => ({
     product: state.product,
-    brand: state.brand
+    brand: state.brand,
+    quantity: selectProductQuantity(state)
 });
 
 export default connect(
     mapStateToProps,
-    {updateCart}
+    {setPage, updateCart}
 )(ProductPage);

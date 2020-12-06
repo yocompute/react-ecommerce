@@ -5,13 +5,13 @@ export const FETCH_PAYMENTS_FAIL = 'payment/FETCH_PAYMENTS_FAIL';
 
 export const SET_PAYMENT = 'payment/SET_PAYMENT';
 
-export const CREATE_PAYMENT = 'user/CREATE_PAYMENT';
-export const CREATE_PAYMENT_SUCCESS = 'user/CREATE_PAYMENT_SUCCESS';
-export const CREATE_PAYMENT_FAIL = 'user/CREATE_PAYMENT_FAIL';
+export const CREATE_PAYMENT = 'payment/CREATE_PAYMENT';
+export const CREATE_PAYMENT_SUCCESS = 'payment/CREATE_PAYMENT_SUCCESS';
+export const CREATE_PAYMENT_FAIL = 'payment/CREATE_PAYMENT_FAIL';
 
-export const UPDATE_PAYMENT = 'user/UPDATE_PAYMENT';
-export const UPDATE_PAYMENT_SUCCESS = 'user/UPDATE_PAYMENT_SUCCESS';
-export const UPDATE_PAYMENT_FAIL = 'user/UPDATE_PAYMENT_FAIL';
+export const UPDATE_PAYMENT = 'payment/UPDATE_PAYMENT';
+export const UPDATE_PAYMENT_SUCCESS = 'payment/UPDATE_PAYMENT_SUCCESS';
+export const UPDATE_PAYMENT_FAIL = 'payment/UPDATE_PAYMENT_FAIL';
 
 // action creators
 export const fetchPayments = (payload) => ({
@@ -29,14 +29,15 @@ export const fetchPaymentsFail = (error) => ({
 })
 
 
-export const createPayment = (data) => ({
+export const createPayment = (d) => ({
     type: CREATE_PAYMENT,
-    data
+    data: d.data,
+    history: d.history
 })
 
-export const createPaymentSuccess = (user) => ({
+export const createPaymentSuccess = (payment) => ({
     type: CREATE_PAYMENT_SUCCESS,
-    user
+    payment
 })
 
 export const createPaymentFail = error => ({
@@ -49,9 +50,9 @@ export const updatePayment = (data) => ({
     data
 })
 
-export const updatePaymentSuccess = (user) => ({
+export const updatePaymentSuccess = (payment) => ({
     type: UPDATE_PAYMENT_SUCCESS,
-    user
+    payment
 })
 
 export const setPayment = payment => ({

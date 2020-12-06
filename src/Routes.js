@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import VerificationCodePage from './pages/auth/VerificationCodePage';
 import ProductPage from './pages/product/ProductPage';
-import OrderPage from './pages/order/OrderPage';
+import PaymentPage from './pages/payment/PaymentPage';
 import CreditCardPage from './pages/payment/CreditCardPage';
 import PaymentHistoryPage from './pages/payment/PaymentHistoryPage';
 import LoginSelectPage from './pages/auth/LoginSelectPage'
@@ -20,8 +20,8 @@ import BrandPage from './pages/brand/BrandPage';
 
 const Routes = () => {
     return (<Switch>
-            <Route path="/brands/:id" component={HomePage} />
-            <Route path="/order" component={OrderPage} />
+            <Route path="/brands/:id" component={BrandPage} />
+            <Route path="/payment" component={PaymentPage} />
             <Route path="/products/:id" component={ProductPage} />
             <Route path="/creditcard" component={CreditCardPage} />
             <Route path="/login-select" component={LoginSelectPage} />
