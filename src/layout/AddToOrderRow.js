@@ -41,17 +41,17 @@ const useStyles = makeStyles({
   }
 });
 
-const AddToOrderRow = ({ user, quantity }) => {
+const AddToOrderRow = ({ user, brand, quantity }) => {
   const classes = useStyles();
 
   return <div className={classes.checkoutRow}>
     {
       quantity > 0 &&
-      <Link className={classes.continueBtn} to={{ pathname: user? "/": "/login-select" }} >
+      <Link className={classes.continueBtn} to={{ pathname: user? `/brands/${brand._id}`: "/login-select" }} >
         Add to Order
       </Link>
     }
-    <Link className={classes.backBtn} to={{ pathname: user? "/": "/login-select" }} >
+    <Link className={classes.backBtn} to={{ pathname: user? `/brands/${brand._id}`: "/login-select" }} >
       Back
     </Link>
   </div>
@@ -59,6 +59,7 @@ const AddToOrderRow = ({ user, quantity }) => {
 
 const mapStateToProps = state => ({
   user: state.user,
+  brand: state.brand,
   quantity: selectProductQuantity(state)
 });
 

@@ -46,14 +46,14 @@ const Footer = ({ type, user, quantity }) => {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/"/>
         <BottomNavigationAction label="Cart" icon={
           <Badge badgeContent={quantity} color="primary">
             <ShoppingCartIcon />
           </Badge>
-        } />
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
+        } component={Link} to="/cart" />
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} component={Link} to="/payments"/>
+        <BottomNavigationAction label="Settings" icon={<SettingsIcon component={Link} to="settings"/>} />
       </BottomNavigation>
     }
     {/* {

@@ -7,11 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
-import { setProduct } from '../../redux/product/product.actions'
+import { setBrand } from '../../redux/brand/brand.actions'
 
-import DefaultImage from '../../assets/defaultProduct.jpg'
-import './ProductGrid.scss'
-
+import DefaultImage from '../../assets/Default-Image.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProductGrid({ data, setProduct }) {
+function BrandGrid({ data, setBrand }) {
   const classes = useStyles();
-  function handleSelect(product) {
-    setProduct(product);
+  function handleSelect(brand) {
+    setBrand(brand);
   }
   const matches = useMediaQuery('(min-width:800px)');
   return (
@@ -44,14 +42,13 @@ function ProductGrid({ data, setProduct }) {
           data.map((tile) => (
             <Link key={tile._id}
               style={{ textDecoration: 'none' }}
-              to={{ pathname: `/products/${tile._id}` }}
+              to={{ pathname: `/brands/${tile._id}` }}
               onClick={e => handleSelect(tile)} 
             >
               <GridListTile key={tile._id} className="tile-cell">
                 <div>
                   <img src={tile.img ? tile.img : DefaultImage} alt={tile.name} />
-                  <div className="product-name">{tile.name}</div>
-                  <div>${tile.price}</div>
+                  <div className="brand-name">{tile.name}</div>
                 </div>
               </GridListTile>
             </Link>
@@ -63,10 +60,10 @@ function ProductGrid({ data, setProduct }) {
 
 
 const mapStateToProps = state => ({
-  product: state.product
+  brand: state.brand
 });
 
 export default connect(
   mapStateToProps,
-  { setProduct }
-)(ProductGrid);
+  { setBrand }
+)(BrandGrid);
