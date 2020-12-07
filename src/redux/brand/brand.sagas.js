@@ -29,8 +29,8 @@ export function* fetchBrand(action){
 
 export function* createBrand(action) {
     try {
-        const brands = yield call(BrandApi.create, action.data);
-        yield put(createBrandSuccess(brands));
+        const brand = yield call(BrandApi.create, action.data);
+        yield put(createBrandSuccess(brand));
     } catch (error) {
         // yield put(addError({
         //     ...error

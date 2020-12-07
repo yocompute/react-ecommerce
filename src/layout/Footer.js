@@ -22,6 +22,10 @@ const Menu = {
   SETTINGS: 'Settings'
 }
 const useStyles = makeStyles({
+  footer:{
+    position: 'fixed',
+    bottom: '0px'
+  },
   root: {
     width: 500,
   },
@@ -31,9 +35,9 @@ const Footer = ({ type, user, quantity }) => {
   const classes = useStyles();
   const [menu, setMenu] = useState(Menu.HOME)
 
-  return <div className="footer">
+  return <div className={classes.footer}>
     {
-      type === 'menu' && window.matchMedia(`(max-width: 768px)`).matches &&
+      window.matchMedia(`(max-width: 768px)`).matches &&
       <BottomNavigation
         value={menu}
         onChange={(event, newValue) => {
@@ -42,14 +46,14 @@ const Footer = ({ type, user, quantity }) => {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/"/>
         <BottomNavigationAction label="Cart" icon={
           <Badge badgeContent={quantity} color="primary">
             <ShoppingCartIcon />
           </Badge>
-        } />
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
+        } component={Link} to="/cart" />
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} component={Link} to="/payments"/>
+        <BottomNavigationAction label="Settings" icon={<SettingsIcon component={Link} to="settings"/>} />
       </BottomNavigation>
     }
     {/* {

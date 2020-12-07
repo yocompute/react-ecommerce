@@ -7,17 +7,17 @@ import Button from '@material-ui/core/Button'
 import { CartItemList } from '../../components/cart/CartItemList';
 import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect'
 import { setPage } from  '../../redux/page/page.actions';
-import { ORDER_PAGE } from '../../const';
+import { PAYMENT_PAGE } from '../../const';
 
 // import Header from '../../components/common/Header'
 
-const OrderPage = ({cart, setPage}) => {
+const PaymentPage = ({cart, setPage}) => {
     const handlePaymentMethodSelect = () => {
 
     }
     
     useEffect(() => {
-        setPage(ORDER_PAGE);
+        setPage(PAYMENT_PAGE);
     }, [setPage])
 
     return (
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     {setPage}
-)(OrderPage);
+)(PaymentPage);

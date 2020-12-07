@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 // import Sidebar from './Sidebar'
-import Header from './Header'
-import Routes from '../Routes'
+import Header from './Header';
+import Footer from './Footer';
+import CartRow from './CartRow';
+import CheckoutRow from  './CheckoutRow';
+import AddToOrderRow from './AddToOrderRow';
+import PlaceOrderRow from './PlaceOrderRow';
 
+import Routes from '../Routes';
+import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE} from '../const';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-
-    page: {
+    root: {
         // display: 'flex',
-        height: '100%'
+        height: '100%',
     },
     header: {
         width: '100%',
@@ -20,8 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         width: '100%',
-        height: '100vh',
+        height: 'calc(100% - 128px)',
         overflow: 'auto',
+        position: 'absolute',
+        top: '64px'
     },
 
     toolbar: {
@@ -77,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function Layout() {
+function Layout({page, cart}) {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -86,7 +95,7 @@ export default function Layout() {
         setSidebarExpanded(expanded);
     }
     return (
-        <div className={classes.page}>
+        <div className={classes.root}>
             <div className={classes.header} >
                 <Header 
                     sidebarExpanded={sidebarExpanded}
@@ -101,11 +110,36 @@ export default function Layout() {
 
             <div className={classes.content} >
                 {/* <div className={classes.appBarSpacer} /> */}
-                <div className={fixedHeightPaper}>
+                {/* <div className={fixedHeightPaper}> */}
                     <Routes />
-                </div>
+                {/* </div> */}
             </div>
-
+            {
+                page.name === PRODUCT_PAGE &&
+                <AddToOrderRow />
+            }
+            {
+                (page.name === BRAND_PAGE || page.name === HOME_PAGE) && cart.items.length > 0 &&
+                <CartRow />
+            }
+            {
+                page.name === PAYMENT_PAGE &&
+                <PlaceOrderRow />
+            }
+            {
+                window.matchMedia(`(max-width: 768px)`).matches && page.name !== PRODUCT_PAGE && page.name !== PAYMENT_PAGE &&
+                <Footer enable={true} amount={0}></Footer>
+            }
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    page: state.page,
+    cart: state.cart
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(Layout);
