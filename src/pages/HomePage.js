@@ -1,45 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
-import ProductList from '../components/product/ProductList';
-import ProductGrid from '../components/product/ProductGrid';
-import {fetchProducts} from '../redux/product/product.actions'
-import {setBrand} from '../redux/brand/brand.actions'
-// import Header from '../components/common/Header'
-import Footer from '../layout/Footer'
+import { makeStyles } from '@material-ui/core/styles';
 
-import './HomePage.scss'
+import BrandList from '../components/brand/BrandList';
+import BrandGrid from '../components/brand/BrandGrid';
+import {fetchBrands} from '../redux/brand/brand.actions';
+import {setPage} from '../redux/page/page.actions';
+import {HOME_PAGE} from '../const';
 
-const DEFALUT_BRAND_ID = '5fcb99645e8e066332a6714b';
+// import './HomePage.scss'
 
-const HomePage = ({match, fetchProducts, products, setBrand}) => {
+const useStyles = makeStyles((theme) => ({
+    page: {
+        width: '100%',
+        height: 'calc(100% - 180px}',
+        position: 'absolute',
+        top: '64px'
+    },
+}));
+
+const HomePage = ({match, setPage, fetchBrands, brands}) => {
+    const classes = useStyles();
+    useEffect(() => {
+        fetchBrands();
+    }, [fetchBrands]);
 
     useEffect(() => {
-        if (match.params && match.params.id) {
-            const brand = match.params.id;
-            setBrand({_id: brand });
-            fetchProducts({brand});
-        }else{
-            const brand = DEFALUT_BRAND_ID;
-            setBrand({_id: brand });
-            fetchProducts({brand});
-        }
-    }, [fetchProducts]);
-
-    const handleNext = () => {
-
-    }
+        setPage(HOME_PAGE);
+    }, []);
 
     return (
-        <div className='page'>
-            {/* <Header title={'Home Page'}></Header> */}
-            <div className="product-list-area">
-                <ProductGrid data={products} />
-            </div>
-        {/* <SignupSelect></SignupSelect> */}
-
-        <Footer type="menu" enable={true} onNext={handleNext} amount={0}></Footer>
+        <div className={classes.page}>
+            {
+                window.matchMedia(`(max-width: 768px)`).matches
+                ? <BrandList data={brands} />
+                : <BrandGrid data={brands} />
+            }
         </div>
     )
 }
@@ -54,10 +52,13 @@ HomePage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    products: state.products
+    brands: state.brands
 });
 
 export default connect(
     mapStateToProps,
-    {fetchProducts, setBrand}
+    {
+        setPage,
+        fetchBrands
+    }
 )(HomePage);

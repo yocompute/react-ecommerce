@@ -13,7 +13,7 @@ import AddToOrderRow from './AddToOrderRow';
 import PlaceOrderRow from './PlaceOrderRow';
 
 import Routes from '../Routes';
-import {PRODUCT_PAGE, ORDER_PAGE, BRAND_PAGE, PAYMENT_PAGE} from '../const';
+import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE} from '../const';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -119,7 +119,7 @@ function Layout({page, cart}) {
                 <AddToOrderRow />
             }
             {
-                page.name === BRAND_PAGE && cart.items.length > 0 &&
+                (page.name === BRAND_PAGE || page.name === HOME_PAGE) && cart.items.length > 0 &&
                 <CartRow />
             }
             {

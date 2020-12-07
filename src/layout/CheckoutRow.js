@@ -41,14 +41,14 @@ const useStyles = makeStyles({
     }
 });
 
-const CheckoutRow = ({ type, user, quantity }) => {
+const CheckoutRow = ({ user, brand }) => {
     const classes = useStyles();
 
     return <div className={classes.checkoutRow}>
         <Link className={classes.continueBtn} to={{ pathname: user ? "/payment" : "/login-select" }} >
             Continue
         </Link>
-        <Link className={classes.backBtn} to={{ pathname: user ? "/" : "/login-select" }} >
+        <Link className={classes.backBtn} to={{ pathname: user ? `/brands/${brand._id}` : "/login-select" }} >
             Back
         </Link>
     </div>
@@ -57,6 +57,7 @@ const CheckoutRow = ({ type, user, quantity }) => {
 
 const mapStateToProps = state => ({
     user: state.user,
+    brand: state.brand,
     quantity: selectQuantity(state)
 });
 
