@@ -16,14 +16,18 @@ import './ProductGrid.scss'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flex: 0.8,
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden',
+    overflowY: 'scroll',
     backgroundColor: theme.palette.background.paper,
+    paddingTop: 56,
+    overflowX: 'hidden',
   },
   gridList: {
     width: 800,
-    height: 800,
+    // height: 800,
+    padding: 20,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -38,7 +42,7 @@ function ProductGrid({ data, setProduct }) {
   const matches = useMediaQuery('(min-width:800px)');
   return (
     <div className={classes.root}>
-      <GridList cellHeight={240} className={classes.gridList} cols={useMediaQuery('(min-width:800px)') ? 4 : 1}>
+      <GridList style={{margin: 0}} cellHeight={240} className={classes.gridList} cols={useMediaQuery('(min-width:800px)') ? 4 : 1}>
         {
           data && data.length > 0 &&
           data.map((tile) => (

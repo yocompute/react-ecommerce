@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         width: '100%',
-        height: '100vh',
+        // height: '100vh',
         overflow: 'auto',
     },
 
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     //     flexDirection: 'column',
     // }
     paper: {
-        padding: theme.spacing(2),
+        // padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
