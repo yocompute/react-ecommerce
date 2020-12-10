@@ -1,43 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-// import ProductList from '../components/product/ProductList';
+import { makeStyles } from "@material-ui/core/styles";
+
+import ProductList from "../../components/product/ProductList";
 import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
 import { fetchBrand } from "../../redux/brand/brand.actions";
-import Category from "../../components/category/Category.js";
-// import Header from '../components/common/Header'
-import Footer from "../../layout/Footer";
+import { setPage } from "../../redux/page/page.actions";
+import { BRAND_PAGE } from "../../const";
 
-import "./BrandPage.scss";
+const DEFAULT_BRAND_ID = "5fcb99645e8e066332a6714b";
 
-const DEFAULT_BRAND_ID = "5fcfa61d005977b4d5e73e2d";
+const useStyles = makeStyles((theme) => ({
+  page: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    top: "0px",
+  },
+}));
 
-const BrandPage = ({ match, fetchBrand, fetchProducts, products }) => {
+const BrandPage = ({ match, fetchBrand, fetchProducts, products, setPage }) => {
+  const classes = useStyles();
   useEffect(() => {
     if (match.params && match.params.id) {
       const brand = match.params.id;
       fetchBrand({ _id: brand });
       fetchProducts({ brand });
+      setPage(BRAND_PAGE);
     } else {
       const brand = DEFAULT_BRAND_ID;
       fetchBrand({ _id: brand });
       fetchProducts({ brand });
+      setPage(BRAND_PAGE);
     }
   }, [fetchProducts]);
 
   const handleNext = () => {};
-  return (
-    <div className="page">
-      {/* <Header title={'Home Page'}></Header> */}
-      <div className="product-list-area">
-        <Category />
-        <ProductGrid data={products} />
-      </div>
-      {/* <SignupSelect></SignupSelect> */}
 
-      <Footer type="menu" enable={true} onNext={handleNext} amount={0}></Footer>
+  return (
+    <div className={classes.page}>
+      {window.matchMedia(`(max-width: 768px)`).matches ? (
+        <ProductList data={products} />
+      ) : (
+        <ProductGrid data={products} />
+      )}
     </div>
   );
 };
@@ -58,4 +67,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   fetchProducts,
   fetchBrand,
+  setPage,
 })(BrandPage);

@@ -23,9 +23,11 @@ const CreditCardPage = ({brand, product, updateCart}) => {
             updateCart({
                 productId: product._id,
                 productName: product.name,
+                brandId: brand._id,
                 price: product.price,
                 cost: product.cost,
-                taxRate: product.taxRate,
+                saleTaxRate: product.saleTaxRate,
+                purchaseTaxRate: product.purchaseTaxRate,
                 quantity
             });
         }
