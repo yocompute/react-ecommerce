@@ -18,7 +18,7 @@ const CreditCardPage = ({brand, product, updateCart}) => {
 
     }
 
-    function handleUpdate(quantity) {
+    function handleQuantityChange(quantity) {
         if(product){
             updateCart({
                 productId: product._id,

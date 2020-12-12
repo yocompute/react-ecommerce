@@ -77,17 +77,28 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
 
     }
 
-    function handleUpdate(n) {
-        if(product){
+    function toCartItem(product){
+        return {
+            productId: product._id,
+            productName: product.name,
+            brandId: brand._id,
+            price: product.price,
+            cost: product.cost,
+            saleTaxRate: product.saleTaxRate,
+            purchaseTaxRate: product.purchaseTaxRate,
+            quantity: 0
+        }
+    }
+
+    /**
+     * 
+     * @param {*} d  {item [CartItem], quantity [number]}
+     */
+    function handleQuantityChange(d) {
+        if(d.item){
             updateCart({
-                productId: product._id,
-                productName: product.name,
-                brandId: brand._id,
-                price: product.price,
-                cost: product.cost,
-                saleTaxRate: product.saleTaxRate,
-                purchaseTaxRate: product.purchaseTaxRate,
-                quantity: n
+                ...d.item,
+                quantity: d.quantity
             });
         }
     }
@@ -106,8 +117,9 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
                     </div>
                     <div className={classes.quantityCol}>
                         <QuantityInput
-                            onChange={handleUpdate}
+                            onChange={handleQuantityChange}
                             val={quantity}
+                            item={toCartItem(product)}
                         />
                     </div>
                 </div>

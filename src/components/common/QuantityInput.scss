@@ -1,5 +1,5 @@
 .quantity-ctrl{
-    width: 150px;
+    width: 130px;
 }
 
 .increase-btn, .decrease-btn{
@@ -9,8 +9,9 @@
 }
 
 .quantity-input{
-    width: calc(100% - 80px);
+    width: 40px;
     float: left;
-    height: 30px;
+    height: 25px;
+    padding-left: 10px;
     border: 1px solid #888;
 }
