@@ -13,7 +13,10 @@ import AddToOrderRow from './AddToOrderRow';
 import PlaceOrderRow from './PlaceOrderRow';
 
 import Routes from '../Routes';
-import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE} from '../const';
+import {selectQuantity} from '../redux/cart/cart.selectors';
+import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE, CART_PAGE} from '../const';
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -119,7 +122,7 @@ function Layout({page, cart}) {
                 <AddToOrderRow />
             }
             {
-                (page.name === BRAND_PAGE || page.name === HOME_PAGE) && cart.items.length > 0 &&
+                (page.name === BRAND_PAGE || page.name === HOME_PAGE || page.name === CART_PAGE) && cart.items.length > 0 &&
                 <CartRow />
             }
             {
@@ -136,7 +139,8 @@ function Layout({page, cart}) {
 
 const mapStateToProps = state => ({
     page: state.page,
-    cart: state.cart
+    cart: state.cart,
+    nProducts: selectQuantity(state)
 });
 
 export default connect(
