@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import VerificationCodePage from './pages/auth/VerificationCodePage';
 import ProductPage from './pages/product/ProductPage';
 import PaymentPage from './pages/payment/PaymentPage';
+import CartPage from './pages/cart/CartPage';
 import CreditCardPage from './pages/payment/CreditCardPage';
 import PaymentHistoryPage from './pages/payment/PaymentHistoryPage';
 import LoginSelectPage from './pages/auth/LoginSelectPage'
@@ -20,6 +21,7 @@ const Routes = () => {
     return (<Switch>
             <Route path="/brands/:id" component={BrandPage} />
             <Route path="/payment" component={PaymentPage} />
+            <Route path="/cart" component={CartPage} />
             <Route path="/products/:id" component={ProductPage} />
             <Route path="/creditcard" component={CreditCardPage} />
             <Route path="/login-select" component={LoginSelectPage} />

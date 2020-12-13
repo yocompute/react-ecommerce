@@ -74,9 +74,9 @@ const ProductList = ({ data, setProduct }) => {
     return (
         data && data.length ?
             data.map(d => 
-                <div className={classes.productRow}>
+                <div className={classes.productRow} key={d._id}>
 
-                <Link key={d._id}
+                <Link 
                     className={classes.link}
                     to={{ pathname: `/products/${d._id}` }}
                     onClick={e => handleSelect(d)} >
