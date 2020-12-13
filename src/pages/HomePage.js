@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import BrandList from "../components/brand/BrandList";
 import BrandGrid from "../components/brand/BrandGrid";
+import Category from "../components/category/Category";
 import { fetchBrands } from "../redux/brand/brand.actions";
 import { setPage } from "../redux/page/page.actions";
 import { HOME_PAGE } from "../const";
@@ -15,9 +16,10 @@ import { HOME_PAGE } from "../const";
 const useStyles = makeStyles((theme) => ({
   page: {
     width: "100%",
-    height: "calc(100% - 180px}",
     position: "absolute",
     top: "64px",
+    display: "flex",
+    // height: "calc(100% - 180px}",  does't work
   },
 }));
 
@@ -33,10 +35,15 @@ const HomePage = ({ match, setPage, fetchBrands, brands }) => {
 
   return (
     <div className={classes.page}>
+      <Category />
       {window.matchMedia(`(max-width: 768px)`).matches ? (
-        <BrandList data={brands} />
+        <div>
+          <BrandList data={brands} />
+        </div>
       ) : (
-        <BrandGrid data={brands} />
+        <div>
+          <BrandGrid data={brands} />
+        </div>
       )}
     </div>
   );
