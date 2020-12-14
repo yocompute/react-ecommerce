@@ -9,6 +9,8 @@ import ProductGrid from '../../components/product/ProductGrid';
 import { fetchProducts } from '../../redux/product/product.actions';
 import { fetchBrand } from '../../redux/brand/brand.actions';
 import { setPage } from '../../redux/page/page.actions';
+import { setQrcode } from '../../redux/qrcode/qrcode.actions';
+
 import { BRAND_PAGE } from '../../const';
 
 const DEFAULT_BRAND_ID = '5fcb99645e8e066332a6714b';
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BrandPage = ({ match, fetchBrand, fetchProducts, products, setPage }) => {
+const BrandPage = ({ match, fetchBrand, fetchProducts, products, setPage, setQrcode }) => {
     const classes = useStyles();
     useEffect(() => {
         if (match.params && match.params.id) {
@@ -30,6 +32,10 @@ const BrandPage = ({ match, fetchBrand, fetchProducts, products, setPage }) => {
             fetchBrand({ _id: brand });
             fetchProducts({ brand });
             setPage(BRAND_PAGE);
+
+            if(match.params && match.params.qrcode){
+                setQrcode(match.params.qrcode);
+            }
         } else {
             const brand = DEFAULT_BRAND_ID;
             fetchBrand({ _id: brand });
@@ -72,6 +78,7 @@ export default connect(
     {
         fetchProducts,
         fetchBrand,
+        setQrcode,
         setPage
     }
 )(BrandPage);

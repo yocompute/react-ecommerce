@@ -14,6 +14,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { selectQuantity } from '../redux/cart/cart.selectors';
 
+import cfg from '../config';
+// (brand ? `/brands/${brand._id}` :
 import './Footer.scss';
 
 const Menu = {
@@ -22,7 +24,7 @@ const Menu = {
   SETTINGS: 'Settings'
 }
 const useStyles = makeStyles({
-  footer:{
+  footer: {
     position: 'fixed',
     bottom: '0px'
   },
@@ -31,7 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Footer = ({ type, user, quantity }) => {
+const Footer = ({ type, user, brand, quantity }) => {
   const classes = useStyles();
   const [menu, setMenu] = useState(Menu.HOME)
 
@@ -46,34 +48,27 @@ const Footer = ({ type, user, quantity }) => {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/"/>
+        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/" />
         <BottomNavigationAction label="Cart" icon={
           <Badge badgeContent={quantity} color="primary">
             <ShoppingCartIcon />
           </Badge>
         } component={Link} to="/cart" />
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} component={Link} to="/payments"/>
-        <BottomNavigationAction label="Settings" icon={<SettingsIcon component={Link} to="settings"/>} />
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} component={Link} to="/payments" />
+        <BottomNavigationAction label="Settings" icon={<SettingsIcon />} component={Link} to="settings" />
       </BottomNavigation>
     }
-    {/* {
-        type === 'button' &&
-        <div className="row bottom-bar">
-            <Link style={{ textDecoration: 'none' }} to={{ pathname: user? "/order": "/login-select" }} >
-                <div className="bottom-btn btn-col" >Checkout</div>
-            </Link>
-        </div>
-      } */}
   </div>
 }
 
 
 const mapStateToProps = state => ({
   user: state.user,
+  brand: state.brand,
   quantity: selectQuantity(state)
 });
 
 export default connect(
   mapStateToProps,
   null
-)(Footer);
+)(Footer);   
