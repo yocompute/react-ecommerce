@@ -9,12 +9,11 @@ import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
 import { fetchCategories } from "../../redux/category/category.actions";
 import { fetchCategory } from "../../redux/category/category.actions";
-import { fetchBrand } from "../../redux/brand/brand.actions";
 import { setPage } from "../../redux/page/page.actions";
-import { BRAND_PAGE } from "../../const";
+import { CATEGORY_PAGE } from "../../const";
 import Category from "../../components/category/Category";
 
-const DEFAULT_BRAND_ID = "5fcb99645e8e066332a6714b";
+const DEFAULT_CATEGORY_ID = "5fd44afbd142f9414b358218";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -29,10 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BrandPage = ({
+const CategoryPage = ({
   categories,
   match,
-  fetchBrand,
   fetchCategories,
   fetchProducts,
   products,
@@ -46,19 +44,17 @@ const BrandPage = ({
 
   useEffect(() => {
     if (match.params && match.params.id) {
-      const brand = match.params.id;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand });
-      setPage(BRAND_PAGE);
+      const category = match.params.id;
+      fetchCategory({ _id: category });
+      fetchProducts({ category });
+      setPage(CATEGORY_PAGE);
     } else {
-      const brand = DEFAULT_BRAND_ID;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand });
-      setPage(BRAND_PAGE);
+      const category = DEFAULT_CATEGORY_ID;
+      fetchCategory({ _id: category });
+      fetchProducts({ category });
+      setPage(CATEGORY_PAGE);
     }
-  }, [fetchProducts]);
-
-  const handleNext = () => {};
+  }, [match.params.id]);
 
   return (
     <div className={classes.page}>
@@ -76,7 +72,7 @@ const BrandPage = ({
   );
 };
 
-BrandPage.propTypes = {
+CategoryPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -94,6 +90,5 @@ export default connect(mapStateToProps, {
   fetchProducts,
   fetchCategories,
   fetchCategory,
-  fetchBrand,
   setPage,
-})(BrandPage);
+})(CategoryPage);

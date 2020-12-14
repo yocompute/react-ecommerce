@@ -1,11 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { setCategory } from "../../redux/category/category.actions";
 import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fade from "@material-ui/core/Fade";
+import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
 import "./CategoryItem.scss";
 
 const useStyles = makeStyles(() => ({
@@ -14,31 +15,39 @@ const useStyles = makeStyles(() => ({
     textDecoration: "none",
   },
   categoryItem: {
-    paddingLeft: 13,
-    paddingRight: 10,
+    padding: "10px 0",
   },
   categoryIcon: {
-    minWidth: 30,
+    minWidth: 27,
   },
   categoryText: {
-    marginTop: 7,
-  }
+    marginTop: 5,
+  },
 }));
 
-const NavMenuItem = ({ data }) => {
+const CategoryItem = ({ category }) => {
   const classes = useStyles();
+
+  const handleSelected = (category) => {
+    setCategory(category);
+  };
+
   return (
-    <NavLink to={data.path} className={classes.link}>
-      <Tooltip title={data.tip} TransitionComponent={Fade} placement="right">
-        <ListItem className={classes.categoryItem} button>
-          <ListItemIcon className={`${classes.categoryIcon} category-icon`}>
-            {data.icon}
-          </ListItemIcon>
-          <ListItemText className={`${classes.categoryText} category-text`}>{data.text}</ListItemText>
-        </ListItem>
-      </Tooltip>
-    </NavLink>
+    <Link
+      to={{ pathname: `/categories/${category._id}` }}
+      className={classes.link}
+      onClick={() => handleSelected(category)}
+    >
+      <ListItem className={classes.categoryItem} button>
+        <ListItemIcon className={`${classes.categoryIcon} category-icon`}>
+          <EmojiFoodBeverageIcon />
+        </ListItemIcon>
+        <ListItemText className={`${classes.categoryText} category-text`}>
+          {category.name}
+        </ListItemText>
+      </ListItem>
+    </Link>
   );
 };
 
-export default NavMenuItem;
+export default connect(null, { setCategory })(CategoryItem);

@@ -1,58 +1,41 @@
 import React from "react";
-import NavMenuItem from "./CategoryItem";
+import CategoryItem from "./CategoryItem";
 import { makeStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";
-import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
-import FastfoodIcon from "@material-ui/icons/Fastfood";
-import LocalDiningIcon from "@material-ui/icons/LocalDining";
-import CakeIcon from "@material-ui/icons/Cake";
+
+// import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
+// import FastfoodIcon from "@material-ui/icons/Fastfood";
+// import LocalDiningIcon from "@material-ui/icons/LocalDining";
+// import CakeIcon from "@material-ui/icons/Cake";
 
 const useStyles = makeStyles(() => ({
   root: {
-    flex: 0.2,
-    paddingTop: 56,
-  },
-  wrap: {
-    paddingTop: 20,
+    padding: "0 11px",
+    flex: "0.3",
+    // position: "fixed",
   },
 }));
 
-const categories = [
-  {
-    path: "/drink",
-    text: "Drink",
-    icon: <EmojiFoodBeverageIcon />,
-    tip: "Drink",
-  },
-  {
-    path: "/fast-food",
-    text: "Fast Food",
-    icon: <FastfoodIcon />,
-    tip: "Fast Food",
-  },
-  {
-    path: "/western-food",
-    text: "Western Food",
-    icon: <LocalDiningIcon />,
-    tip: "Western Food",
-  },
-  {
-    path: "/dessert",
-    text: "Dessert",
-    icon: <CakeIcon />,
-    tip: "Dessert",
-  },
-];
+// createUTC: "2020-12-12T01:44:35.579Z"
+// description: "Drink - description"
+// name: "Drink"
+// owner: {createUTC: "2020-12-06T00:17:12.726Z", _id: "5fcc2308390abab1b3d0fa1e", username: "123456", email: "123456@gmail.com", __v: 0}
+// status: "A"
+// __v: 0
+// _id: "5fd44afbd142f9414b358218"
+// __proto__: Object
 
-const Category = () => {
+const Category = ({ data }) => {
   const classes = useStyles();
 
   return (
     <List className={classes.root}>
       <div className={classes.wrap}>
-        {categories &&
-          categories.length &&
-          categories.map((category) => <NavMenuItem key={category.text} data={category} />)}
+        {data &&
+          data.length &&
+          data.map((category) => (
+            <CategoryItem key={category._id} category={category} />
+          ))}
       </div>
     </List>
   );

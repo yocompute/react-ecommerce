@@ -12,6 +12,7 @@ import LoginSelectPage from './pages/auth/LoginSelectPage'
 import LocalLoginPage from './pages/auth/LocalLoginPage'
 import LocalSignupPage from './pages/auth/LocalSignupPage';
 import BrandPage from './pages/brand/BrandPage';
+import CategoryPage from './pages/category/CategoryPage';
 
 // import BrandListPage from './pages/brand/BrandListPage'
 // import ProductListPage from './pages/product/ProductListPage'
@@ -20,6 +21,7 @@ import BrandPage from './pages/brand/BrandPage';
 const Routes = () => {
     return (<Switch>
             <Route path="/brands/:id" component={BrandPage} />
+            <Route path="/categories/:id" component={CategoryPage} />
             <Route path="/payment" component={PaymentPage} />
             <Route path="/cart" component={CartPage} />
             <Route path="/products/:id" component={ProductPage} />
