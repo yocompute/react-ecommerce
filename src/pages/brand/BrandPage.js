@@ -11,8 +11,10 @@ import { fetchCategories } from "../../redux/category/category.actions";
 import { fetchCategory } from "../../redux/category/category.actions";
 import { fetchBrand } from "../../redux/brand/brand.actions";
 import { setPage } from "../../redux/page/page.actions";
-import { BRAND_PAGE } from "../../const";
+import { setQrcode } from "../../redux/qrcode/qrcode.actions";
 import Category from "../../components/category/Category";
+
+import { BRAND_PAGE } from "../../const";
 
 const DEFAULT_BRAND_ID = "5fcb99645e8e066332a6714b";
 
@@ -37,8 +39,26 @@ const BrandPage = ({
   fetchProducts,
   products,
   setPage,
+  setQrcode,
 }) => {
   const classes = useStyles();
+  useEffect(() => {
+    if (match.params && match.params.id) {
+      const brand = match.params.id;
+      fetchBrand({ _id: brand });
+      fetchProducts({ brand });
+      setPage(BRAND_PAGE);
+
+      if (match.params && match.params.qrcode) {
+        setQrcode(match.params.qrcode);
+      }
+    } else {
+      const brand = DEFAULT_BRAND_ID;
+      fetchBrand({ _id: brand });
+      fetchProducts({ brand });
+      setPage(BRAND_PAGE);
+    }
+  }, [fetchProducts]);
 
   useEffect(() => {
     fetchCategories();
@@ -95,5 +115,6 @@ export default connect(mapStateToProps, {
   fetchCategories,
   fetchCategory,
   fetchBrand,
+  setQrcode,
   setPage,
 })(BrandPage);
