@@ -25,7 +25,8 @@ function App({ isLoggedIn, isLoading, fetchAuth, setLoading }) {
     <div>Loading...</div>
     :
     <Router>
-      {
+      <Layout />
+      {/* {
         isLoggedIn ?
         <Layout />
         : (
@@ -36,7 +37,7 @@ function App({ isLoggedIn, isLoading, fetchAuth, setLoading }) {
             <Redirect from="/" to="/local-login" />
           </Switch>
         )
-      }
+      } */}
     </Router>
 }
 
