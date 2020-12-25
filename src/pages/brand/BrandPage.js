@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import queryString from 'query-string';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,19 +25,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BrandPage = ({ match, fetchBrand, fetchProducts, products, setPage, setQrcode }) => {
+const BrandPage = ({ location, match, fetchBrand, fetchProducts, products, setPage, setQrcode }) => {
     const classes = useStyles();
     useEffect(() => {
-        if (match.params && match.params.id) {
-            const brand = match.params.id;
-            fetchBrand({ _id: brand });
-            fetchProducts({ brand });
-            setPage(BRAND_PAGE);
+        const params = queryString.parse(location.search);
 
-            if(match.params && match.params.qrcode){
-                setQrcode(match.params.qrcode);
-            }
-        } else {
+        if(params.brandId && params.qrcode){
+            fetchBrand({ _id: params.brandId });
+            fetchProducts({ brand: params.brandId });
+            setPage(BRAND_PAGE);
+            setQrcode(params.qrcode);
+        }
+
+        // if (match.params && match.params.id) {
+        //     const brand = match.params.id;
+        //     fetchBrand({ _id: brand });
+        //     fetchProducts({ brand });
+        //     setPage(BRAND_PAGE);
+
+        //     if(match.params && match.params.qrcode){
+        //         setQrcode(match.params.qrcode);
+        //     }
+        // } 
+        else {
             const brand = DEFAULT_BRAND_ID;
             fetchBrand({ _id: brand });
             fetchProducts({ brand });
@@ -66,7 +77,8 @@ BrandPage.propTypes = {
             id: PropTypes.string
         })
     }),
-    history: PropTypes.object
+    history: PropTypes.object,
+    location: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
