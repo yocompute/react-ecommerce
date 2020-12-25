@@ -11,6 +11,7 @@ import { productsReducer, productReducer } from './product/product.reducers';
 import { cartReducer } from './cart/cart.reducers';
 import { pageReducer } from './page/page.reducers';
 import { paymentReducer } from './payment/payment.reducers';
+import { qrcodeReducer } from './qrcode/qrcode.reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,7 +25,8 @@ export const rootReducer = combineReducers({
   product: productReducer,
   cart: cartReducer,
   page: pageReducer,
-  payment: paymentReducer
+  payment: paymentReducer,
+  qrcode: qrcodeReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './QuantityInput.scss';
 
-export const QuantityInput = ({ val, onChange }) => {
+export const QuantityInput = ({ val, item, onChange }) => {
   // const inputRef = React.createRef();
 
   const [quantity, setQuantity] = useState(val);
@@ -9,22 +9,23 @@ export const QuantityInput = ({ val, onChange }) => {
   const increase = () => {
     const v = quantity + 1;
     setQuantity(v);
-    onChange(v);
+    onChange({quantity:v, item});
   }
 
   const decrease = () => {
     if (quantity > 0) {
       const v = quantity - 1;
       setQuantity(v);
-      onChange(v);
+      onChange({quantity:v, item});
     } else {
-      onChange(quantity);
+      onChange({quantity, item});
     }
   }
 
   const change = (e) => {
-    const v = e.target.value;
-    onChange(v);
+    const v = e.target.value === '' ? 0 : parseInt(e.target.value);
+    e.target.value === '' ? setQuantity('') : setQuantity(v);
+    onChange({quantity: v, item});
   }
 
   return (
