@@ -36,7 +36,7 @@ const Routes = () => {
             {
                 cfg.MULTI_BRAND
                 ? <Route exact path="/" component={HomePage} />
-                : <Route path="/:id/:qrcode" component={BrandPage} />
+                : <Route path="/brands" component={BrandPage} />
             }
 
             {/* <Route path="/orders" component={OrderListPage} /> */}
