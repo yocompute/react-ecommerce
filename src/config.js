@@ -1,5 +1,5 @@
 const cfg = {
-    MULTI_BRAND: false
+    MULTI_BRAND: true
 }
 
 export default cfg;

@@ -16,7 +16,7 @@ import Category from "../../components/category/Category";
 
 import { BRAND_PAGE } from "../../const";
 
-const DEFAULT_BRAND_ID = "5fcb99645e8e066332a6714b";
+const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
 const useStyles = makeStyles((theme) => ({
   page: {
