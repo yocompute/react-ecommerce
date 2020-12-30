@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import queryString from 'query-string';
+import queryString from "query-string";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -9,7 +9,6 @@ import ProductList from "../../components/product/ProductList";
 import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
 import { fetchCategories } from "../../redux/category/category.actions";
-import { fetchCategory } from "../../redux/category/category.actions";
 import { fetchBrand } from "../../redux/brand/brand.actions";
 import { setPage } from "../../redux/page/page.actions";
 import { setQrcode } from "../../redux/qrcode/qrcode.actions";
@@ -25,42 +24,51 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     position: "absolute",
     top: "0px",
-    display: "flex",
   },
   products: {
-    flex: 0.7,
+    margin: 20,
   },
 }));
 
-const BrandPage = ({ location, match, fetchBrand, fetchProducts, products, setPage, setQrcode }) => {
-    const classes = useStyles();
-    useEffect(() => {
-        const params = queryString.parse(location.search);
+const BrandPage = ({
+  location,
+  match,
+  categories,
+  products,
+  fetchBrand,
+  fetchCategories,
+  fetchProducts,
+  setQrcode,
+  setPage,
+}) => {
+  const classes = useStyles();
+  useEffect(() => {
+    const params = queryString.parse(location.search);
 
-        if(params.brandId && params.qrcode){
-            fetchBrand({ _id: params.brandId });
-            fetchProducts({ brand: params.brandId });
-            setPage(BRAND_PAGE);
-            setQrcode(params.qrcode);
-        }
+    if (params.brandId && params.qrcode) {
+      fetchBrand({ _id: params.brandId });
+      fetchProducts({ brand: params.brandId });
+      setPage(BRAND_PAGE);
+      setQrcode(params.qrcode);
+    }
 
-        // if (match.params && match.params.id) {
-        //     const brand = match.params.id;
-        //     fetchBrand({ _id: brand });
-        //     fetchProducts({ brand });
-        //     setPage(BRAND_PAGE);
+    // if (match.params && match.params.id) {
+    //     const brand = match.params.id;
+    //     fetchBrand({ _id: brand });
+    //     fetchProducts({ brand });
+    //     setPage(BRAND_PAGE);
 
-        //     if(match.params && match.params.qrcode){
-        //         setQrcode(match.params.qrcode);
-        //     }
-        // } 
-        else {
-            const brand = DEFAULT_BRAND_ID;
-            fetchBrand({ _id: brand });
-            fetchProducts({ brand });
-            setPage(BRAND_PAGE);
-        }
-    }, [fetchProducts]);
+    //     if(match.params && match.params.qrcode){
+    //         setQrcode(match.params.qrcode);
+    //     }
+    // }
+    else {
+      const brand = DEFAULT_BRAND_ID;
+      fetchBrand({ _id: brand });
+      fetchProducts({ brand });
+      setPage(BRAND_PAGE);
+    }
+  }, [fetchProducts]);
 
   useEffect(() => {
     fetchCategories();
@@ -105,7 +113,7 @@ BrandPage.propTypes = {
     }),
     history: PropTypes.object,
     location: PropTypes.object,
-  })
+  }),
 };
 
 const mapStateToProps = (state) => ({
@@ -116,7 +124,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   fetchProducts,
   fetchCategories,
-  fetchCategory,
   fetchBrand,
   setQrcode,
   setPage,

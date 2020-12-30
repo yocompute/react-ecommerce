@@ -8,6 +8,7 @@ import ProductList from "../../components/product/ProductList";
 import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
 import { fetchCategories } from "../../redux/category/category.actions";
+import { fetchBrand } from "../../redux/brand/brand.actions";
 import { fetchCategory } from "../../redux/category/category.actions";
 import { setPage } from "../../redux/page/page.actions";
 import { CATEGORY_PAGE } from "../../const";
@@ -21,16 +22,17 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     position: "absolute",
     top: "0px",
-    display: "flex",
   },
   products: {
-    flex: 0.7,
+    margin: 20,
   },
 }));
 
 const CategoryPage = ({
+  brand,
   categories,
   match,
+  fetchBrand,
   fetchCategories,
   fetchProducts,
   products,
@@ -43,10 +45,12 @@ const CategoryPage = ({
   }, [fetchCategories]);
 
   useEffect(() => {
-    if (match.params && match.params.id) {
-      const category = match.params.id;
+    if (match.params && match.params.id_brand && match.params.id_category) {
+      const brand = match.params.id_brand;
+      fetchBrand({ _id: brand });
+      const category = match.params.id_category;
       fetchCategory({ _id: category });
-      fetchProducts({ category });
+      fetchProducts({ brand, category });
       setPage(CATEGORY_PAGE);
     } else {
       const category = DEFAULT_CATEGORY_ID;
@@ -54,7 +58,7 @@ const CategoryPage = ({
       fetchProducts({ category });
       setPage(CATEGORY_PAGE);
     }
-  }, [match.params.id]);
+  }, [match.params.id_category]);
 
   return (
     <div className={classes.page}>
@@ -82,11 +86,13 @@ CategoryPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  brand: state.brand,
   categories: state.categories,
   products: state.products,
 });
 
 export default connect(mapStateToProps, {
+  fetchBrand,
   fetchProducts,
   fetchCategories,
   fetchCategory,

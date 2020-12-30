@@ -14,38 +14,42 @@ import DefaultImage from "../../assets/defaultProduct.jpg";
 const useStyles = makeStyles((theme) => ({
   productRow: {
     width: "100%",
-    height: "120px",
     display: "block",
     boxSizing: "border-box",
-    margin: "10px 0px",
+    margin: "12px 0px",
   },
   link: {
     textDecoration: "none",
+    display: "flex",
   },
-  pictureCol: {
-    width: "146px",
-    height: "120px",
-    float: "left",
-  },
+  pictureCol: {},
   image: {
-    height: "120px",
+    objectFit: "cover",
+    width: 120,
+    height: 120,
+    borderRadius: 10,
   },
   textCol: {
-    width: "calc(100% - 148px)",
-    height: "120px",
-    float: "left",
-    display: "block",
-    boxSizing: "border-box",
-    padding: "20px",
+    paddingLeft: 10,
   },
   productName: {
-    color: "#666",
-    fontSize: "18px",
+    color: "#333",
+    fontSize: 18,
+    fontWeight: 500,
+    lineHeight: "18px",
+    marginBottom: 5,
   },
   price: {
+    color: "#aaa",
+    fontSize: 18,
+    fontWeight: 400,
+    marginBottom: 5,
+  },
+  productDescription: {
     color: "#333",
-    paddingTop: "10px",
-    fontSize: "22px",
+    fontSize: 15,
+    fontWeight: 300,
+    letterSpacing: 0.5,
   },
 }));
 
@@ -84,13 +88,13 @@ const ProductList = ({ data, setProduct }) => {
                                 <div>{d.name}</div>
                                 <div>${d.price}</div>
                             </Grid> */}
-
           <div className={classes.pictureCol}>
             <img className={classes.image} src={DefaultImage} alt="" />
           </div>
           <div className={classes.textCol}>
             <div className={classes.productName}>{d.name}</div>
             <div className={classes.price}>${d.price}</div>
+            <div className={classes.productDescription}>{d.description}</div>
           </div>
         </Link>
       </div>

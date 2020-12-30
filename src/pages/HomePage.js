@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   page: {
     width: "100%",
     position: "absolute",
-    top: "64px",
+    top: 56,
     height: "calc(100% - 180px}",
   },
 }));

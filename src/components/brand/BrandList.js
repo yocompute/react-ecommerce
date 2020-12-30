@@ -48,7 +48,7 @@ const BrandList = ({ data, setBrand }) => {
   function getPictureUrl(d) {
     return process.env.PUBLIC_URL + "/defaultBrand.jpg"; // d.pictures[0];
   }
-
+  
   return data && data.length ? (
     data.map((d) => (
       <Link
