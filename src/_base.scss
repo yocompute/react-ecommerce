@@ -6,14 +6,14 @@ $desktop: "(min-width: 1200px)";
 $green: rgb(24, 128, 56);
 $yellow: rgb(244, 160, 0);
 $red: rgb(219, 68, 55);
-$blue: #4285F3;
+$blue: #4285f3;
 
-$primary-color: #4285F3;
+$primary-color: #4285f3;
 $inverse-font-color: white;
 $bg-color: white;
 $border-color: #eee;
 
-$info-bg: rgb(69,69,69);
+$info-bg: rgb(69, 69, 69);
 $info-fg: white;
 
 $head-h: 60px;
@@ -23,12 +23,12 @@ $bottom-btn-w: 125px;
 
 $pagination-h: 36px;
 
-.header{
+.header {
   z-index: 9900;
   width: 100%;
   border-bottom: 1px solid $border-color;
 
-  .header-bar{
+  .header-bar {
     width: 100%;
     height: $head-bar-h;
     background: $bg-color;
@@ -37,25 +37,25 @@ $pagination-h: 36px;
   }
 }
 
-.page{
+.page {
   position: fixed;
   top: 0px;
   height: 100%;
   width: 100%;
 }
-.title-row{
+.title-row {
   height: $head-h;
   padding: 15px;
   border-bottom: 1px solid $border-color;
 }
-.page-body{
+.page-body {
   position: fixed;
   top: $head-h;
   width: 100%;
   height: calc(100% - #{$head-h} - #{$bottom-bar-h});
 }
 
-.footer{
+.footer {
   z-index: 9900;
   position: absolute;
   bottom: 36px;
@@ -63,7 +63,7 @@ $pagination-h: 36px;
   border-top: 1px solid $border-color;
 }
 
-.bottom-bar{
+.bottom-bar {
   width: 100%;
   height: $bottom-bar-h;
   background: $bg-color;
@@ -73,7 +73,7 @@ $pagination-h: 36px;
   border-right: solid 1px $border-color;
   border-left: solid 1px $border-color;
 
-  .bottom-btn{
+  .bottom-btn {
     text-align: center;
     color: $inverse-font-color;
     background: $primary-color;
@@ -82,33 +82,33 @@ $pagination-h: 36px;
   }
 }
 
-ul.pagination{
+ul.pagination {
   padding-top: 8px;
-  li{
+  li {
     width: 36px;
     font-size: 19px;
   }
 }
 
-@media #{$tablet}{
-  .bottom-bar{
+@media #{$tablet} {
+  .bottom-bar {
     border-right: none;
     border-left: none;
   }
 
-  .page-body{
+  .page-body {
     padding: 10px;
     margin: 0px;
   }
 }
 
-@media #{$mobile}{
-  .bottom-bar{
+@media #{$mobile} {
+  .bottom-bar {
     border-right: none;
     border-left: none;
   }
 
-  .page-body{
+  .page-body {
     padding: 10px;
     margin: 0px;
   }

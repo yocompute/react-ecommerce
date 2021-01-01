@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import queryString from "query-string";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -10,13 +9,12 @@ import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
 import { fetchCategories } from "../../redux/category/category.actions";
 import { fetchBrand } from "../../redux/brand/brand.actions";
+import { fetchCategory } from "../../redux/category/category.actions";
 import { setPage } from "../../redux/page/page.actions";
-import { setQrcode } from "../../redux/qrcode/qrcode.actions";
+import { CATEGORY_PAGE } from "../../const";
 import Category from "../../components/category/Category";
 
-import { BRAND_PAGE } from "../../const";
-
-const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
+const DEFAULT_CATEGORY_ID = "5fd44afbd142f9414b358218";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -30,65 +28,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BrandPage = ({
-  location,
-  match,
+const CategoryPage = ({
+  brand,
   categories,
-  products,
+  match,
   fetchBrand,
   fetchCategories,
   fetchProducts,
-  setQrcode,
+  products,
   setPage,
 }) => {
   const classes = useStyles();
-  useEffect(() => {
-    const params = queryString.parse(location.search);
-
-    if (params.brandId && params.qrcode) {
-      fetchBrand({ _id: params.brandId });
-      fetchProducts({ brand: params.brandId });
-      setPage(BRAND_PAGE);
-      setQrcode(params.qrcode);
-    }
-
-    // if (match.params && match.params.id) {
-    //     const brand = match.params.id;
-    //     fetchBrand({ _id: brand });
-    //     fetchProducts({ brand });
-    //     setPage(BRAND_PAGE);
-
-    //     if(match.params && match.params.qrcode){
-    //         setQrcode(match.params.qrcode);
-    //     }
-    // }
-    else {
-      const brand = DEFAULT_BRAND_ID;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand });
-      setPage(BRAND_PAGE);
-    }
-  }, [fetchProducts]);
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   useEffect(() => {
-    if (match.params && match.params.id) {
-      const brand = match.params.id;
+    if (match.params && match.params.id_brand && match.params.id_category) {
+      const brand = match.params.id_brand;
       fetchBrand({ _id: brand });
-      fetchProducts({ brand });
-      setPage(BRAND_PAGE);
+      const category = match.params.id_category;
+      fetchCategory({ _id: category });
+      fetchProducts({ brand, category });
+      setPage(CATEGORY_PAGE);
     } else {
-      const brand = DEFAULT_BRAND_ID;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand });
-      setPage(BRAND_PAGE);
+      const category = DEFAULT_CATEGORY_ID;
+      fetchCategory({ _id: category });
+      fetchProducts({ category });
+      setPage(CATEGORY_PAGE);
     }
-  }, [fetchProducts]);
-
-  const handleNext = () => {};
+  }, [match.params.id_category]);
 
   return (
     <div className={classes.page}>
@@ -106,25 +76,25 @@ const BrandPage = ({
   );
 };
 
-BrandPage.propTypes = {
+CategoryPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
-    history: PropTypes.object,
-    location: PropTypes.object,
   }),
+  history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
+  brand: state.brand,
   categories: state.categories,
   products: state.products,
 });
 
 export default connect(mapStateToProps, {
+  fetchBrand,
   fetchProducts,
   fetchCategories,
-  fetchBrand,
-  setQrcode,
+  fetchCategory,
   setPage,
-})(BrandPage);
+})(CategoryPage);
