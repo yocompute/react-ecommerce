@@ -26,14 +26,14 @@ const useStyles = makeStyles((theme) => ({
     },
     header: {
         width: '100%',
-        height: '64px'
+        height: '56px'
     },
     content: {
         width: '100%',
         height: 'calc(100% - 128px)',
         overflow: 'auto',
         position: 'absolute',
-        top: '64px'
+        top: '56px'
     },
 
     toolbar: {
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     //     flexDirection: 'column',
     // }
     paper: {
-        padding: theme.spacing(2),
+        // padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
