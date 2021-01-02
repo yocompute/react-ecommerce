@@ -14,6 +14,9 @@ import PlaceOrderRow from './PlaceOrderRow';
 
 import Routes from '../Routes';
 import {selectQuantity} from '../redux/cart/cart.selectors';
+import { selectCategoryMap } from "../redux/product/product.selectors";
+import { setCategory } from '../redux/category/category.actions';
+
 import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE, CART_PAGE} from '../const';
 
 
@@ -28,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '56px'
     },
+    headerTall: {
+        width: '100%',
+        height: '104px'
+    },
     content: {
         width: '100%',
         height: 'calc(100% - 128px)',
@@ -35,7 +42,13 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         top: '56px'
     },
-
+    contentShort: {
+        width: '100%',
+        height: 'calc(100% - 176px)',
+        overflow: 'auto',
+        position: 'absolute',
+        top: '104px'
+    },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
     },
@@ -89,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart}) {
+function Layout({page, cart, categoryMap, setCategory}) {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -97,9 +110,27 @@ function Layout({page, cart}) {
     const handleSidebarToggle = (expanded) => {
         setSidebarExpanded(expanded);
     }
+
+    const handleScroll = (e) => {
+        Object.keys(categoryMap).forEach(name => {
+            const el = document.getElementById(categoryMap[name]._id);
+            if(el){
+                const t = el.getBoundingClientRect().top;
+                if(t > 0 && t < 160){
+                    setCategory(categoryMap[name]);
+                    return;
+                }else{
+                    return;
+                }
+            }else{
+                return;
+            }
+        })
+    };
+
     return (
         <div className={classes.root}>
-            <div className={classes.header} >
+            <div className={page.name === BRAND_PAGE ? classes.headerTall : classes.header} >
                 <Header 
                     sidebarExpanded={sidebarExpanded}
                     onToggle={handleSidebarToggle}
@@ -111,7 +142,7 @@ function Layout({page, cart}) {
                 onToggle={handleSidebarToggle}
             /> */}
 
-            <div className={classes.content} >
+            <div className={page.name === BRAND_PAGE? classes.contentShort : classes.content} onScroll={handleScroll}>
                 {/* <div className={classes.appBarSpacer} /> */}
                 {/* <div className={fixedHeightPaper}> */}
                     <Routes />
@@ -140,10 +171,11 @@ function Layout({page, cart}) {
 const mapStateToProps = state => ({
     page: state.page,
     cart: state.cart,
-    nProducts: selectQuantity(state)
+    nProducts: selectQuantity(state),
+    categoryMap: selectCategoryMap(state),
 });
 
 export default connect(
     mapStateToProps,
-    null
+    {setCategory}
 )(Layout);

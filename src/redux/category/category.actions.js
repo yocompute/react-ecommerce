@@ -6,6 +6,10 @@ export const FETCH_CATEGORY_FAIL = "category/FETCH_CATEGORY_FAIL";
 export const SET_CATEGORY = "category/SET_CATEGORY";
 export const FETCH_CATEGORY = "category/FETCH_CATEGORY";
 
+
+export const SET_CATEGORY_MAP = "category/SET_CATEGORY_MAP";
+
+
 export const fetchCategories = () => ({
   type: FETCH_CATEGORIES,
 });
@@ -39,3 +43,8 @@ export const fetchCategoryFail = (error) => ({
   error,
 });
 
+
+export const setCategoryMap = (categoryMap) => ({
+  type: SET_CATEGORY_MAP,
+  categoryMap,
+});

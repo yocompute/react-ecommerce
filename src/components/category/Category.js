@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   li: {
-    padding: "17px 20px",
+    padding: "10px 20px",
     textDecoration: "none",
     display: "inline-block",
     boxSizing: "border-box",
@@ -35,17 +35,26 @@ const useStyles = makeStyles(() => ({
       borderBottom: "3px solid #3f51b5",
     }
   },
+  liActive: {
+    padding: "10px 20px",
+    textDecoration: "none",
+    display: "inline-block",
+    boxSizing: "border-box",
+    background: "#eee",
+    borderBottom: "3px solid #3f51b5",
+  },
   link: {
     color: "#333",
     textDecoration: "none",
   }
 }));
 
-const Category = ({ data, brand }) => {
+const Category = ({ data, brand, category, onSelect }) => {
   const classes = useStyles();
 
   const handleSelected = (category) => {
     setCategory(category);
+    onSelect(category);
   };
 
   return (
@@ -53,22 +62,15 @@ const Category = ({ data, brand }) => {
       <ul className={classes.root}>
         {data &&
           data.length &&
-          data.map((category) => (
+          data.map((c) => (
             <li
-              className={classes.li}
-              key={category._id}
-              onClick={() => handleSelected(category)}
+              className={category && c._id === category._id ? classes.liActive : classes.li}
+              key={c._id}
+              onClick={() => handleSelected(c)}
             >
-              <Link
-                className={classes.link}
-                to={{
-                  pathname: `/brands/${
-                    brand ? brand._id : DEFAULT_BRAND_ID
-                  }/categories/${category._id}`,
-                }}
-              >
-                {category.name}
-              </Link>
+              <div className={classes.link}>
+                {c.name}
+              </div>
             </li>
           ))}
       </ul>
@@ -78,6 +80,7 @@ const Category = ({ data, brand }) => {
 
 const mapStateToProps = (state) => ({
   brand: state.brand,
+  category: state.category
 });
 
 export default connect(mapStateToProps, { setCategory })(Category);
