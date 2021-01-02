@@ -73,35 +73,44 @@ const ProductList = ({ data, setProduct }) => {
   function getPictureUrl(d) {
     return d.pictures[0];
   }
-  return data && data.length ? (
-    data.map((d) => (
-      <div className={classes.productRow} key={d._id}>
-        <Link
-          className={classes.link}
-          to={{ pathname: `/products/${d._id}` }}
-          onClick={(e) => handleSelect(d)}
-        >
-          {/* <Grid item xs={6} m={0} className="pic-col">
-                            <img src={DefaultImage} />
-                            </Grid>
-                            <Grid item xs={6}> 
-                                <div>{d.name}</div>
-                                <div>${d.price}</div>
-                            </Grid> */}
-          <div className={classes.pictureCol}>
-            <img className={classes.image} src={DefaultImage} alt="" />
-          </div>
-          <div className={classes.textCol}>
-            <div className={classes.productName}>{d.name}</div>
-            <div className={classes.price}>${d.price}</div>
-            <div className={classes.productDescription}>{d.description}</div>
-          </div>
-        </Link>
+
+
+
+  return (
+    data && Object.keys(data).length > 0 ?
+    Object.keys(data).map((categoryName) => (
+      data[categoryName].products && data[categoryName].products.length > 0 &&
+      <div 
+        className={classes.category}
+        key={data[categoryName]._id}
+        id={data[categoryName]._id}
+      >
+        <div ref={data[categoryName].ref}>{categoryName}</div>
+        {
+          data[categoryName].products.map(d =>
+            <div className={classes.productRow} key={d._id}>
+              <Link
+                className={classes.link}
+                to={{ pathname: `/products/${d._id}` }}
+                onClick={(e) => handleSelect(d)}
+              >
+                <div className={classes.pictureCol}>
+                  <img className={classes.image} src={DefaultImage} alt="" />
+                </div>
+                <div className={classes.textCol}>
+                  <div className={classes.productName}>{d.name}</div>
+                  <div className={classes.price}>${d.price}</div>
+                  <div className={classes.productDescription}>{d.description}</div>
+                </div>
+              </Link>
+            </div>
+          )
+        }
       </div>
     ))
-  ) : (
-    <div>No Available Products</div>
-  );
+    :
+    <div>No Category is available</div>
+  )
 };
 
 const mapStateToProps = (state) => ({

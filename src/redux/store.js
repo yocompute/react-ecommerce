@@ -7,7 +7,7 @@ import rootSaga from './sagas';
 import { authReducer } from './auth/auth.reducers';
 import { usersReducer, userReducer } from './user/user.reducers';
 import { brandsReducer, brandReducer } from './brand/brand.reducers';
-import { categoriesReducer, categoryReducer } from './category/category.reducers';
+import { categoriesReducer, categoryReducer, categoryMapReducer } from './category/category.reducers';
 import { productsReducer, productReducer } from './product/product.reducers';
 import { cartReducer } from './cart/cart.reducers';
 import { pageReducer } from './page/page.reducers';
@@ -24,6 +24,7 @@ export const rootReducer = combineReducers({
   brand: brandReducer,
   categories: categoriesReducer,
   category: categoryReducer,
+  categoryMap: categoryMapReducer,
   products: productsReducer,
   product: productReducer,
   cart: cartReducer,

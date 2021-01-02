@@ -1,7 +1,10 @@
+
+
 import {
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORY_SUCCESS,
   SET_CATEGORY,
+  SET_CATEGORY_MAP
 } from "./category.actions";
 
 export const categoriesReducer = (state = null, action) => {
@@ -12,13 +15,25 @@ export const categoriesReducer = (state = null, action) => {
   return state;
 };
 
+
 export const categoryReducer = (state = null, action) => {
-  if (action && action === SET_CATEGORY) {
+  if (action && action.type === SET_CATEGORY) {
     return { ...action.category };
   }
 
-  if (action && action === FETCH_CATEGORY_SUCCESS) {
+  if (action && action.type === FETCH_CATEGORY_SUCCESS) {
     return { ...action.category };
+  }
+
+  return state;
+};
+
+
+
+
+export const categoryMapReducer = (state = null, action) => {
+  if (action && action.type === SET_CATEGORY_MAP) {
+    return {...action.categoryMap};
   }
 
   return state;

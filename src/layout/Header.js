@@ -17,12 +17,21 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 // import AppDrawer from './AppDrawer';
-
+import Category from "../components/category/Category";
+import { selectCategoryMap } from "../redux/product/product.selectors";
+import { BRAND_PAGE } from "../const";
 import { logout } from '../redux/auth/auth.actions';
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
+  root: {
     flexGrow: 1,
+  },
+  rootTall:{ // with category row
+    flexGrow: 1,
+  },
+  categories:{
+    position: 'absolute',
+    top: '56px'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -85,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ title, logout }) {
+function Header({ page, logout, categoryMap }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -115,7 +124,11 @@ function Header({ title, logout }) {
     setAnchorEl(null);
     handleMobileMenuClose();
   }
-
+  const handleSelectCategory = (category) => {
+    if(category.ref){
+      category.ref.current.scrollIntoView();
+    }
+  };
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -178,7 +191,7 @@ function Header({ title, logout }) {
   );
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.root}>
       <AppBar>
         <Toolbar>
           {/* <IconButton
@@ -247,12 +260,23 @@ function Header({ title, logout }) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {
+        page.name === BRAND_PAGE &&
+        <div className={classes.categories}>
+          <Category
+          data={categoryMap ? Object.values(categoryMap) : null}
+          onSelect={handleSelectCategory}
+          />
+      </div>
+    }
     </div>
   );
 }
 
 const mapStateToProps = state => ({
   isLoggedIn: state.tokenId,
+  page: state.page,
+  categoryMap: selectCategoryMap(state),
 });
 
 export default connect(
