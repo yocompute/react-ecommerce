@@ -46,14 +46,17 @@ const AddToOrderRow = ({ user, brand, quantity }) => {
 
   return <div className={classes.checkoutRow}>
     {
-      quantity > 0 &&
-      <Link className={classes.continueBtn} to={{ pathname: user? `/brands/${brand._id}`: "/login-select" }} >
+      quantity > 0 && brand &&
+      <Link className={classes.continueBtn} to={{ pathname: user ? `/brands/${brand._id}` : "/login-select" }} >
         Add to Order
       </Link>
     }
-    <Link className={classes.backBtn} to={{ pathname: user? `/brands/${brand._id}`: "/login-select" }} >
-      Back
+    {
+      brand &&
+      <Link className={classes.backBtn} to={{ pathname: user ? `/brands/${brand._id}` : "/login-select" }} >
+        Back
     </Link>
+    }
   </div>
 }
 
