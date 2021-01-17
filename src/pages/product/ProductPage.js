@@ -12,6 +12,9 @@ import {PRODUCT_PAGE} from '../../const';
 import { selectProductQuantity } from '../../redux/cart/cart.selectors';
 
 import DefaultPicture from '../../assets/detailProduct.jpg'
+import Additions from "../../components/product/Additions";
+
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles((theme) => ({
     picWrapper: {
@@ -121,6 +124,13 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
                             val={quantity}
                             item={toCartItem(product)}
                         />
+                    </div>
+
+                    <div>
+                        {
+                            product && product.additions && product.additions.length > 0 &&
+                            <Additions additions={product.additions}/>
+                        }
                     </div>
                 </div>
             }

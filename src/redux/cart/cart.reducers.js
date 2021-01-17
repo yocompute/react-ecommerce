@@ -1,4 +1,4 @@
-import { CLEAR_CART, UPDATE_CART } from './cart.actions';
+import { CLEAR_CART, UPDATE_ADDITION, UPDATE_CART } from './cart.actions';
 
 export const cartReducer = (state = { items: [] }, action) => {
   switch (action.type) {
@@ -23,6 +23,10 @@ export const cartReducer = (state = { items: [] }, action) => {
 
     case CLEAR_CART:
       return { items: [] }
+      break;
+
+    case UPDATE_ADDITION:
+      return {}
       break;
   }
 
