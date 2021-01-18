@@ -1,37 +1,37 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 
 import Button from '@material-ui/core/Button'
-import { QuantityInput } from '../../components/common/QuantityInput'
+// import { QuantityInput } from '../../components/common/QuantityInput'
 import { updateCart } from '../../redux/cart/cart.actions'
 import {createPayment} from '../../redux/payment/payment.actions'
 
 // import Header from '../../components/common/Header'
 
-const CreditCardPage = ({brand, product, updateCart}) => {
+const CreditCardPage = () => {
+// const CreditCardPage = ({brand, product, updateCart}) => {
+    // const [quantity, setQuantity] = useState(0);
 
-    const [quantity, setQuantity] = useState(0);
+    // function handleSelect() {
 
-    function handleSelect() {
+    // }
 
-    }
-
-    function handleQuantityChange(quantity) {
-        if(product){
-            updateCart({
-                productId: product._id,
-                productName: product.name,
-                brandId: brand._id,
-                price: product.price,
-                cost: product.cost,
-                saleTaxRate: product.saleTaxRate,
-                purchaseTaxRate: product.purchaseTaxRate,
-                quantity
-            });
-        }
-    }
+    // function handleQuantityChange(quantity) {
+    //     if(product){
+    //         updateCart({
+    //             productId: product._id,
+    //             productName: product.name,
+    //             brandId: brand._id,
+    //             price: product.price,
+    //             cost: product.cost,
+    //             saleTaxRate: product.saleTaxRate,
+    //             purchaseTaxRate: product.purchaseTaxRate,
+    //             quantity
+    //         });
+    //     }
+    // }
 
     function handlePlaceOrder(){
         createPayment({

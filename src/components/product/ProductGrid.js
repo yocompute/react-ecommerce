@@ -38,7 +38,9 @@ function ProductGrid({ data, setProduct }) {
   function handleSelect(product) {
     setProduct(product);
   }
-  const matches = useMediaQuery("(min-width:800px)");
+
+  // const matches = useMediaQuery("(min-width:800px)");
+
   return (
     <div className={classes.root}>
       <GridList

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
+import { makeStyles } from '@material-ui/core/styles';
+// import Container from '@material-ui/core/Container';
 // import Sidebar from './Sidebar'
 import Header from './Header';
 import Footer from './Footer';
 import CartRow from './CartRow';
-import CheckoutRow from  './CheckoutRow';
+// import CheckoutRow from  './CheckoutRow';
 import AddToOrderRow from './AddToOrderRow';
 import PlaceOrderRow from './PlaceOrderRow';
 
@@ -20,7 +20,7 @@ import { setCategory } from '../redux/category/category.actions';
 import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE, CART_PAGE} from '../const';
 
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Layout({page, cart, categoryMap, setCategory}) {
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
     const handleSidebarToggle = (expanded) => {

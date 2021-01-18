@@ -19,16 +19,15 @@ export const cartReducer = (state = { items: [] }, action) => {
         return { items: [...items] };
         // return state;
       }
-      break;
 
     case CLEAR_CART:
-      return { items: [] }
-      break;
+      return { items: [] };
 
     case UPDATE_ADDITION:
-      return {}
-      break;
+      return {};
+
+    default:
+      return state;
   }
 
-  return state;
 }

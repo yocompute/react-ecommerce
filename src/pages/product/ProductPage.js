@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import { QuantityInput } from '../../components/common/QuantityInput';
 import { updateCart } from '../../redux/cart/cart.actions';
 import {setPage} from '../../redux/page/page.actions';
@@ -14,9 +14,9 @@ import { selectProductQuantity } from '../../redux/cart/cart.selectors';
 import DefaultPicture from '../../assets/detailProduct.jpg'
 import Additions from "../../components/product/Additions";
 
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     picWrapper: {
         width: '100%',
         height: '142px'
@@ -38,9 +38,6 @@ const useStyles = makeStyles((theme) => ({
         width: '146px',
         height: '120px',
         float: 'left'
-    },
-    image: {
-        width: '100%'
     },
     textCol: {
         width: '200px',
@@ -76,9 +73,9 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
         setPage(PRODUCT_PAGE);
     }, [setPage])
 
-    function handleSelect() {
+    // function handleSelect() {
 
-    }
+    // }
 
     function toCartItem(product){
         return {

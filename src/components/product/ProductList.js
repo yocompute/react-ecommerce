@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+// import Grid from "@material-ui/core/Grid";
 
-import { QuantityInput } from "../common/QuantityInput";
+// import { QuantityInput } from "../common/QuantityInput";
 import { Link } from "react-router-dom";
 import { setProduct } from "../../redux/product/product.actions";
 
 import DefaultImage from "../../assets/defaultProduct.jpg";
 // import './ProductList.scss'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   productRow: {
     width: "100%",
     display: "block",
@@ -70,9 +70,9 @@ const ProductList = ({ data, setProduct }) => {
 
   // }
 
-  function getPictureUrl(d) {
-    return d.pictures[0];
-  }
+  // function getPictureUrl(d) {
+  //   return d.pictures[0];
+  // }
 
 
 

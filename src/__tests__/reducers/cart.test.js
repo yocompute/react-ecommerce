@@ -1,6 +1,6 @@
-const { ExpansionPanelActions } = require("@material-ui/core");
-
 import {cart} from '../../reducers/cart'
+
+const { ExpansionPanelActions } = require("@material-ui/core");
 
 it('initial cart is empty', ()=>{
     const action = { type: 'no_action'};

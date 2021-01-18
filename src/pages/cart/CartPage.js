@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ import { CART_PAGE } from '../../const';
 
 // import Header from '../../components/common/Header'
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles( () => ({
     page: {
         padding: '20px'
     }
@@ -22,9 +22,9 @@ const useStyles = makeStyles( theme => ({
 
 const CartPage = ({cart, setPage, updateCart}) => {
     const classes = useStyles();
-    const handlePaymentMethodSelect = () => {
+    // const handlePaymentMethodSelect = () => {
 
-    }
+    // }
     
     useEffect(() => {
         setPage(CART_PAGE);
@@ -48,6 +48,14 @@ const CartPage = ({cart, setPage, updateCart}) => {
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
         </div>
     )
+}
+
+CartPage.propTypes = {
+  cart: PropTypes.shape({
+    items: PropTypes.any
+  }),
+  setPage: PropTypes.func,
+  updateCart: PropTypes.func
 }
 
 const mapStateToProps = state => ({
