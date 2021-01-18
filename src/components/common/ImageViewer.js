@@ -25,7 +25,7 @@ export default function ImageViewer({ src, onRemove }) {
   return (
     <div className={classes.imageWrapper}>
       <CancelIcon className={classes.deleteIcon} onClick={onRemove} />
-      <img className={classes.image} src={url} alt=""></img>
+      <img className={classes.image} src={src} alt=""></img>
     </div>
   );
 }

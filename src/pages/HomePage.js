@@ -29,7 +29,7 @@ const HomePage = ({ match, setPage, fetchBrands, brands }) => {
 
   useEffect(() => {
     setPage(HOME_PAGE);
-  }, []);
+  }, [setPage]);
 
   return (
     <div className={classes.page}>

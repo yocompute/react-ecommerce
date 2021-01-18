@@ -1,4 +1,4 @@
-import { put, call, select, takeLatest } from 'redux-saga/effects'
+import { put, call, takeLatest } from 'redux-saga/effects'
 
 import { FETCH_QRCODES, FETCH_QRCODE, CREATE_QRCODE, UPDATE_QRCODE, 
     fetchQrcodesSuccess, fetchQrcodesFail, fetchQrcodeSuccess, fetchQrcodeFail, createQrcodeSuccess, updateQrcodeSuccess } from './qrcode.actions'

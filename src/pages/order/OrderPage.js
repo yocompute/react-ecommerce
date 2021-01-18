@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react'
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button';
 import { CartItemList } from '../../components/cart/CartItemList';
-import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect'
+// import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect';
 import { setPage } from  '../../redux/page/page.actions';
 import { ORDER_PAGE } from '../../const';
 
 // import Header from '../../components/common/Header'
 
 const OrderPage = ({cart, setPage}) => {
-    const handlePaymentMethodSelect = () => {
+    // const handlePaymentMethodSelect = () => {
 
-    }
+    // }
     
     useEffect(() => {
         setPage(ORDER_PAGE);
@@ -28,6 +28,13 @@ const OrderPage = ({cart, setPage}) => {
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
         </div>
     )
+}
+
+OrderPage.propTypes = {
+  cart: PropTypes.shape({
+    items: PropTypes.any
+  }),
+  setPage: PropTypes.func
 }
 
 const mapStateToProps = state => ({

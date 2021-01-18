@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createRef } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import queryString from "query-string";
@@ -17,7 +17,7 @@ import { selectCategoryMap } from "../../redux/product/product.selectors";
 
 const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   page: {
     width: "100%",
     height: "100%",
@@ -60,7 +60,7 @@ const BrandPage = ({
       fetchProducts({ brand, type: {$ne: 'A'} });
       setPage(BRAND_PAGE);
     }
-  }, [fetchProducts]);
+  }, [fetchBrand, fetchProducts, location.search, match.params, setPage, setQrcode]);
 
 
   return (

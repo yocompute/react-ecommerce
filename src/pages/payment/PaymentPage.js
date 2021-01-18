@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,9 +21,9 @@ const useStyles = makeStyles( theme => ({
 
 const PaymentPage = ({cart, setPage}) => {
     const classes = useStyles();
-    const handlePaymentMethodSelect = () => {
+    // const handlePaymentMethodSelect = () => {
 
-    }
+    // }
     
     useEffect(() => {
         setPage(PAYMENT_PAGE);
@@ -37,6 +37,13 @@ const PaymentPage = ({cart, setPage}) => {
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
         </div>
     )
+}
+
+PaymentPage.propTypes = {
+  cart: PropTypes.shape({
+    items: PropTypes.any
+  }),
+  setPage: PropTypes.func
 }
 
 const mapStateToProps = state => ({

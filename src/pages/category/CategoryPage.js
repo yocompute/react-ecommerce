@@ -58,7 +58,7 @@ const CategoryPage = ({
       fetchProducts({ category });
       setPage(CATEGORY_PAGE);
     }
-  }, [match.params.id_category]);
+  }, [fetchBrand, fetchProducts, match.params, match.params.id_category, setPage]);
 
   return (
     <div className={classes.page}>

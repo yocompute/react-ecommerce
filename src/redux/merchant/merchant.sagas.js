@@ -1,4 +1,4 @@
-import { put, call, select, takeLatest } from 'redux-saga/effects'
+import { put, call } from 'redux-saga/effects'
 import BrandApi from '../../services/BrandApi'
 import { fetchBrandsFail, fetchBrandsSuccess } from './brand.actions';
 
