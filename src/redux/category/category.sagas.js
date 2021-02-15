@@ -1,29 +1,38 @@
-import { put, call, takeLatest } from "redux-saga/effects";
-import { FETCH_CATEGORIES, FETCH_CATEGORY } from "./category.actions";
+import { call, put, takeLatest } from "redux-saga/effects";
 import {
+  FETCH_CATEGORIES,
+  FETCH_CATEGORY,
   fetchCategoriesSuccess,
   fetchCategoriesFail,
   fetchCategorySuccess,
   fetchCategoryFail,
-} from "../../redux/category/category.actions";
+} from "./category.actions";
 import CategoryApi from "../../services/CategoryApi";
+
+import { setNotification } from '../notification/notification.actions';
+import { httpSuccess } from '../notification/notification.sagas';
 
 export function* fetchCategories(action) {
   try {
-    const categories = yield call(CategoryApi.get, action.query);
-    yield put(fetchCategoriesSuccess(categories));
+    const {data, error, status} = yield call(CategoryApi.get, action.query);
+    if(httpSuccess(status)){
+      yield put(fetchCategoriesSuccess(data));
+    }else{
+      yield put(setNotification(error, status));
+    }
   } catch (error) {
     yield put(fetchCategoriesFail(error));
   }
 }
 
+
 export function* fetchCategory(action) {
   try {
-    const categories = yield call(CategoryApi.get, action.query);
-    if (categories && categories.length > 0) {
-      yield put(fetchCategorySuccess(categories[0]));
-    } else {
-      yield put(fetchCategoryFail("No Categories Available"));
+    const {data, error, status} = yield call(CategoryApi.get, action.query);
+    if(httpSuccess(status)){
+      yield put(fetchCategorySuccess(data[0]));
+    }else{
+      yield put(setNotification(error, status));
     }
   } catch (error) {
     yield put(fetchCategoryFail("error"));

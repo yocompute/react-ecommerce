@@ -31,7 +31,6 @@ const useStyles = makeStyles(() => ({
 
 const BrandPage = ({
   location,
-  match,
   categoryMap,
   products,
   fetchBrand,
@@ -49,18 +48,20 @@ const BrandPage = ({
       fetchProducts({ brand: params.brandId, type: {$ne: 'A'} });
       setPage(BRAND_PAGE);
       setQrcode(params.qrcode);
-    } else if (match.params && match.params.id) {
-      const brand = match.params.id;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand, type: {$ne: 'A'} });
-      setPage(BRAND_PAGE);
-    } else {
-      const brand = DEFAULT_BRAND_ID;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand, type: {$ne: 'A'} });
-      setPage(BRAND_PAGE);
-    }
-  }, [fetchBrand, fetchProducts, location.search, match.params, setPage, setQrcode]);
+    } 
+    // else if (match.params && match.params.id) {
+    //   const brand = match.params.id;
+    //   fetchBrand({ _id: brand });
+    //   fetchProducts({ brand, type: {$ne: 'A'} });
+    //   setPage(BRAND_PAGE);
+    // } 
+    // else {
+    //   const brand = DEFAULT_BRAND_ID;
+    //   fetchBrand({ _id: brand });
+    //   fetchProducts({ brand, type: {$ne: 'A'} });
+    //   setPage(BRAND_PAGE);
+    // }
+  }, [fetchBrand, fetchProducts, location.search, setPage, setQrcode]);
 
 
   return (

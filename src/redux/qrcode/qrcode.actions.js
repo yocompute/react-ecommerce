@@ -3,10 +3,6 @@ export const FETCH_QRCODES = 'qrcode/FETCH_QRCODES';
 export const FETCH_QRCODES_SUCCESS = 'qrcode/FETCH_QRCODES_SUCCESS';
 export const FETCH_QRCODES_FAIL = 'qrcode/FETCH_QRCODES_FAIL';
 
-export const FETCH_QRCODE = 'qrcode/FETCH_QRCODE';
-export const FETCH_QRCODE_SUCCESS = 'qrcode/FETCH_QRCODE_SUCCESS';
-export const FETCH_QRCODE_FAIL = 'qrcode/FETCH_QRCODE_FAIL';
-
 export const CREATE_QRCODE = 'qrcode/CREATE_QRCODE';
 export const CREATE_QRCODE_SUCCESS = 'qrcode/CREATE_QRCODE_SUCCESS';
 export const CREATE_QRCODE_FAIL = 'qrcode/CREATE_QRCODE_FAIL';
@@ -19,7 +15,7 @@ export const SET_QRCODE = 'qrcode/SET_QRCODE';
 
 
 // action creators
-export const fetchQrcodes = (payload) => ({
+export const fetchQrcodes = () => ({
     type: FETCH_QRCODES
 })
 
@@ -33,21 +29,6 @@ export const fetchQrcodesFail = (error) => ({
     error
 })
 
-
-export const fetchQrcode = (query) => ({
-    type: FETCH_QRCODE,
-    query
-})
-
-export const fetchQrcodeSuccess = (qrcode) => ({
-    type: FETCH_QRCODE_SUCCESS,
-    qrcode
-})
-
-export const fetchQrcodeFail = (error) => ({
-    type: FETCH_QRCODE_FAIL,
-    error
-})
 
 export const createQrcode = (data) => ({
     type: CREATE_QRCODE,
@@ -64,9 +45,10 @@ export const createQrcodeFail = error => ({
     error
 })
 
-export const updateQrcode = (data) => ({
+export const updateQrcode = (data, id) => ({
     type: UPDATE_QRCODE,
-    data
+    data,
+    id,
 })
 
 export const updateQrcodeSuccess = (qrcode) => ({

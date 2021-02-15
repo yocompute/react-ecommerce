@@ -54,7 +54,7 @@ const Addition = ({brand, product, addition, setPage, updateCart, quantity}) => 
         return {
             productId: product._id,
             productName: product.name,
-            brandId: brand._id,
+            brandId: product.brand._id,
             price: product.price,
             cost: product.cost,
             saleTaxRate: product.saleTaxRate,

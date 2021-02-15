@@ -22,7 +22,7 @@ import cfg from "./config";
 
 const Routes = () => {
     return (<Switch>
-            <Route exact path="/brands/:id" component={BrandPage} />
+            {/* <Route exact path="/brands" component={BrandPage} /> */}
             <Route path="/payment" component={PaymentPage} />
             <Route path="/cart" component={CartPage} />
             <Route path="/products/:id" component={ProductPage} />
