@@ -18,7 +18,7 @@ export const UPDATE_BRAND_FAIL = "brand/UPDATE_BRAND_FAIL";
 export const SET_BRAND = "brand/SET_BRAND";
 
 // action creators
-export const fetchBrands = (payload) => ({
+export const fetchBrands = () => ({
   type: FETCH_BRANDS,
 });
 
@@ -62,9 +62,10 @@ export const createBrandFail = (error) => ({
   error,
 });
 
-export const updateBrand = (data) => ({
+export const updateBrand = (data, id) => ({
   type: UPDATE_BRAND,
   data,
+  id,
 });
 
 export const updateBrandSuccess = (brand) => ({

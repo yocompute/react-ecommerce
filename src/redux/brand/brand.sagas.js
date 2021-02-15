@@ -14,24 +14,33 @@ import {
 } from "./brand.actions";
 
 import BrandApi from "../../services/BrandApi";
+import { setNotification } from '../notification/notification.actions';
+import { httpSuccess } from '../notification/notification.sagas';
 
 export function* fetchBrands(action) {
   try {
-    const brands = yield call(BrandApi.get, action.query);
-    yield put(fetchBrandsSuccess(brands));
+    const {data, error, status} = yield call(BrandApi.get, action.query);
+    if(httpSuccess(status)){
+      yield put(fetchBrandsSuccess(data));
+    }else{
+      yield put(setNotification(error, status));
+    }
+
   } catch (error) {
     yield put(fetchBrandsFail(error));
   }
 }
 
+
 export function* fetchBrand(action) {
   try {
-    const brands = yield call(BrandApi.get, action.query);
-    if (brands && brands.length > 0) {
-      yield put(fetchBrandSuccess(brands[0]));
-    } else {
-      yield put(fetchBrandFail("No Brands Available"));
+    const {data, error, status} = yield call(BrandApi.get, action.query);
+    if(httpSuccess(status)){
+      yield put(fetchBrandSuccess(data[0]));
+    }else{
+      yield put(setNotification(error, status));
     }
+
   } catch (error) {
     yield put(fetchBrandFail(error));
   }
@@ -39,8 +48,15 @@ export function* fetchBrand(action) {
 
 export function* createBrand(action) {
   try {
-    const brand = yield call(BrandApi.create, action.data);
-    yield put(createBrandSuccess(brand));
+    const {data, error, status} = yield call(BrandApi.create, action.data);
+    yield put(createBrandSuccess(data));
+    if(httpSuccess(status)){
+      const {data, error, status} = yield call(BrandApi.get, null);
+      yield put(fetchBrandsSuccess(data));
+    }else{
+      yield put(setNotification(error, status));
+    }
+    
   } catch (error) {
     // yield put(addError({
     //     ...error
@@ -50,8 +66,14 @@ export function* createBrand(action) {
 
 export function* updateBrand(action) {
   try {
-    const brands = yield call(BrandApi.update, action.data);
-    yield put(updateBrandSuccess(brands));
+    const {data, error, status} = yield call(BrandApi.update, action.data, action.id);
+    yield put(updateBrandSuccess(data));
+    if(httpSuccess(status)){
+      const {data, error, status} = yield call(BrandApi.get, null);
+      yield put(fetchBrandsSuccess(data));
+    }else{
+      yield put(setNotification(error, status));
+    }
   } catch (error) {
     // yield put(addError({
     //     ...error

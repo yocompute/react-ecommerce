@@ -1,33 +1,15 @@
-import { CLEAR_CART, UPDATE_ADDITION, UPDATE_CART } from './cart.actions';
-
 export const cartReducer = (state = { items: [] }, action) => {
+  const item = action.item;
   switch (action.type) {
-    case UPDATE_CART:
-      const item = action.item;
+    case 'UPDATE_CART':
       if (item && item.quantity > 0) {
-        const index = state.items.findIndex(it => it.productId === item.productId);
-        if (index !== -1) {
-          const items = [...state.items];
-          items[index] = item;
-          return { items };
-        } else {
-          const items = state.items.filter(it => it.productId !== item.productId);
-          return { items: [...items, item] };
-        }
+        const items = state.items.filter(it => it.productId !== item.productId);
+        return { items: [...items, item] };
       } else {
         const items = state.items.filter(it => it.productId !== item.productId);
-        return { items: [...items] };
-        // return state;
+        return { items };
       }
-
-    case CLEAR_CART:
-      return { items: [] };
-
-    case UPDATE_ADDITION:
-      return {};
-
-    default:
-      return state;
   }
 
+  return state;
 }
