@@ -37,6 +37,7 @@ const BrandPage = ({
   fetchProducts,
   setQrcode,
   setPage,
+  match,
 }) => {
   const classes = useStyles();
 
@@ -48,13 +49,12 @@ const BrandPage = ({
       fetchProducts({ brand: params.brandId, type: {$ne: 'A'} });
       setPage(BRAND_PAGE);
       setQrcode(params.qrcode);
+    } else if (match.params && match.params.id) { // for multi brand
+      const brand = match.params.id;
+      fetchBrand({ _id: brand });
+      fetchProducts({ brand, type: {$ne: 'A'} });
+      setPage(BRAND_PAGE);
     } 
-    // else if (match.params && match.params.id) {
-    //   const brand = match.params.id;
-    //   fetchBrand({ _id: brand });
-    //   fetchProducts({ brand, type: {$ne: 'A'} });
-    //   setPage(BRAND_PAGE);
-    // } 
     // else {
     //   const brand = DEFAULT_BRAND_ID;
     //   fetchBrand({ _id: brand });
