@@ -14,8 +14,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { selectQuantity } from '../redux/cart/cart.selectors';
 
-import cfg from '../config';
-// (brand ? `/brands/${brand._id}` :
 import './Footer.scss';
 
 const Menu = {

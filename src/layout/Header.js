@@ -10,13 +10,11 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-// import AppDrawer from './AppDrawer';
 import Category from "../components/category/Category";
 import { selectCategoryMap } from "../redux/product/product.selectors";
 import { BRAND_PAGE } from "../const";
@@ -38,10 +36,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     width: "160px"
-        // display: 'none',
-        // [theme.breakpoints.up('sm')]: {
-        //   display: 'block',
-        // },
   },
   search: {
     position: 'relative',
@@ -72,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
