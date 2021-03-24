@@ -1,5 +1,4 @@
-const cfg = {
-    MULTI_BRAND: true
+import {AppMode} from "./const";
+export const cfg = {
+    appMode: AppMode.PROD
 }
-
-export default cfg;

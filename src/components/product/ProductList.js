@@ -9,9 +9,12 @@ import { Link } from "react-router-dom";
 import { setProduct } from "../../redux/product/product.actions";
 
 import DefaultImage from "../../assets/defaultProduct.jpg";
-// import './ProductList.scss'
+
 
 const useStyles = makeStyles(() => ({
+  root:{
+    margin: '0 20px',
+  },
   productRow: {
     width: "100%",
     display: "block",
@@ -78,6 +81,8 @@ const ProductList = ({ data, setProduct }) => {
 
   return (
     data && Object.keys(data).length > 0 ?
+    <div className={classes.root}>
+      {
     Object.keys(data).map((categoryName) => (
       data[categoryName].products && data[categoryName].products.length > 0 &&
       <div 
@@ -108,6 +113,8 @@ const ProductList = ({ data, setProduct }) => {
         }
       </div>
     ))
+  }
+  </div>
     :
     <div>No Category is available</div>
   )

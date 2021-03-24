@@ -30,12 +30,12 @@ export function* createUser(action) {
         const {data, error, status} = yield call(UserApi.create, action.data);
         yield put(createUserSuccess(data));
 
-        if(httpSuccess(status)){
-            const {data, error, status} = yield call(UserApi.get, null);
-            yield put(fetchUsersSuccess(data));
-        }else{
+        // if(httpSuccess(status)){
+        //     const {data, error, status} = yield call(UserApi.get, null);
+        //     yield put(fetchUsersSuccess(data));
+        // }else{
 
-        }
+        // }
 
     } catch (error) {
         // yield put(addError({
@@ -48,12 +48,12 @@ export function* updateUser(action) {
     try {
         const {data, error, status} = yield call(UserApi.update, action.data, action.id);
         yield put(updateUserSuccess(data));
-        if(httpSuccess(status)){
-            const {data, error, status} = yield call(UserApi.get, null);
-            yield put(fetchUsersSuccess(data));
-        }else{
+        // if(httpSuccess(status)){
+        //     const {data, error, status} = yield call(UserApi.get, null);
+        //     yield put(fetchUsersSuccess(data));
+        // }else{
 
-        }
+        // }
     } catch (error) {
         // yield put(addError({
         //     ...error

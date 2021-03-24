@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     }
 });
 
-const PlaceOrderRow = ({ type, user, cart, createPayment }) => {
+const PlaceOrderRow = ({ type, brand, qrcode, user, cart, createPayment }) => {
     const classes = useStyles();
     const history = useHistory();
 
@@ -64,14 +64,14 @@ const PlaceOrderRow = ({ type, user, cart, createPayment }) => {
             p.total += it.price * (100 + it.saleTaxRate) / 100;
             p.cost += it.cost * (100 + it.purchaseTaxRate) / 100;
         })
-        createPayment({data: p, history});
+        createPayment(p);
     }
 
     return <div className={classes.checkoutRow}>
         <div className={classes.continueBtn} onClick={handlePlaceOrder} >
             Place Order
         </div>
-        <Link className={classes.backBtn} to={{ pathname: user ? "/" : "/login-select" }} >
+        <Link className={classes.backBtn} to={{ pathname: user ? `/` : "/login-select" }} >
             Back
         </Link>
     </div>
@@ -79,6 +79,8 @@ const PlaceOrderRow = ({ type, user, cart, createPayment }) => {
 
 
 const mapStateToProps = state => ({
+    brand: state.brand,
+    qrcode: state.qrcode,
     cart: state.cart,
     user: state.user,
     quantity: selectQuantity(state)

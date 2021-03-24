@@ -16,8 +16,9 @@ export const LOGOUT = 'auth/LOGOUT';
 export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 
 // action creators
-export const fetchAuth = () => ({
-    type: FETCH_AUTH
+export const fetchAuth = (query) => ({
+    type: FETCH_AUTH,
+    query
 })
 
 export const fetchAuthSuccess = (tokenId) => ({

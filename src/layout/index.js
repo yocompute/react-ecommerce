@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from './Footer';
-import CartRow from './CartRow';
+// import CartRow from '../components/cart/CartRow';
 import AddToOrderRow from './AddToOrderRow';
 import PlaceOrderRow from './PlaceOrderRow';
 
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart, categoryMap, setCategory}) {
+function Layout({page, cart, categoryMap, setCategory, nProducts}) {
     const classes = useStyles();
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -143,12 +143,8 @@ function Layout({page, cart, categoryMap, setCategory}) {
                 {/* </div> */}
             </div>
             {
-                page.name === PRODUCT_PAGE &&
+                page.name === PRODUCT_PAGE && nProducts > 0 &&
                 <AddToOrderRow />
-            }
-            {
-                (page.name === BRAND_PAGE || page.name === HOME_PAGE || page.name === CART_PAGE) && cart.items.length > 0 &&
-                <CartRow />
             }
             {
                 page.name === PAYMENT_PAGE &&

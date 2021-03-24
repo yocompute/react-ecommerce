@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { selectQuantity } from '../redux/cart/cart.selectors';
+import { selectQuantity } from '../../redux/cart/cart.selectors';
 
 const useStyles = makeStyles({
   checkoutRow: {

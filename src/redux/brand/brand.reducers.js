@@ -1,4 +1,5 @@
 import {
+  FETCH_BRAND_SUCCESS,
   FETCH_BRANDS_SUCCESS,
   CREATE_BRAND_SUCCESS,
   UPDATE_BRAND_SUCCESS,
@@ -14,6 +15,10 @@ export const brandsReducer = (state = null, action) => {
 
 export const brandReducer = (state = null, action) => {
   if (action && action.type === SET_BRAND) {
+    return { ...action.brand };
+  }
+
+  if (action && action.type === FETCH_BRAND_SUCCESS) {
     return { ...action.brand };
   }
 

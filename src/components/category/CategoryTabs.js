@@ -7,10 +7,10 @@ import { makeStyles } from "@material-ui/core";
 const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
 const useStyles = makeStyles(() => ({
-  container: {
-    boxShadow: "0 1px 10px #ccc",
-  },
   root: {
+    // boxShadow: "0 1px 10px #ccc",
+  },
+  container: {
     paddingLeft: 0,
     margin: 0,
     listStyleType: "none",
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Category = ({ data, brand, category, onSelect }) => {
+const CategoryTabs = ({ data, brand, category, onSelect }) => {
   const classes = useStyles();
 
   const handleSelected = (category) => {
@@ -58,8 +58,8 @@ const Category = ({ data, brand, category, onSelect }) => {
   };
 
   return (
-    <div className={classes.container}>
-      <ul className={classes.root}>
+    <div className={classes.root}>
+      <ul className={classes.container}>
         {data &&
           data.length &&
           data.map((c) => (
@@ -83,4 +83,4 @@ const mapStateToProps = (state) => ({
   category: state.category
 });
 
-export default connect(mapStateToProps, { setCategory })(Category);
+export default connect(mapStateToProps, { setCategory })(CategoryTabs);

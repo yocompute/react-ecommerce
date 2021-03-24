@@ -9,14 +9,25 @@ import { QuantityInput } from '../../components/common/QuantityInput';
 import { updateCart } from '../../redux/cart/cart.actions';
 import {setPage} from '../../redux/page/page.actions';
 import {PRODUCT_PAGE} from '../../const';
-import { selectProductQuantity } from '../../redux/cart/cart.selectors';
 
 import DefaultPicture from '../../assets/detailProduct.jpg'
 import Additions from "../../components/product/Additions";
 
+import { selectQuantity, selectProductQuantity } from '../../redux/cart/cart.selectors';
+
 // import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles(() => ({
+    root:{
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        top: "0px",
+    },
+    product:{
+        width: '100%',
+        height: '100%',
+    },
     picWrapper: {
         width: '100%',
         height: '142px'
@@ -104,10 +115,10 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
     }
 
     return (
-        <div>
+        <div className={classes.root}>
             {
                 product &&
-                <div>
+                <div className={classes.product}>
                     <div className={classes.picWrapper}>
                         <img className={classes.image} src={DefaultPicture} />
                     </div>
@@ -131,9 +142,6 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
                     </div>
                 </div>
             }
-
-
-
         </div>
     )
 }

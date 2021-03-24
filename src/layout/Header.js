@@ -15,7 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Category from "../components/category/Category";
+import CategoryTabs from "../components/category/CategoryTabs";
 import { selectCategoryMap } from "../redux/product/product.selectors";
 import { BRAND_PAGE } from "../const";
 import { logout } from '../redux/auth/auth.actions';
@@ -29,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
   categories:{
     position: 'absolute',
-    top: '56px'
+    top: '64px',
+    width: '100%',
+    borderBottom: '1px solid #eee',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -202,7 +204,7 @@ function Header({ page, logout, categoryMap }) {
             Shippal
           </Typography>
 
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -214,7 +216,7 @@ function Header({ page, logout, categoryMap }) {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -256,7 +258,7 @@ function Header({ page, logout, categoryMap }) {
       {
         page.name === BRAND_PAGE &&
         <div className={classes.categories}>
-          <Category
+          <CategoryTabs
           data={categoryMap ? Object.values(categoryMap) : null}
           onSelect={handleSelectCategory}
           />

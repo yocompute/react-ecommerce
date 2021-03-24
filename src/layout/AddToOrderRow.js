@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   checkoutRow: {
     width: '100%',
     height: '56px',
-    position: 'fixed',
+    position: 'absolute',
     bottom: '0px',
     display: 'block',
     lineHeight: '42px',
@@ -46,7 +46,7 @@ const AddToOrderRow = ({ user, brand, quantity }) => {
 
   return <div className={classes.checkoutRow}>
     {
-      quantity > 0 && brand &&
+      brand &&
       <Link className={classes.continueBtn} to={{ pathname: user ? `/brands/${brand._id}` : "/login-select" }} >
         Add to Order
       </Link>

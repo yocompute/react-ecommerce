@@ -8,12 +8,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import ProductList from "../../components/product/ProductList";
 import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
-import { fetchBrand } from "../../redux/brand/brand.actions";
+import { brand, fetchBrand } from "../../redux/brand/brand.actions";
 import { setPage } from "../../redux/page/page.actions";
 import { setQrcode } from "../../redux/qrcode/qrcode.actions";
 
 import { BRAND_PAGE } from "../../const";
+import CartRow from "../../components/cart/CartRow";
+
 import { selectCategoryMap } from "../../redux/product/product.selectors";
+import {selectQuantity} from "../../redux/cart/cart.selectors";
 
 const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
@@ -25,12 +28,13 @@ const useStyles = makeStyles(() => ({
     top: "0px",
   },
   products: {
-    margin: 20,
+    margin: 0,
   },
 }));
 
 const BrandPage = ({
   location,
+  nProducts,
   categoryMap,
   products,
   fetchBrand,
@@ -43,17 +47,15 @@ const BrandPage = ({
 
   useEffect(() => {
     const params = queryString.parse(location.search);
-
+    setPage(BRAND_PAGE);
     if (params.brandId && params.qrcode) {
       fetchBrand({ _id: params.brandId });
       fetchProducts({ brand: params.brandId, type: {$ne: 'A'} });
-      setPage(BRAND_PAGE);
-      setQrcode(params.qrcode);
+      setQrcode({_id: params.qrcode});
     } else if (match.params && match.params.id) { // for multi brand
       const brand = match.params.id;
       fetchBrand({ _id: brand });
       fetchProducts({ brand, type: {$ne: 'A'} });
-      setPage(BRAND_PAGE);
     } 
     // else {
     //   const brand = DEFAULT_BRAND_ID;
@@ -69,10 +71,15 @@ const BrandPage = ({
       {window.matchMedia(`(max-width: 768px)`).matches ? (
         <div className={classes.products}>
           <ProductList data={categoryMap} />
+          {
+            nProducts >0 &&
+            <CartRow />
+          }
         </div>
       ) : (
         <div>
           <ProductGrid data={products} />
+          <CartRow />
         </div>
       )}
     </div>
@@ -91,6 +98,7 @@ BrandPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   categoryMap: selectCategoryMap(state),
+  nProducts: selectQuantity(state),
   products: state.products,
 });
 

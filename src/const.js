@@ -11,6 +11,12 @@ export const PAYMENT_PAGE = 'pay/payment';
 export const ORDER_PAGE = 'page/order';
 
 
+
+export const AppMode = {
+    DEV: 'dev',
+    PROD: 'prod'
+}
+
 export const PaymentStatus = {
     NEW: 'N'
 }

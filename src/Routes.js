@@ -14,7 +14,8 @@ import LocalSignupPage from "./pages/auth/LocalSignupPage";
 import BrandPage from "./pages/brand/BrandPage";
 import CategoryPage from "./pages/category/CategoryPage";
 
-import cfg from "./config";
+import {cfg} from "./config";
+import { AppMode } from "./const";
 
 // import BrandListPage from './pages/brand/BrandListPage'
 // import ProductListPage from './pages/product/ProductListPage'
@@ -33,7 +34,7 @@ const Routes = () => {
             <Route path="/verify-code" component={VerificationCodePage} />
             <Route path="/payments" component={PaymentHistoryPage} />
             {
-                cfg.MULTI_BRAND
+                cfg.appMode === AppMode.DEV
                 ? <Route exact path="/" component={HomePage} />
                 : <Route exact path="/" component={BrandPage} />
             }

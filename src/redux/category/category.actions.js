@@ -10,8 +10,9 @@ export const FETCH_CATEGORY = "category/FETCH_CATEGORY";
 export const SET_CATEGORY_MAP = "category/SET_CATEGORY_MAP";
 
 
-export const fetchCategories = () => ({
+export const fetchCategories = (query) => ({
   type: FETCH_CATEGORIES,
+  query
 });
 
 export const fetchCategoriesSuccess = (categories = []) => ({

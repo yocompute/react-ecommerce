@@ -12,7 +12,7 @@ import { fetchBrand } from "../../redux/brand/brand.actions";
 import { fetchCategory } from "../../redux/category/category.actions";
 import { setPage } from "../../redux/page/page.actions";
 import { CATEGORY_PAGE } from "../../const";
-import Category from "../../components/category/Category";
+import CategoryTabs from "../../components/category/CategoryTabs";
 
 const DEFAULT_CATEGORY_ID = "5fd44afbd142f9414b358218";
 
@@ -62,7 +62,7 @@ const CategoryPage = ({
 
   return (
     <div className={classes.page}>
-      <Category className={classes.categories} data={categories} />
+      <CategoryTabs className={classes.categories} data={categories} />
       {window.matchMedia(`(max-width: 768px)`).matches ? (
         <div className={classes.products}>
           <ProductList data={products} />

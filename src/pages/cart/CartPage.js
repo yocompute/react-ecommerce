@@ -6,21 +6,27 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 // import Button from '@material-ui/core/Button'
+
+import CartRow from '../../components/cart/CartRow';
 import { CartItemList } from '../../components/cart/CartItemList';
 // import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect'
 import { setPage } from  '../../redux/page/page.actions';
 import { updateCart } from '../../redux/cart/cart.actions';
 import { CART_PAGE } from '../../const';
+import { selectQuantity } from '../../redux/cart/cart.selectors';
 
 // import Header from '../../components/common/Header'
 
 const useStyles = makeStyles( () => ({
     page: {
-        padding: '20px'
+        padding: '0px'
+    },
+    list: {
+        padding: '20px',
     }
 }));
 
-const CartPage = ({cart, setPage, updateCart}) => {
+const CartPage = ({cart, setPage, updateCart, nProducts}) => {
     const classes = useStyles();
     // const handlePaymentMethodSelect = () => {
 
@@ -43,9 +49,16 @@ const CartPage = ({cart, setPage, updateCart}) => {
     return (
         <div className={classes.page}>
             {/* <Header title={'Order Page'}></Header> */}
+            <div className={classes.list}>
             <CartItemList items={cart.items} onQuantityChange={handleQuantityChange} />
+            </div>
             {/* <div className="label payment-label">Payment Method</div> */}
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
+
+            {
+                nProducts > 0 &&
+                <CartRow />
+            }
         </div>
     )
 }
@@ -59,6 +72,7 @@ CartPage.propTypes = {
 }
 
 const mapStateToProps = state => ({
+    nProducts: selectQuantity(state),
     cart: state.cart
 });
 

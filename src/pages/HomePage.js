@@ -6,9 +6,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import BrandList from "../components/brand/BrandList";
 import BrandGrid from "../components/brand/BrandGrid";
-import { fetchBrands } from "../redux/brand/brand.actions";
-import { setPage } from "../redux/page/page.actions";
+import CartRow from "../components/cart/CartRow";
 import { HOME_PAGE } from "../const";
+
+import { setPage } from "../redux/page/page.actions";
+import { fetchBrands } from "../redux/brand/brand.actions";
+import { selectQuantity } from "../redux/cart/cart.selectors";
 
 // import './HomePage.scss'
 
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = ({ match, setPage, fetchBrands, brands }) => {
+const HomePage = ({ match, setPage, fetchBrands, brands, nProducts }) => {
   const classes = useStyles();
   useEffect(() => {
     fetchBrands();
@@ -36,6 +39,10 @@ const HomePage = ({ match, setPage, fetchBrands, brands }) => {
       {window.matchMedia(`(max-width: 768px)`).matches ? (
         <div>
           <BrandList data={brands} />
+          {
+                nProducts > 0 &&
+                <CartRow />
+          }
         </div>
       ) : (
         <div>
@@ -56,6 +63,7 @@ HomePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  nProducts: selectQuantity(state),
   brands: state.brands,
 });
 
