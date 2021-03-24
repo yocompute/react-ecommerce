@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { selectQuantity } from '../redux/cart/cart.selectors';
 import { PaymentStatus } from '../const';
 import { createPayment } from '../redux/payment/payment.actions';
+import {selectAuthUser} from '../redux/auth/auth.selectors';
 const useStyles = makeStyles({
     checkoutRow: {
         width: '100%',
@@ -82,7 +83,7 @@ const mapStateToProps = state => ({
     brand: state.brand,
     qrcode: state.qrcode,
     cart: state.cart,
-    user: state.user,
+    user: selectAuthUser(state),
     quantity: selectQuantity(state)
 });
 

@@ -18,7 +18,7 @@ import { notificationReducer } from './notification/notification.reducers';
 const sagaMiddleware = createSagaMiddleware();
 
 export const rootReducer = combineReducers({
-  tokenId: authReducer,
+  auth: authReducer,
   users: usersReducer,
   user: userReducer,
   brands: brandsReducer,

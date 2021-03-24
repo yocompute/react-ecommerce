@@ -17,6 +17,7 @@ import CartRow from "../../components/cart/CartRow";
 
 import { selectCategoryMap } from "../../redux/product/product.selectors";
 import {selectQuantity} from "../../redux/cart/cart.selectors";
+import { login } from "../../redux/auth/auth.actions";
 
 const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
@@ -33,10 +34,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 const BrandPage = ({
+  auth,
   location,
   nProducts,
   categoryMap,
   products,
+  login,
   fetchBrand,
   fetchProducts,
   setQrcode,
@@ -46,6 +49,11 @@ const BrandPage = ({
   const classes = useStyles();
 
   useEffect(() => {
+    login({
+      username: 'Guest',
+      email: process.env.REACT_APP_GUEST_EMAIL,
+      password: process.env.REACT_APP_GUEST_PASSWORD,
+    });
     const params = queryString.parse(location.search);
     setPage(BRAND_PAGE);
     if (params.brandId && params.qrcode) {
@@ -107,4 +115,5 @@ export default connect(mapStateToProps, {
   fetchBrand,
   setQrcode,
   setPage,
+  login,
 })(BrandPage);
