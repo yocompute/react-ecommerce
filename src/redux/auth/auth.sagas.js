@@ -2,11 +2,10 @@ import { put, call, takeLatest } from 'redux-saga/effects';
 import Cookies from 'js-cookie';
 import AuthApi from '../../services/AuthApi';
 import { FETCH_AUTH, LOGIN, SIGNUP, LOGOUT,
-    fetchAuthSuccess, loginSuccess, signupSuccess, logoutSuccess } from './auth.actions';
-import { setUser } from '../user/user.actions';
+    setAuth, fetchAuthSuccess, loginSuccess, signupSuccess, logoutSuccess } from './auth.actions';
+
 import { setLoading } from '../page/page.actions';
 
-// import { selectACL } from '../ACL/ACL.selectors'
 import {JWT_COOKIE, JWT_EXPIRY} from '../../const';
 import { setNotification } from '../notification/notification.actions';
 import { httpSuccess } from '../notification/notification.sagas';
@@ -17,14 +16,14 @@ export function* fetchAuth() {
         if(tokenId){
             const {data, error, status} = yield call(AuthApi.getUserByTokenId, tokenId);
             if(httpSuccess(status)){
-                yield put(setUser(data && data._id ? data : null));
-                yield put(fetchAuthSuccess(data? tokenId : null));
+                const user = data && data._id ? data : null;
+                const token = data? tokenId : null;
+                yield put(fetchAuthSuccess(token, user));
             }else{
                 yield put(setNotification(error, status));
             }
         }else{
-            yield put(setUser(null));
-            yield put(fetchAuthSuccess(null));
+            yield put(fetchAuthSuccess(null, null));
         }
         yield put(setLoading(false));
     } catch (error) {
@@ -41,12 +40,13 @@ export function* login(action) {
 
         Cookies.set(JWT_COOKIE, tokenId, { expires: JWT_EXPIRY });
         yield put(loginSuccess(tokenId));
-        if(tokenId){
+        if(httpSuccess(status)){
             const {data, error, status} = yield call(AuthApi.getUserByTokenId, tokenId);
-            const user = data;
-            yield put(setUser(user && user._id ? user : null));
+            const user = data && data._id ? data : null;
+            const token = data? tokenId : null;
+            yield put(setAuth(token, user));
         }else{
-            yield put(setUser(null));
+            yield put(setAuth(null, null));
             yield put(setNotification(error, status));
         }
     } catch (error) {
@@ -58,13 +58,27 @@ export function* login(action) {
 
 export function* signup(action) {
     try {
-        const tokenId = yield call(AuthApi.signup, action.data);
-        yield put(signupSuccess(tokenId));
-        if(tokenId){
-            const user = yield call(AuthApi.getUserByTokenId, tokenId);
-            yield put(setUser(user && user._id ? user : null));
+        const formData = action.data;
+        const signupData = {username: formData.username, password: formData.password, email: formData.email};
+        const {data, error, status} = yield call(AuthApi.signup, signupData);
+        const tokenId = data;
+        Cookies.set(JWT_COOKIE, tokenId, { expires: JWT_EXPIRY });
+        if(httpSuccess(status)){
+            yield put(signupSuccess(tokenId));
+            const {data, error, status} = yield call(AuthApi.getUserByTokenId, tokenId);
+            const user = data && data._id ? data : null;
+            const token = data? tokenId : null;
+            // if(user){
+            //     const {data, error, status} = yield call(UserApi.update, {roles: [Role.Admin]}, user._id);
+            //     user.roles = data.roles;
+
+            //     yield call(createBrand, {data: {name: formData.brand, owner: user._id}});
+            // }
+
+            yield put(setAuth(token, user));
         }else{
-            yield put(setUser(null));
+            yield put(setAuth(null, null));
+            yield put(setNotification(error, status));
         }
     } catch (error) {
         // yield put(addError({

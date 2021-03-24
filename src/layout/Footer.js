@@ -13,7 +13,7 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { selectQuantity } from '../redux/cart/cart.selectors';
-
+import {selectAuthUser} from '../redux/auth/auth.selectors';
 import './Footer.scss';
 
 const Menu = {
@@ -61,7 +61,7 @@ const Footer = ({ type, user, brand, quantity }) => {
 
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: selectAuthUser(state),
   brand: state.brand,
   quantity: selectQuantity(state)
 });

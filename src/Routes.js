@@ -28,7 +28,7 @@ const Routes = () => {
             <Route path="/cart" component={CartPage} />
             <Route path="/products/:id" component={ProductPage} />
             <Route path="/creditcard" component={CreditCardPage} />
-            <Route path="/login-select" component={LoginSelectPage} />
+            {/* <Route path="/login-select" component={LoginSelectPage} /> */}
             <Route path="/local-login" component={LocalLoginPage} />
             <Route path="/local-signup" component={LocalSignupPage} />
             <Route path="/verify-code" component={VerificationCodePage} />

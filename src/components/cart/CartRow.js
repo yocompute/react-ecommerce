@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { makeStyles } from '@material-ui/core/styles';
+import {selectAuthUser} from '../../redux/auth/auth.selectors';
 import { selectQuantity } from '../../redux/cart/cart.selectors';
 
 const useStyles = makeStyles({
@@ -30,7 +30,7 @@ const CartRow = ({ type, user, quantity }) => {
 
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: selectAuthUser(state),
   quantity: selectQuantity(state)
 });
 
