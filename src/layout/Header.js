@@ -6,11 +6,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -19,6 +18,7 @@ import CategoryTabs from "../components/category/CategoryTabs";
 import { selectCategoryMap } from "../redux/product/product.selectors";
 import { BRAND_PAGE } from "../const";
 import { logout } from '../redux/auth/auth.actions';
+import { setCategory } from '../redux/category/category.actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   categories:{
     position: 'absolute',
-    top: '64px',
+    top: '54px',
     width: '100%',
     borderBottom: '1px solid #eee',
   },
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ page, logout, categoryMap }) {
+function Header({ page, logout, categoryMap, setCategory }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -120,6 +120,7 @@ function Header({ page, logout, categoryMap }) {
     handleMobileMenuClose();
   }
   const handleSelectCategory = (category) => {
+    setCategory(category);
     if(category.ref){
       category.ref.current.scrollIntoView();
     }
@@ -187,7 +188,7 @@ function Header({ page, logout, categoryMap }) {
 
   return (
     <div className={classes.root}>
-      <AppBar>
+      <AppBar elevation={0}>
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -277,6 +278,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    logout
+    logout,
+    setCategory,
   }
 )(Header);

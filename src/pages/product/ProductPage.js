@@ -126,12 +126,16 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
                         <div className={classes.productName}>{product.name}</div>
                         <div className={classes.price}>${product.price}</div>
                     </div>
+
                     <div className={classes.quantityCol}>
+                    {/* {
+                        !(product && product.type === 'C') &&
                         <QuantityInput
                             onChange={handleQuantityChange}
                             val={quantity}
                             item={toCartItem(product)}
                         />
+                    } */}
                     </div>
 
                     <div>

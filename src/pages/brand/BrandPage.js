@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ProductList from "../../components/product/ProductList";
 import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
-import { brand, fetchBrand } from "../../redux/brand/brand.actions";
+import { fetchBrand } from "../../redux/brand/brand.actions";
 import { setPage } from "../../redux/page/page.actions";
 import { setQrcode } from "../../redux/qrcode/qrcode.actions";
 
@@ -16,8 +16,10 @@ import { BRAND_PAGE } from "../../const";
 import CartRow from "../../components/cart/CartRow";
 
 import { selectCategoryMap } from "../../redux/product/product.selectors";
-import {selectQuantity} from "../../redux/cart/cart.selectors";
+import { selectQuantity } from "../../redux/cart/cart.selectors";
 import { login } from "../../redux/auth/auth.actions";
+import { selectAuthUser } from "../../redux/auth/auth.selectors";
+import { setCategory } from "../../redux/category/category.actions";
 
 const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
@@ -34,7 +36,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const BrandPage = ({
-  auth,
+  user,
   location,
   nProducts,
   categoryMap,
@@ -44,35 +46,48 @@ const BrandPage = ({
   fetchProducts,
   setQrcode,
   setPage,
+  setCategory,
   match,
 }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    login({
-      username: 'Guest',
-      email: process.env.REACT_APP_GUEST_EMAIL,
-      password: process.env.REACT_APP_GUEST_PASSWORD,
-    });
+    if(!user){
+      login({
+        username: 'Guest',
+        email: process.env.REACT_APP_GUEST_EMAIL,
+        password: process.env.REACT_APP_GUEST_PASSWORD,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     const params = queryString.parse(location.search);
-    setPage(BRAND_PAGE);
-    if (params.brandId && params.qrcode) {
-      fetchBrand({ _id: params.brandId });
-      fetchProducts({ brand: params.brandId, type: {$ne: 'A'} });
-      setQrcode({_id: params.qrcode});
-    } else if (match.params && match.params.id) { // for multi brand
-      const brand = match.params.id;
-      fetchBrand({ _id: brand });
-      fetchProducts({ brand, type: {$ne: 'A'} });
-    } 
+    if (user) {
+      setPage(BRAND_PAGE);
+      if (params.brandId && params.qrcode) {
+        fetchBrand({ _id: params.brandId });
+        fetchProducts({ brand: params.brandId, type: { $ne: 'A' } });
+        setQrcode({ _id: params.qrcode });
+      } else if (match.params && match.params.id) { // for multi brand
+        const brand = match.params.id;
+        fetchBrand({ _id: brand });
+        fetchProducts({ brand, type: { $ne: 'A' } });
+      }
+    }
     // else {
     //   const brand = DEFAULT_BRAND_ID;
     //   fetchBrand({ _id: brand });
     //   fetchProducts({ brand, type: {$ne: 'A'} });
     //   setPage(BRAND_PAGE);
     // }
-  }, [fetchBrand, fetchProducts, location.search, setPage, setQrcode]);
+  }, [fetchBrand, fetchProducts, location.search, setPage, setQrcode, user]);
 
+  useEffect(() => {
+    if(categoryMap && Object.values(categoryMap).length >0){
+      setCategory(Object.values(categoryMap)[0]);
+    }
+  }, [categoryMap]);
 
   return (
     <div className={classes.page}>
@@ -80,16 +95,16 @@ const BrandPage = ({
         <div className={classes.products}>
           <ProductList data={categoryMap} />
           {
-            nProducts >0 &&
+            nProducts > 0 &&
             <CartRow />
           }
         </div>
       ) : (
-        <div>
-          <ProductGrid data={products} />
-          <CartRow />
-        </div>
-      )}
+          <div>
+            <ProductGrid data={products} />
+            <CartRow />
+          </div>
+        )}
     </div>
   );
 };
@@ -105,6 +120,7 @@ BrandPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  user: selectAuthUser(state),
   categoryMap: selectCategoryMap(state),
   nProducts: selectQuantity(state),
   products: state.products,
@@ -116,4 +132,5 @@ export default connect(mapStateToProps, {
   setQrcode,
   setPage,
   login,
+  setCategory,
 })(BrandPage);

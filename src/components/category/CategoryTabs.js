@@ -9,6 +9,7 @@ const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 const useStyles = makeStyles(() => ({
   root: {
     // boxShadow: "0 1px 10px #ccc",
+    fontSize: "14px"
   },
   container: {
     paddingLeft: 0,
@@ -53,7 +54,6 @@ const CategoryTabs = ({ data, brand, category, onSelect }) => {
   const classes = useStyles();
 
   const handleSelected = (category) => {
-    setCategory(category);
     onSelect(category);
   };
 

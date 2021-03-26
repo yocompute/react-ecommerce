@@ -6,6 +6,7 @@ import {
   fetchCategoriesFail,
   fetchCategorySuccess,
   fetchCategoryFail,
+  setCategory,
 } from "./category.actions";
 import CategoryApi from "../../services/CategoryApi";
 
@@ -17,6 +18,7 @@ export function* fetchCategories(action) {
     const {data, error, status} = yield call(CategoryApi.get, action.query);
     if(httpSuccess(status)){
       yield put(fetchCategoriesSuccess(data));
+      yield put(setCategory(data[0]));
     }else{
       yield put(setNotification(error, status));
     }

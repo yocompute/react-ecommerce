@@ -9,7 +9,6 @@ import AddToOrderRow from './AddToOrderRow';
 import PlaceOrderRow from './PlaceOrderRow';
 
 import Routes from '../Routes';
-import {selectQuantity} from '../redux/cart/cart.selectors';
 import { selectCategoryMap } from "../redux/product/product.selectors";
 import { setCategory } from '../redux/category/category.actions';
 
@@ -96,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart, categoryMap, setCategory, nProducts}) {
+function Layout({page, cart, categoryMap, setCategory}) {
     const classes = useStyles();
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -143,7 +142,7 @@ function Layout({page, cart, categoryMap, setCategory, nProducts}) {
                 {/* </div> */}
             </div>
             {
-                page.name === PRODUCT_PAGE && nProducts > 0 &&
+                page.name === PRODUCT_PAGE &&
                 <AddToOrderRow />
             }
             {
@@ -161,7 +160,6 @@ function Layout({page, cart, categoryMap, setCategory, nProducts}) {
 const mapStateToProps = state => ({
     page: state.page,
     cart: state.cart,
-    nProducts: selectQuantity(state),
     categoryMap: selectCategoryMap(state),
 });
 
