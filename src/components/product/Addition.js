@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Addition = ({brand, product, addition, setPage, updateCart, quantity}) => {
+const Addition = ({brand, product, addition, setPage, updateCart, quantity, onChange}) => {
     const classes = useStyles();
 
     function toCartItem(product){
@@ -68,12 +68,16 @@ const Addition = ({brand, product, addition, setPage, updateCart, quantity}) => 
      * @param {*} d  {item [CartItem or AddtionItem], quantity [number]}
      */
     function handleQuantityChange(d) {
-        if(d.item){
-            updateCart({
-                ...d.item,
-                quantity: d.quantity
-            });
-        }
+        // addtion, product, d.quantity
+
+        // if(d.item){
+        //     updateCart({
+        //         ...d.item,
+        //         quantity: d.quantity
+        //     });
+        // }
+
+        onChange(product, addition, d.quantity);
     }
 
     return addition &&

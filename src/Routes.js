@@ -8,11 +8,11 @@ import PaymentPage from "./pages/payment/PaymentPage";
 import CartPage from "./pages/cart/CartPage";
 import CreditCardPage from "./pages/payment/CreditCardPage";
 import PaymentHistoryPage from "./pages/payment/PaymentHistoryPage";
-import LoginSelectPage from "./pages/auth/LoginSelectPage";
+// import LoginSelectPage from "./pages/auth/LoginSelectPage";
 import LocalLoginPage from "./pages/auth/LocalLoginPage";
 import LocalSignupPage from "./pages/auth/LocalSignupPage";
 import BrandPage from "./pages/brand/BrandPage";
-import CategoryPage from "./pages/category/CategoryPage";
+// import CategoryPage from "./pages/category/CategoryPage";
 
 import {cfg} from "./config";
 import { AppMode } from "./const";

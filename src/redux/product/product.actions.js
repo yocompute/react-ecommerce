@@ -18,6 +18,9 @@ export const FETCH_ADDITIONS_SUCCESS = "product/FETCH_ADDITIONS_SUCCESS";
 export const FETCH_ADDITIONS_FAIL = "product/FETCH_ADDITIONS_FAIL";
 export const SET_ADDITIONS = "product/SET_ADDITIONS";
 
+export const UPDATE_COMBO = "product/UPDATE_COMBO";
+export const SET_COMBO = "product/SET_COMBO";
+
 // action creators
 export const fetchProducts = (query) => ({
   type: FETCH_PRODUCTS,
@@ -89,3 +92,17 @@ export const setAdditions = (additions) => ({
   type: SET_ADDITIONS,
   additions
 });
+
+
+export const updateCombo = (refId, product, addition, additionQuantity) => ({
+  type: UPDATE_COMBO,
+  refId,
+  product,
+  addition,
+  additionQuantity
+})
+
+export const setCombo = (combo) => ({
+  type: SET_COMBO,
+  combo,
+})

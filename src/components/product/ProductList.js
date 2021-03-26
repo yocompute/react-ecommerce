@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 // import Grid from "@material-ui/core/Grid";
 
 // import { QuantityInput } from "../common/QuantityInput";
-import { Link } from "react-router-dom";
-import { setProduct } from "../../redux/product/product.actions";
+import { useHistory } from "react-router-dom";
+import { setProduct, setCombo } from "../../redux/product/product.actions";
 
 import DefaultImage from "../../assets/defaultProduct.jpg";
 
@@ -56,11 +56,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ProductList = ({ data, setProduct }) => {
+const ProductList = ({ data, setProduct, setCombo }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   function handleSelect(product) {
     setProduct(product);
+    setCombo({
+      refId:product._id,
+      product,
+      additions: []
+    });
+
+    history.push(`/products/${product._id}`);
   }
 
   // function handleIncrease(v) {
@@ -94,9 +102,8 @@ const ProductList = ({ data, setProduct }) => {
         {
           data[categoryName].products.map(d =>
             <div className={classes.productRow} key={d._id}>
-              <Link
+              <div
                 className={classes.link}
-                to={{ pathname: `/products/${d._id}` }}
                 onClick={(e) => handleSelect(d)}
               >
                 <div className={classes.pictureCol}>
@@ -107,7 +114,7 @@ const ProductList = ({ data, setProduct }) => {
                   <div className={classes.price}>${d.price}</div>
                   <div className={classes.productDescription}>{d.description}</div>
                 </div>
-              </Link>
+              </div>
             </div>
           )
         }
@@ -124,4 +131,4 @@ const mapStateToProps = (state) => ({
   product: state.product,
 });
 
-export default connect(mapStateToProps, { setProduct })(ProductList);
+export default connect(mapStateToProps, { setProduct, setCombo })(ProductList);

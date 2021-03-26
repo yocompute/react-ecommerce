@@ -38,12 +38,12 @@ const CartPage = ({cart, setPage, updateCart, nProducts}) => {
 
 
     function handleQuantityChange(d) {
-        if (d.item) {
-            updateCart({
-            ...d.item,
-            quantity: d.quantity
-            });
-        }
+        // if (d.item) {
+        //     updateCart({
+        //     ...d.item,
+        //     quantity: d.quantity
+        //     });
+        // }
     }
 
     return (

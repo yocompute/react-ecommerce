@@ -8,7 +8,7 @@ import { authReducer } from './auth/auth.reducers';
 import { usersReducer, userReducer } from './user/user.reducers';
 import { brandsReducer, brandReducer } from './brand/brand.reducers';
 import { categoriesReducer, categoryReducer, categoryMapReducer } from './category/category.reducers';
-import { productsReducer, productReducer } from './product/product.reducers';
+import { productsReducer, productReducer, comboReducer } from './product/product.reducers';
 import { cartReducer } from './cart/cart.reducers';
 import { pageReducer } from './page/page.reducers';
 import { paymentReducer } from './payment/payment.reducers';
@@ -28,6 +28,7 @@ export const rootReducer = combineReducers({
   categoryMap: categoryMapReducer,
   products: productsReducer,
   product: productReducer,
+  combo: comboReducer,
   cart: cartReducer,
   page: pageReducer,
   payment: paymentReducer,

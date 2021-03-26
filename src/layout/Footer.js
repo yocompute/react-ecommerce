@@ -14,7 +14,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { selectQuantity } from '../redux/cart/cart.selectors';
 import {selectAuthUser} from '../redux/auth/auth.selectors';
-import './Footer.scss';
+// import './Footer.scss';
 
 const Menu = {
   HOME: 'Home',

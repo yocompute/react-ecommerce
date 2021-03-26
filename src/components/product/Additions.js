@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { updateCart } from '../../redux/cart/cart.actions';
+import { updateCombo } from '../../redux/product/product.actions';
+
 import {setPage} from '../../redux/page/page.actions';
 import { selectProductQuantity } from '../../redux/cart/cart.selectors';
+import { selectComboAdditions } from '../../redux/product/product.selectors';
 
-import Addition from '../../components/product/Addition'
+import Addition from '../../components/product/Addition';
 
 const useStyles = makeStyles((theme) => ({
     title:{
@@ -19,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Additions = ({brand, product, additions, setPage, updateCart, quantity}) => {
+const Additions = ({brand, product, additions, setPage, updateCart, quantity, combo, comboAdditions, updateCombo, selectedAdditions}) => {
     const classes = useStyles();
 
     function toCartItem(product){
@@ -39,12 +43,23 @@ const Additions = ({brand, product, additions, setPage, updateCart, quantity}) =
      * 
      * @param {*} d  {item [CartItem or AddtionItem], quantity [number]}
      */
-    function handleQuantityChange(d) {
-        if(d.item){
-            updateCart({
-                ...d.item,
-                quantity: d.quantity
-            });
+    function handleChange(product, addition, additionQuantity) {
+        // if(d.item){
+        //     updateCart({
+        //         ...d.item,
+        //         quantity: d.quantity
+        //     });
+        // }
+        if(comboAdditions.length === 0){
+            if(additionQuantity !== 0){ // add new
+                const refId = uuidv4();
+                updateCombo(refId, product, addition, additionQuantity);
+            }else{
+                // change back to single product
+                updateCombo(combo.refId, product, addition, additionQuantity);
+            }
+        }else{
+            updateCombo(combo.refId, product, addition, additionQuantity);
         }
     }
 
@@ -54,7 +69,7 @@ const Additions = ({brand, product, additions, setPage, updateCart, quantity}) =
             {
 
                 additions.map(a => 
-                    <Addition key={a._id} addition={a} />
+                    <Addition key={a._id} addition={a} onChange={handleChange}/>
                 )
             }
         </div>
@@ -74,10 +89,12 @@ Additions.propTypes = {
 const mapStateToProps = state => ({
     product: state.product,
     brand: state.brand,
-    quantity: selectProductQuantity(state)
+    quantity: selectProductQuantity(state),
+    combo: state.combo,
+    comboAdditions: selectComboAdditions(state),
 });
 
 export default connect(
     mapStateToProps,
-    {setPage, updateCart}
+    {setPage, updateCart, updateCombo}
 )(Additions);

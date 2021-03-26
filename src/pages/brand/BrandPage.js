@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ProductList from "../../components/product/ProductList";
 import ProductGrid from "../../components/product/ProductGrid";
 import { fetchProducts } from "../../redux/product/product.actions";
-import { brand, fetchBrand } from "../../redux/brand/brand.actions";
+import { fetchBrand } from "../../redux/brand/brand.actions";
 import { setPage } from "../../redux/page/page.actions";
 import { setQrcode } from "../../redux/qrcode/qrcode.actions";
 
@@ -19,6 +19,7 @@ import { selectCategoryMap } from "../../redux/product/product.selectors";
 import { selectQuantity } from "../../redux/cart/cart.selectors";
 import { login } from "../../redux/auth/auth.actions";
 import { selectAuthUser } from "../../redux/auth/auth.selectors";
+import { setCategory } from "../../redux/category/category.actions";
 
 const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
 
@@ -45,16 +46,19 @@ const BrandPage = ({
   fetchProducts,
   setQrcode,
   setPage,
+  setCategory,
   match,
 }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    login({
-      username: 'Guest',
-      email: process.env.REACT_APP_GUEST_EMAIL,
-      password: process.env.REACT_APP_GUEST_PASSWORD,
-    });
+    if(!user){
+      login({
+        username: 'Guest',
+        email: process.env.REACT_APP_GUEST_EMAIL,
+        password: process.env.REACT_APP_GUEST_PASSWORD,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -79,6 +83,11 @@ const BrandPage = ({
     // }
   }, [fetchBrand, fetchProducts, location.search, setPage, setQrcode, user]);
 
+  useEffect(() => {
+    if(categoryMap && Object.values(categoryMap).length >0){
+      setCategory(Object.values(categoryMap)[0]);
+    }
+  }, [categoryMap]);
 
   return (
     <div className={classes.page}>
@@ -123,4 +132,5 @@ export default connect(mapStateToProps, {
   setQrcode,
   setPage,
   login,
+  setCategory,
 })(BrandPage);

@@ -41,9 +41,9 @@ export const CartItemList = ({ items, onQuantityChange }) => {
     {
       items && items.length > 0 &&
       items.map(item =>
-        <div className={classes.itemRow} key={item.productId}>
-          <div className={classes.nameCol}>{item.productName}</div>
-          <div className={classes.priceCol}>${item.price}</div>
+        <div className={classes.itemRow} key={item.refId}>
+          <div className={classes.nameCol}>{item.product.name}</div>
+          <div className={classes.priceCol}>${item.product.price}</div>
 
           <div className={classes.quantityCol}>
             <QuantityInput

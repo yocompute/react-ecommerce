@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { selectProductQuantity } from '../redux/cart/cart.selectors';
+import { selectQuantity,selectProductQuantity } from '../redux/cart/cart.selectors';
 import {selectAuthUser} from '../redux/auth/auth.selectors';
+import {updateCart} from '../redux/cart/cart.actions';
+
 const useStyles = makeStyles({
   checkoutRow: {
     width: '100%',
@@ -41,15 +43,26 @@ const useStyles = makeStyles({
   }
 });
 
-const AddToOrderRow = ({ user, brand, quantity }) => {
+const AddToOrderRow = ({ user, brand, product, combo, nProducts, updateCart }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleAddToCart = () => {
+    if(combo){
+      updateCart({
+          ...combo,
+          quantity: 1
+      });
+    }
+    history.push(user ? `/brands/${brand._id}` : "/login-select");
+  }
 
   return <div className={classes.checkoutRow}>
     {
-      brand &&
-      <Link className={classes.continueBtn} to={{ pathname: user ? `/brands/${brand._id}` : "/login-select" }} >
+      ((brand && nProducts > 0) || (product && product.type === 'C' )) &&
+      <div className={classes.continueBtn} onClick={handleAddToCart} >
         Add to Order
-      </Link>
+      </div>
     }
     {
       brand &&
@@ -63,10 +76,13 @@ const AddToOrderRow = ({ user, brand, quantity }) => {
 const mapStateToProps = state => ({
   user: selectAuthUser(state),
   brand: state.brand,
+  product: state.product,
+  combo: state.combo,
+  nProducts: selectQuantity(state),
   quantity: selectProductQuantity(state)
 });
 
 export default connect(
   mapStateToProps,
-  null
+  {updateCart}
 )(AddToOrderRow);
