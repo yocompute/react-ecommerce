@@ -1,12 +1,6 @@
 import {SET_LOADING, SET_PAGE} from '../page/page.actions';
-import { HOME_PAGE} from '../../const';
 
-const DEFAULT_PAGE = {
-    name: HOME_PAGE,
-    loading: false,
-}
-
-export const pageReducer = (state=DEFAULT_PAGE, action) => {
+export const pageReducer = (state={loading: false}, action) => {
     if(action && action.type === SET_PAGE){
         return { ...state, name: action.name };
     }

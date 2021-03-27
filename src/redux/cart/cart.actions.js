@@ -1,23 +1,35 @@
 
-export const UPDATE_CART = 'cart/UPDATE_CART';
-export const CLEAR_CART = 'cart/CLEAR_CART';
+export const UPDATE_CART_ITEM = 'cart/UPDATE_CART_ITEM';
+export const UPDATE_CART_ITEM_QUANTITY = 'cart/UPDATE_CART_ITEM_QUANTITY';
+export const UPDATE_SELECTED_ADDITION = 'cart/UPDATE_SELECTED_ADDITION';
+
+
 
 /**
-item:
-    productId
-    productName
-    brandId
-    price
-    cost
-    saleTaxRate
-    purchaseTaxRate
-    quantity
-*/
-export const updateCart = item => ({
-    type: UPDATE_CART,
+ * 
+ * item: ICartItem = {
+ *  refId: string,
+ *  product,
+ *  addtions: [{ addition, quantity }]
+ *  quantity: number,
+ *  subTotal: number
+ * }
+ * 
+ */
+export const updateCartItem = item => ({
+    type: UPDATE_CART_ITEM,
     item
 })
 
-export const clearCart = () => ({
-    type: CLEAR_CART
+export const updateCartItemQuantity = (refId, quantity) => ({
+    type: UPDATE_CART_ITEM_QUANTITY,
+    refId,
+    quantity
+})
+
+export const updateSelectedAddition = (refId, addition, quantity) => ({
+    type: UPDATE_SELECTED_ADDITION,
+    refId,
+    addition,
+    quantity
 })

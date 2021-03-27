@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
-// import Sidebar from './Sidebar'
+import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from './Footer';
-import CartRow from './CartRow';
-import CheckoutRow from  './CheckoutRow';
+// import CartRow from '../components/cart/CartRow';
 import AddToOrderRow from './AddToOrderRow';
 import PlaceOrderRow from './PlaceOrderRow';
 
 import Routes from '../Routes';
-import {selectQuantity} from '../redux/cart/cart.selectors';
+import { selectCategoryMap } from "../redux/product/product.selectors";
+import { setCategory } from '../redux/category/category.actions';
+
 import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE, CART_PAGE} from '../const';
+import ActionButtons from './ActionButtons';
+import { useHistory } from 'react-router-dom';
 
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,16 +24,26 @@ const useStyles = makeStyles((theme) => ({
     },
     header: {
         width: '100%',
-        height: '64px'
+        height: '56px'
+    },
+    headerTall: {
+        width: '100%',
+        height: '104px'
     },
     content: {
         width: '100%',
         height: 'calc(100% - 128px)',
         overflow: 'auto',
         position: 'absolute',
-        top: '64px'
+        top: '56px'
     },
-
+    contentShort: {
+        width: '100%',
+        height: 'calc(100% - 176px)',
+        overflow: 'auto',
+        position: 'absolute',
+        top: '104px'
+    },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
     },
@@ -72,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     //     flexDirection: 'column',
     // }
     paper: {
-        padding: theme.spacing(2),
+        // padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
@@ -89,17 +97,48 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart}) {
+function Layout({page, cart, categoryMap, setCategory}) {
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
+
+    const history = useHistory();
 
     const handleSidebarToggle = (expanded) => {
         setSidebarExpanded(expanded);
     }
+
+    const handleScroll = (e) => {
+        Object.keys(categoryMap).forEach(name => {
+            const el = document.getElementById(categoryMap[name]._id);
+            if(el){
+                const t = el.getBoundingClientRect().top;
+                if(t > 0 && t < 160){
+                    setCategory(categoryMap[name]);
+                    return;
+                }else{
+                    return;
+                }
+            }else{
+                return;
+            }
+        })
+    };
+
+
+    // for the cart page
+    const handleCancelCart = () => {
+        history.push('/');
+    }
+
+    // for the cart page
+    const handleCheckout = () => {
+        history.push('/payment');
+    }
+
     return (
         <div className={classes.root}>
-            <div className={classes.header} >
+            <div className={page.name === BRAND_PAGE ? classes.headerTall : classes.header} >
                 <Header 
                     sidebarExpanded={sidebarExpanded}
                     onToggle={handleSidebarToggle}
@@ -111,7 +150,7 @@ function Layout({page, cart}) {
                 onToggle={handleSidebarToggle}
             /> */}
 
-            <div className={classes.content} >
+            <div className={page.name === BRAND_PAGE? classes.contentShort : classes.content} onScroll={handleScroll}>
                 {/* <div className={classes.appBarSpacer} /> */}
                 {/* <div className={fixedHeightPaper}> */}
                     <Routes />
@@ -122,15 +161,20 @@ function Layout({page, cart}) {
                 <AddToOrderRow />
             }
             {
-                (page.name === BRAND_PAGE || page.name === HOME_PAGE || page.name === CART_PAGE) && cart.items.length > 0 &&
-                <CartRow />
-            }
-            {
                 page.name === PAYMENT_PAGE &&
                 <PlaceOrderRow />
             }
             {
-                window.matchMedia(`(max-width: 768px)`).matches && page.name !== PRODUCT_PAGE && page.name !== PAYMENT_PAGE &&
+                page.name === CART_PAGE &&
+                <ActionButtons 
+                    showOkButton={true}
+                    okButtonText="Checkout"
+                    onOk={handleCheckout}
+                    onCancel={handleCancelCart}
+                />
+            }
+            {
+                window.matchMedia(`(max-width: 768px)`).matches && page.name !== PRODUCT_PAGE && page.name !== PAYMENT_PAGE && page.name !== CART_PAGE &&
                 <Footer enable={true} amount={0}></Footer>
             }
         </div>
@@ -140,10 +184,10 @@ function Layout({page, cart}) {
 const mapStateToProps = state => ({
     page: state.page,
     cart: state.cart,
-    nProducts: selectQuantity(state)
+    categoryMap: selectCategoryMap(state),
 });
 
 export default connect(
     mapStateToProps,
-    null
+    {setCategory}
 )(Layout);

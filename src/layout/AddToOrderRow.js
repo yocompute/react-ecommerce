@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { selectProductQuantity } from '../redux/cart/cart.selectors';
+import { selectQuantity,selectProductQuantity } from '../redux/cart/cart.selectors';
+import {selectAuthUser} from '../redux/auth/auth.selectors';
+import {updateCartItem} from '../redux/cart/cart.actions';
 
 const useStyles = makeStyles({
   checkoutRow: {
     width: '100%',
     height: '56px',
-    position: 'fixed',
+    position: 'absolute',
     bottom: '0px',
     display: 'block',
     lineHeight: '42px',
@@ -41,29 +43,46 @@ const useStyles = makeStyles({
   }
 });
 
-const AddToOrderRow = ({ user, brand, quantity }) => {
+const AddToOrderRow = ({ user, brand, product, combo, nProducts, updateCartItem }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleAddToCart = () => {
+    if(combo){
+      updateCartItem({
+          ...combo,
+          quantity: 1
+      });
+    }
+    history.push(user ? `/brands/${brand._id}` : "/login-select");
+  }
 
   return <div className={classes.checkoutRow}>
     {
-      quantity > 0 &&
-      <Link className={classes.continueBtn} to={{ pathname: user? `/brands/${brand._id}`: "/login-select" }} >
+      ((brand && nProducts > 0) || (product && product.type === 'C' )) &&
+      <div className={classes.continueBtn} onClick={handleAddToCart} >
         Add to Order
-      </Link>
+      </div>
     }
-    <Link className={classes.backBtn} to={{ pathname: user? `/brands/${brand._id}`: "/login-select" }} >
-      Back
+    {
+      brand &&
+      <Link className={classes.backBtn} to={{ pathname: user ? `/brands/${brand._id}` : "/login-select" }} >
+        Back
     </Link>
+    }
   </div>
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: selectAuthUser(state),
   brand: state.brand,
+  product: state.product,
+  combo: state.combo,
+  nProducts: selectQuantity(state),
   quantity: selectProductQuantity(state)
 });
 
 export default connect(
   mapStateToProps,
-  null
+  {updateCartItem}
 )(AddToOrderRow);

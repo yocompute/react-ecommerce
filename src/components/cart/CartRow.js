@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { makeStyles } from '@material-ui/core/styles';
-import { selectQuantity } from '../redux/cart/cart.selectors';
+import {selectAuthUser} from '../../redux/auth/auth.selectors';
+import { selectQuantity } from '../../redux/cart/cart.selectors';
 
 const useStyles = makeStyles({
   checkoutRow: {
@@ -23,14 +23,14 @@ const useStyles = makeStyles({
 const CartRow = ({ type, user, quantity }) => {
   const classes = useStyles();
 
-    return  <Link className={classes.checkoutRow} to={{ pathname: user? "/payment": "/login-select" }} >
+    return  <Link className={classes.checkoutRow} to={{ pathname: user? "/cart": "/login-select" }} >
         Checkout Now {">"}
       </Link>
 }
 
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: selectAuthUser(state),
   quantity: selectQuantity(state)
 });
 

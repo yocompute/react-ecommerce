@@ -1,53 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 
-
-// import Button from '@material-ui/core/Button'
 import { CartItemList } from '../../components/cart/CartItemList';
-// import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect'
 import { setPage } from  '../../redux/page/page.actions';
-import { updateCart } from '../../redux/cart/cart.actions';
+import { updateCartItemQuantity, updateSelectedAddition } from '../../redux/cart/cart.actions';
 import { CART_PAGE } from '../../const';
+import { CartSummary } from '../../components/cart/CartSummary';
 
-// import Header from '../../components/common/Header'
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles( () => ({
     page: {
-        padding: '20px'
-    }
+        padding: '0px'
+    },
+    list: {
+        padding: '20px',
+    },
 }));
 
-const CartPage = ({cart, setPage, updateCart}) => {
+const CartPage = ({cart, setPage, updateCartItemQuantity, updateSelectedAddition}) => {
     const classes = useStyles();
-    const handlePaymentMethodSelect = () => {
-
-    }
+    
     
     useEffect(() => {
         setPage(CART_PAGE);
     }, [setPage])
 
 
-    function handleQuantityChange(d) {
-        if (d.item) {
-            updateCart({
-            ...d.item,
-            quantity: d.quantity
+    // d: IQuantityInputResult --- { item, quantity }
+    const handleQuantityChange = (d) => {
+        updateCartItemQuantity(d.refId, d.quantity);
+    }
+
+    // d: IQuantityInputResult --- { item, quantity }
+    const handleAdditionQuantityChange = (d) => {
+        updateSelectedAddition(d.refId, d.item, d.quantity);
+    }
+
+    const getSummary = (cart) => {
+        if(cart.items && cart.items.length > 0){
+            let subTotal = 0;
+            cart.items.forEach(it => {
+                subTotal += it.subTotal;
             });
+            return {subTotal, tax: (subTotal* 0.13).toFixed(2), total: (subTotal * 1.13).toFixed(2)};
+        }else{
+            return {subTotal:0, tax:0, total: 0};
         }
     }
+
+    const summary = getSummary(cart);
 
     return (
         <div className={classes.page}>
             {/* <Header title={'Order Page'}></Header> */}
-            <CartItemList items={cart.items} onQuantityChange={handleQuantityChange} />
+            <div className={classes.list}>
+            <CartItemList 
+                items={cart.items} 
+                onQuantityChange={handleQuantityChange}
+                onAdditionQuantityChange={handleAdditionQuantityChange}
+            />
+            </div>
             {/* <div className="label payment-label">Payment Method</div> */}
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
+
+            <CartSummary cart={cart} />
         </div>
     )
+}
+
+CartPage.propTypes = {
+  cart: PropTypes.shape({
+    items: PropTypes.any
+  }),
+  setPage: PropTypes.func,
+  updateCartItemQuantity: PropTypes.func,
+  updateSelectedAddition: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -58,6 +87,7 @@ export default connect(
     mapStateToProps,
     {
         setPage,
-        updateCart
+        updateCartItemQuantity,
+        updateSelectedAddition
     }
 )(CartPage);

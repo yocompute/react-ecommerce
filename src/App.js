@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -6,19 +7,19 @@ import {
 
 import './App.scss';
 
-import LoginSelectPage from './pages/auth/LoginSelectPage';
-import LocalLoginPage from './pages/auth/LocalLoginPage';
-import LocalSignupPage from './pages/auth/LocalSignupPage';
+// import LoginSelectPage from './pages/auth/LoginSelectPage';
+// import LocalLoginPage from './pages/auth/LocalLoginPage';
+// import LocalSignupPage from './pages/auth/LocalSignupPage';
 
 import Layout from './layout/index';
 import { fetchAuth } from './redux/auth/auth.actions';
 import { setLoading } from './redux/page/page.actions';
 
-function App({ isLoggedIn, isLoading, fetchAuth, setLoading }) {
+function App({ isLoading, fetchAuth, setLoading }) {
   useEffect(() => {
     setLoading(true);
     fetchAuth(); // checking if cookie has valid tokenId
-  }, [fetchAuth]);
+  }, [fetchAuth, setLoading]);
 
 
   return isLoading ?
@@ -39,6 +40,12 @@ function App({ isLoggedIn, isLoading, fetchAuth, setLoading }) {
         )
       } */}
     </Router>
+}
+
+App.propTypes = {
+  fetchAuth: PropTypes.func,
+  isLoading: PropTypes.any,
+  setLoading: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
