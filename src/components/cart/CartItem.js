@@ -43,12 +43,14 @@ const useStyles = makeStyles(theme => ({
     },
     additionNameCol: {
         width: '140px',
+        color: 'rgba(0,0,0,0.54)',
         fontSize: '12px',
         float: 'left',
         padding: '8px 0px 8px 10px'
     },
     additionPriceCol: {
         width: '50px',
+        color: 'rgba(0,0,0,0.54)',
         fontSize: '14px',
         float: 'left',
         padding: '8px 0px'
@@ -58,13 +60,24 @@ const useStyles = makeStyles(theme => ({
 export const CartItem = ({ item, onQuantityChange, onAdditionQuantityChange}) => {
     const classes = useStyles();
 
+
+    // d: IQuantityInputResult --- { item, quantity }
+    const handleQuantityChange = (d) => {
+        onQuantityChange({...d, refId: item.refId});
+    }
+
+    // d: IQuantityInputResult --- { item, quantity }
+    const handleAdditionQuantityChange = (d) => {
+        onAdditionQuantityChange({...d, refId: item.refId});
+    }
+
     return <div className={classes.root}>
         <div className={classes.productRow}>
         <div className={classes.productNameCol}>{item.product.name}</div>
-        <div className={classes.productPriceCol}>${item.product.price}</div>
+        <div className={classes.productPriceCol}>${item.subTotal}</div>
         <div className={classes.quantityCol}>
             <QuantityInput
-                onChange={onQuantityChange}
+                onChange={handleQuantityChange}
                 val={item.quantity}
                 item={item.product}
             />
@@ -78,7 +91,7 @@ export const CartItem = ({ item, onQuantityChange, onAdditionQuantityChange}) =>
                     <div className={classes.additionPriceCol}>${it.product.price * it.quantity}</div>
                     <div className={classes.additionQuantityCol}>
                         <QuantityInput
-                            onChange={onAdditionQuantityChange}
+                            onChange={handleAdditionQuantityChange}
                             val={it.quantity}
                             item={it.product}
                         />
@@ -86,5 +99,6 @@ export const CartItem = ({ item, onQuantityChange, onAdditionQuantityChange}) =>
                 </div>
             )
         }
+
     </div>
 }

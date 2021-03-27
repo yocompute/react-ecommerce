@@ -55,11 +55,10 @@ export const additionsReducer = (state = null, action) => {
 
 
 /**
- * ICartItem = {
- *  id: string,
- *  productId: string,
- *  type: string,
- *  addtions: { productId, price, quantity }
+ * ICombo, ICartItem {
+ *  refId: string,
+ *  product: IProduct,
+ *  addtions: { product, quantity }
  *  quantity: number,
  *  total: number
  * }

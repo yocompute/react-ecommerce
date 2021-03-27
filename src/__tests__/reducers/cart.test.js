@@ -10,7 +10,7 @@ it('initial cart is empty', ()=>{
 
 it('add item to an empty cart', ()=>{
     const payload = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 1};
-    const action = { type: 'UPDATE_CART', payload};
+    const action = { type: 'UPDATE_CART_ITEM', payload};
     const expectedState = {items:[payload]};
     expect(cart(undefined, action)).toEqual(expectedState);
 })
@@ -18,7 +18,7 @@ it('add item to an empty cart', ()=>{
 
 it('add same item to the cart', () => {
     const payload = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 3};
-    const action = { type: 'UPDATE_CART', payload};
+    const action = { type: 'UPDATE_CART_ITEM', payload};
 
     const initState = {items: [{productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 2}]};
     const expectedState = {items:[payload]};
@@ -32,7 +32,7 @@ it('add same item to the cart with multiple items', () => {
     const item3 = {productId: 3, productName: 'c', price: 1.0, cost: 0.5, quantity: 1};
 
     const payload = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 3};
-    const action = { type: 'UPDATE_CART', payload};
+    const action = { type: 'UPDATE_CART_ITEM', payload};
 
     const initState = {items: [
         item1, item2, item3
@@ -45,7 +45,7 @@ it('add same item to the cart with multiple items', () => {
 
 it('remove the only item from the cart', () => {
     const payload = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 0};
-    const action = { type: 'UPDATE_CART', payload};
+    const action = { type: 'UPDATE_CART_ITEM', payload};
 
     const initState = {items: [{productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 2}]};
     const expectedState = {items:[]};
@@ -58,7 +58,7 @@ it('remove item from the cart with multiple items', () => {
     const item3 = {productId: 3, productName: 'c', price: 1.0, cost: 0.5, quantity: 1};
 
     const payload = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 0};
-    const action = { type: 'UPDATE_CART', payload};
+    const action = { type: 'UPDATE_CART_ITEM', payload};
 
     const initState = {items: [
         item1, item2, item3

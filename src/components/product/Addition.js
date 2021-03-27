@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 
 import { QuantityInput } from '../../components/common/QuantityInput';
-import { updateCart } from '../../redux/cart/cart.actions';
+import { updateCartItem } from '../../redux/cart/cart.actions';
 import {setPage} from '../../redux/page/page.actions';
 import { selectProductQuantity } from '../../redux/cart/cart.selectors';
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Addition = ({brand, product, addition, setPage, updateCart, quantity, onChange}) => {
+const Addition = ({brand, product, addition, setPage, updateCartItem, quantity, onChange}) => {
     const classes = useStyles();
 
     function toCartItem(product){
@@ -71,7 +71,7 @@ const Addition = ({brand, product, addition, setPage, updateCart, quantity, onCh
         // addtion, product, d.quantity
 
         // if(d.item){
-        //     updateCart({
+        //     updateCartItem({
         //         ...d.item,
         //         quantity: d.quantity
         //     });
@@ -114,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {setPage, updateCart}
+    {setPage, updateCartItem}
 )(Addition);

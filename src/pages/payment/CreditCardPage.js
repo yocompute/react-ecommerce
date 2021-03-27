@@ -5,13 +5,13 @@ import { connect } from 'react-redux'
 
 import Button from '@material-ui/core/Button'
 // import { QuantityInput } from '../../components/common/QuantityInput'
-import { updateCart } from '../../redux/cart/cart.actions'
+import { updateCartItem } from '../../redux/cart/cart.actions'
 import {createPayment} from '../../redux/payment/payment.actions'
 
 // import Header from '../../components/common/Header'
 
 const CreditCardPage = () => {
-// const CreditCardPage = ({brand, product, updateCart}) => {
+// const CreditCardPage = ({brand, product, updateCartItem}) => {
     // const [quantity, setQuantity] = useState(0);
 
     // function handleSelect() {
@@ -20,7 +20,7 @@ const CreditCardPage = () => {
 
     // function handleQuantityChange(quantity) {
     //     if(product){
-    //         updateCart({
+    //         updateCartItem({
     //             productId: product._id,
     //             productName: product.name,
     //             brandId: brand._id,
@@ -65,5 +65,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {updateCart}
+    {updateCartItem}
 )(CreditCardPage);

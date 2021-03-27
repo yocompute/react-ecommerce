@@ -1,4 +1,4 @@
-import {UPDATE_CART} from '../../../redux/cart/cart.actions'
+import {UPDATE_CART_ITEM} from '../../../redux/cart/cart.actions'
 import {cartReducer} from '../../../redux/cart/cart.reducers'
 
 it('initial cart is empty', ()=>{
@@ -9,7 +9,7 @@ it('initial cart is empty', ()=>{
 
 // it('add item to an empty cart', ()=>{
 //     const item = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 1};
-//     const action = { type: UPDATE_CART, item};
+//     const action = { type: UPDATE_CART_ITEM, item};
 //     const expectedState = {items:[item]};
 //     expect(cartReducer(undefined, action)).toEqual(expectedState);
 // })
@@ -17,7 +17,7 @@ it('initial cart is empty', ()=>{
 
 // it('add same item to the cart', () => {
 //     const item = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 3};
-//     const action = { type: UPDATE_CART, item};
+//     const action = { type: UPDATE_CART_ITEM, item};
 
 //     const initState = {items: [{productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 2}]};
 //     const expectedState = {items:[item]};
@@ -31,7 +31,7 @@ it('initial cart is empty', ()=>{
 //     const item3 = {productId: 3, productName: 'c', price: 1.0, cost: 0.5, quantity: 1};
 
 //     const item = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 3};
-//     const action = { type: UPDATE_CART, item};
+//     const action = { type: UPDATE_CART_ITEM, item};
 
 //     const initState = {items: [
 //         item1, item2, item3
@@ -44,7 +44,7 @@ it('initial cart is empty', ()=>{
 
 // it('remove the only item from the cart', () => {
 //     const item = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 0};
-//     const action = { type: UPDATE_CART, item};
+//     const action = { type: UPDATE_CART_ITEM, item};
 
 //     const initState = {items: [{productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 2}]};
 //     const expectedState = {items:[]};
@@ -57,7 +57,7 @@ it('initial cart is empty', ()=>{
 //     const item3 = {productId: 3, productName: 'c', price: 1.0, cost: 0.5, quantity: 1};
 
 //     const item = {productId: 1, productName: 'a', price: 1.0, cost: 0.5, quantity: 0};
-//     const action = { type: UPDATE_CART, item};
+//     const action = { type: UPDATE_CART_ITEM, item};
 
 //     const initState = {items: [
 //         item1, item2, item3

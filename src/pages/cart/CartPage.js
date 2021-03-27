@@ -1,21 +1,15 @@
 import React, { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 
-
-// import Button from '@material-ui/core/Button'
-
 import CartRow from '../../components/cart/CartRow';
 import { CartItemList } from '../../components/cart/CartItemList';
-// import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect'
 import { setPage } from  '../../redux/page/page.actions';
-import { updateCart } from '../../redux/cart/cart.actions';
+import { updateCartItemQuantity, updateSelectedAddition } from '../../redux/cart/cart.actions';
 import { CART_PAGE } from '../../const';
 import { selectQuantity } from '../../redux/cart/cart.selectors';
 
-// import Header from '../../components/common/Header'
 
 const useStyles = makeStyles( () => ({
     page: {
@@ -26,31 +20,34 @@ const useStyles = makeStyles( () => ({
     }
 }));
 
-const CartPage = ({cart, setPage, updateCart, nProducts}) => {
+const CartPage = ({cart, nProducts, setPage, updateCartItemQuantity, updateSelectedAddition}) => {
     const classes = useStyles();
-    // const handlePaymentMethodSelect = () => {
 
-    // }
     
     useEffect(() => {
         setPage(CART_PAGE);
     }, [setPage])
 
 
-    function handleQuantityChange(d) {
-        // if (d.item) {
-        //     updateCart({
-        //     ...d.item,
-        //     quantity: d.quantity
-        //     });
-        // }
+    // d: IQuantityInputResult --- { item, quantity }
+    const handleQuantityChange = (d) => {
+        updateCartItemQuantity(d.refId, d.quantity);
+    }
+
+    // d: IQuantityInputResult --- { item, quantity }
+    const handleAdditionQuantityChange = (d) => {
+        updateSelectedAddition(d.refId, d.item, d.quantity);
     }
 
     return (
         <div className={classes.page}>
             {/* <Header title={'Order Page'}></Header> */}
             <div className={classes.list}>
-            <CartItemList items={cart.items} onQuantityChange={handleQuantityChange} />
+            <CartItemList 
+                items={cart.items} 
+                onQuantityChange={handleQuantityChange}
+                onAdditionQuantityChange={handleAdditionQuantityChange}
+            />
             </div>
             {/* <div className="label payment-label">Payment Method</div> */}
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
@@ -68,7 +65,8 @@ CartPage.propTypes = {
     items: PropTypes.any
   }),
   setPage: PropTypes.func,
-  updateCart: PropTypes.func
+  updateCartItemQuantity: PropTypes.func,
+  updateSelectedAddition: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -80,6 +78,7 @@ export default connect(
     mapStateToProps,
     {
         setPage,
-        updateCart
+        updateCartItemQuantity,
+        updateSelectedAddition
     }
 )(CartPage);
