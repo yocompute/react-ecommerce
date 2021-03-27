@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 
-import CartRow from '../../components/cart/CartRow';
 import { CartItemList } from '../../components/cart/CartItemList';
 import { setPage } from  '../../redux/page/page.actions';
 import { updateCartItemQuantity, updateSelectedAddition } from '../../redux/cart/cart.actions';
 import { CART_PAGE } from '../../const';
-import { selectQuantity } from '../../redux/cart/cart.selectors';
+import { CartSummary } from '../../components/cart/CartSummary';
 
 
 const useStyles = makeStyles( () => ({
@@ -17,12 +16,12 @@ const useStyles = makeStyles( () => ({
     },
     list: {
         padding: '20px',
-    }
+    },
 }));
 
-const CartPage = ({cart, nProducts, setPage, updateCartItemQuantity, updateSelectedAddition}) => {
+const CartPage = ({cart, setPage, updateCartItemQuantity, updateSelectedAddition}) => {
     const classes = useStyles();
-
+    
     
     useEffect(() => {
         setPage(CART_PAGE);
@@ -39,6 +38,20 @@ const CartPage = ({cart, nProducts, setPage, updateCartItemQuantity, updateSelec
         updateSelectedAddition(d.refId, d.item, d.quantity);
     }
 
+    const getSummary = (cart) => {
+        if(cart.items && cart.items.length > 0){
+            let subTotal = 0;
+            cart.items.forEach(it => {
+                subTotal += it.subTotal;
+            });
+            return {subTotal, tax: (subTotal* 0.13).toFixed(2), total: (subTotal * 1.13).toFixed(2)};
+        }else{
+            return {subTotal:0, tax:0, total: 0};
+        }
+    }
+
+    const summary = getSummary(cart);
+
     return (
         <div className={classes.page}>
             {/* <Header title={'Order Page'}></Header> */}
@@ -52,10 +65,7 @@ const CartPage = ({cart, nProducts, setPage, updateCartItemQuantity, updateSelec
             {/* <div className="label payment-label">Payment Method</div> */}
             {/* <PaymentMethodSelect onSelect={handlePaymentMethodSelect}></PaymentMethodSelect> */}
 
-            {
-                nProducts > 0 &&
-                <CartRow />
-            }
+            <CartSummary cart={cart} />
         </div>
     )
 }
@@ -70,7 +80,6 @@ CartPage.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    nProducts: selectQuantity(state),
     cart: state.cart
 });
 

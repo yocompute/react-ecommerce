@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 const CartRow = ({ type, user, quantity }) => {
   const classes = useStyles();
 
-    return  <Link className={classes.checkoutRow} to={{ pathname: user? "/payment": "/login-select" }} >
+    return  <Link className={classes.checkoutRow} to={{ pathname: user? "/cart": "/login-select" }} >
         Checkout Now {">"}
       </Link>
 }
