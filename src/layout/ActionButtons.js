@@ -6,7 +6,7 @@ const useStyles = makeStyles({
   root: {
     width: '100%',
     height: '56px',
-    position: 'absolute',
+    position: 'fixed',
     bottom: '0px',
     display: 'block',
     lineHeight: '42px',
