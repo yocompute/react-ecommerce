@@ -4,15 +4,20 @@ import {
   UPDATE_SELECTED_ADDITION
 } from './cart.actions';
 
-export const getSubtotal = (item) => {
+export const getSummary = (item) => {
   let additionTotal = 0;
+  let additionSaleTax = 0;
+
   if(item.additions && item.additions.length > 0){
     item.additions.forEach(it => {
       additionTotal += it.product.price * it.quantity;
+      additionSaleTax += Math.round(it.product.price * it.quantity * it.saleTaxRate) / 100;
     });
   }
 
-  return (item.product.price + additionTotal) * item.quantity;
+  const subTotal = (item.product.price + additionTotal) * item.quantity;
+  const saleTax = ( Math.round(item.product.price * item.saleTaxRate) / 100 + additionSaleTax ) * item.quantity;
+  return { subTotal, saleTax };
 }
 /**
  * 
@@ -40,11 +45,12 @@ export const cartReducer = (state = { items: [] }, action) => {
       if (item && item.quantity > 0) {
         const index = state.items.findIndex(it => it.refId === item.refId);
         const newItems = [...state.items];
+        const summary = getSummary(item);
         if(index !== -1){
-          newItems[index] = {...item, subTotal: getSubtotal(item)};
+          newItems[index] = {...item, ...summary};
           return { ...state, items: newItems};
         }else{
-          newItems.push({...item, subTotal: getSubtotal(item)});
+          newItems.push({...item, ...summary});
         }
         return { ...state, items: newItems};
       } else {
@@ -63,7 +69,8 @@ export const cartReducer = (state = { items: [] }, action) => {
         if(index !== -1){
           const newItems = [...state.items];
           const item = { ...state.items[index], quantity};
-          newItems[index] =  {...item, subTotal: getSubtotal(item) };
+          const summary = getSummary(item);
+          newItems[index] =  {...item, ...summary };
           return {...state, items: newItems};
         }else{
           // pass, should never happen
@@ -85,8 +92,8 @@ export const cartReducer = (state = { items: [] }, action) => {
             ...item,
             additions: additions.filter(it => it.product._id !== addition._id)
           };
-
-          newItems[index] = {...newItem, subTotal: getSubtotal(newItem)};
+          const summary = getSummary(newItem);
+          newItems[index] = {...newItem, ...summary};
           return {...state, items: newItems};
         } else {
             const additionIndex = additions.findIndex(it => it.product._id === addition._id);
@@ -96,7 +103,8 @@ export const cartReducer = (state = { items: [] }, action) => {
                     ...item,
                     additions,
                 }
-                newItems[index] = {...newItem, subTotal: getSubtotal(newItem)};
+                const summary = getSummary(newItem);
+                newItems[index] = {...newItem, ...summary};
                 return {...state, items: newItems};
             }else{
               // should not happen

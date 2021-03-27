@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Footer from './Footer';
-// import CartRow from '../components/cart/CartRow';
-import AddToOrderRow from './AddToOrderRow';
-import PlaceOrderRow from './PlaceOrderRow';
 
 import Routes from '../Routes';
 import { selectCategoryMap } from "../redux/product/product.selectors";
@@ -15,7 +12,10 @@ import { setCategory } from '../redux/category/category.actions';
 import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE, CART_PAGE} from '../const';
 import ActionButtons from './ActionButtons';
 import { useHistory } from 'react-router-dom';
-
+import {selectAuthUser} from '../redux/auth/auth.selectors';
+import {updateCartItem} from '../redux/cart/cart.actions';
+import { createPayment } from '../redux/payment/payment.actions';
+import { PaymentStatus } from '../const';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart, categoryMap, setCategory}) {
+function Layout({page, cart, combo, brand, user, categoryMap, setCategory, updateCartItem, createPayment}) {
     const classes = useStyles();
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -136,6 +136,71 @@ function Layout({page, cart, categoryMap, setCategory}) {
         history.push('/payment');
     }
 
+    const handleAddToCart = () => {
+        if(combo){
+          updateCartItem({
+              ...combo,
+              quantity: 1
+          });
+        }
+        history.push(user ? `/brands/${brand._id}` : "/login-select");
+    }
+
+    const handleCancelProduct = () => {
+        history.push(`/brands/${brand._id}`);
+    }
+
+    const handlePlaceOrder = () => {
+        const p = {
+            items: [],
+            note: '',
+            subTotal: 0,
+            saleTax: 0,
+            total: 0,
+            status: PaymentStatus.NEW,
+            user: user._id,
+        }
+
+        cart.items.forEach(it => {
+            const additions = [];
+            if(it.additions && it.additions.length > 0){
+                it.additions.forEach(addition => {
+                    additions.push({
+                        product: addition.product._id,
+                        name: addition.product.name,
+                        price: addition.product.price,
+                        cost: addition.product.cost,
+                        saleTaxRate:addition.product.saleTaxRate,
+                        purchaseTaxRate:addition.product.purchaseTaxRate,
+                        quantity: addition.quantity
+                    });
+                })
+            }
+
+            p.items.push({
+                // refId: it.refId,
+                product: it.product._id,
+                price: it.product.price,
+                cost: it.product.cost,
+                saleTaxRate: it.product.saleTaxRate,
+                purchaseTaxRate: it.product.purchaseTaxRate,
+                brand: it.product.brand._id,
+                additions, 
+                quantity: it.quantity,
+                subTotal: it.subTotal,
+                saleTax: it.saleTax,
+            });
+            p.subTotal += Math.round(it.subTotal * (100 + 13)) / 100;
+            p.saleTax += Math.round(it.subTotal * 13) / 100;
+        });
+        p.total = p.subTotal + p.saleTax;
+
+        createPayment(p);
+    }
+
+    const handleCancelOrder = () => {
+        history.push('/');
+    }
     return (
         <div className={classes.root}>
             <div className={page.name === BRAND_PAGE ? classes.headerTall : classes.header} >
@@ -158,11 +223,21 @@ function Layout({page, cart, categoryMap, setCategory}) {
             </div>
             {
                 page.name === PRODUCT_PAGE &&
-                <AddToOrderRow />
+                <ActionButtons 
+                    showOkButton={true}
+                    okButtonText="Add to Cart"
+                    onOk={handleAddToCart}
+                    onCancel={handleCancelProduct}
+                />
             }
             {
                 page.name === PAYMENT_PAGE &&
-                <PlaceOrderRow />
+                <ActionButtons 
+                showOkButton={true}
+                okButtonText="Place Order"
+                onOk={handlePlaceOrder}
+                onCancel={handleCancelOrder}
+            />
             }
             {
                 page.name === CART_PAGE &&
@@ -182,6 +257,10 @@ function Layout({page, cart, categoryMap, setCategory}) {
 }
 
 const mapStateToProps = state => ({
+    user: selectAuthUser(state),
+    brand: state.brand,
+    product: state.product,
+    combo: state.combo,
     page: state.page,
     cart: state.cart,
     categoryMap: selectCategoryMap(state),
@@ -189,5 +268,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {setCategory}
+    {setCategory, updateCartItem, createPayment}
 )(Layout);
