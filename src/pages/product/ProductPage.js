@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // import Button from '@material-ui/core/Button';
 import { QuantityInput } from '../../components/common/QuantityInput';
-import { updateCart } from '../../redux/cart/cart.actions';
+import { updateCartItem } from '../../redux/cart/cart.actions';
 import {setPage} from '../../redux/page/page.actions';
 import {PRODUCT_PAGE} from '../../const';
 
@@ -77,7 +77,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
+const ProductPage = ({brand, product, setPage, updateCartItem, quantity}) => {
     const classes = useStyles();
 
     useEffect(() => {
@@ -107,7 +107,7 @@ const ProductPage = ({brand, product, setPage, updateCart, quantity}) => {
      */
     function handleQuantityChange(d) {
         if(d.item){
-            updateCart({
+            updateCartItem({
                 ...d.item,
                 quantity: d.quantity
             });
@@ -168,5 +168,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {setPage, updateCart}
+    {setPage, updateCartItem}
 )(ProductPage);

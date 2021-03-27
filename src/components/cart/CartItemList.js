@@ -9,13 +9,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// d: IQuantityInputResult --- { item, quantity }
 export const CartItemList = ({ items, onQuantityChange, onAdditionQuantityChange }) => {
   const classes = useStyles();
 
   return <div className={classes.itemList}>
     {
       items && items.length > 0 &&
-      items.map(item => <CartItem key={item.refId} item={item} onQuantityChange={onQuantityChange} onAdditionQuantityChange={onAdditionQuantityChange}/>
+      items.map(item => <CartItem 
+        key={item.refId} item={item} 
+        onQuantityChange={d => onQuantityChange(d)}
+        onAdditionQuantityChange={d => onAdditionQuantityChange(d)}/>
       )
     }
   </div>

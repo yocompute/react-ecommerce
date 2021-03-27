@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { selectQuantity,selectProductQuantity } from '../redux/cart/cart.selectors';
 import {selectAuthUser} from '../redux/auth/auth.selectors';
-import {updateCart} from '../redux/cart/cart.actions';
+import {updateCartItem} from '../redux/cart/cart.actions';
 
 const useStyles = makeStyles({
   checkoutRow: {
@@ -43,13 +43,13 @@ const useStyles = makeStyles({
   }
 });
 
-const AddToOrderRow = ({ user, brand, product, combo, nProducts, updateCart }) => {
+const AddToOrderRow = ({ user, brand, product, combo, nProducts, updateCartItem }) => {
   const classes = useStyles();
   const history = useHistory();
 
   const handleAddToCart = () => {
     if(combo){
-      updateCart({
+      updateCartItem({
           ...combo,
           quantity: 1
       });
@@ -84,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {updateCart}
+  {updateCartItem}
 )(AddToOrderRow);
