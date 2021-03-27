@@ -13,6 +13,8 @@ import { selectCategoryMap } from "../redux/product/product.selectors";
 import { setCategory } from '../redux/category/category.actions';
 
 import {PRODUCT_PAGE, HOME_PAGE, BRAND_PAGE, PAYMENT_PAGE, CART_PAGE} from '../const';
+import ActionButtons from './ActionButtons';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -100,6 +102,8 @@ function Layout({page, cart, categoryMap, setCategory}) {
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
+    const history = useHistory();
+
     const handleSidebarToggle = (expanded) => {
         setSidebarExpanded(expanded);
     }
@@ -120,6 +124,17 @@ function Layout({page, cart, categoryMap, setCategory}) {
             }
         })
     };
+
+
+    // for the cart page
+    const handleCancelCart = () => {
+        history.push('/');
+    }
+
+    // for the cart page
+    const handleCheckout = () => {
+        history.push('/payment');
+    }
 
     return (
         <div className={classes.root}>
@@ -150,7 +165,16 @@ function Layout({page, cart, categoryMap, setCategory}) {
                 <PlaceOrderRow />
             }
             {
-                window.matchMedia(`(max-width: 768px)`).matches && page.name !== PRODUCT_PAGE && page.name !== PAYMENT_PAGE &&
+                page.name === CART_PAGE &&
+                <ActionButtons 
+                    showOkButton={true}
+                    okButtonText="Checkout"
+                    onOk={handleCheckout}
+                    onCancel={handleCancelCart}
+                />
+            }
+            {
+                window.matchMedia(`(max-width: 768px)`).matches && page.name !== PRODUCT_PAGE && page.name !== PAYMENT_PAGE && page.name !== CART_PAGE &&
                 <Footer enable={true} amount={0}></Footer>
             }
         </div>

@@ -65,7 +65,7 @@ const PlaceOrderRow = ({ type, brand, qrcode, user, cart, createPayment }) => {
             p.total += it.price * (100 + it.saleTaxRate) / 100;
             p.cost += it.cost * (100 + it.purchaseTaxRate) / 100;
         })
-        createPayment(p);
+        // createPayment(p);
     }
 
     return <div className={classes.checkoutRow}>
