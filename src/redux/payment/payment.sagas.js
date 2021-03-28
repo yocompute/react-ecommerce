@@ -4,11 +4,11 @@ import {
     FETCH_PAYMENTS, CREATE_PAYMENT, UPDATE_PAYMENT,
     fetchPaymentsSuccess, fetchPaymentsFail, createPaymentSuccess, updatePaymentSuccess
 } from './payment.actions'
+import { clearCart } from '../cart/cart.actions';
 
 import PaymentApi from '../../services/PaymentApi';
-import { setNotification } from '../notification/notification.actions';
+import { setNotification, setRedirect } from '../notification/notification.actions';
 import { httpSuccess } from '../notification/notification.sagas';
-
 export function* fetchPayments(action) {
     try {
         const { data, error, status } = yield call(PaymentApi.get, action.query);
@@ -27,6 +27,8 @@ export function* createPayment(action) {
         const { data, error, status } = yield call(PaymentApi.create, action.data);
         yield put(createPaymentSuccess(data));
         if (httpSuccess(status)) {
+            yield put(clearCart());
+            yield put(setRedirect('/payments'));
             // const { data, error, status } = yield call(PaymentApi.get, null);
             // yield put(fetchPaymentsSuccess(data));
         } else {

@@ -31,7 +31,7 @@ const Routes = () => {
             {/* <Route path="/login-select" component={LoginSelectPage} /> */}
             <Route path="/local-login" component={LocalLoginPage} />
             <Route path="/local-signup" component={LocalSignupPage} />
-            <Route path="/verify-code" component={VerificationCodePage} />
+            {/* <Route path="/verify-code" component={VerificationCodePage} /> */}
             <Route path="/payments" component={PaymentHistoryPage} />
             {
                 cfg.appMode === AppMode.DEV

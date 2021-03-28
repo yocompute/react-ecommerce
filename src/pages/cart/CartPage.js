@@ -38,19 +38,7 @@ const CartPage = ({cart, setPage, updateCartItemQuantity, updateSelectedAddition
         updateSelectedAddition(d.refId, d.item, d.quantity);
     }
 
-    const getSummary = (cart) => {
-        if(cart.items && cart.items.length > 0){
-            let subTotal = 0;
-            cart.items.forEach(it => {
-                subTotal += it.subTotal;
-            });
-            return {subTotal, tax: (subTotal* 0.13).toFixed(2), total: (subTotal * 1.13).toFixed(2)};
-        }else{
-            return {subTotal:0, tax:0, total: 0};
-        }
-    }
 
-    const summary = getSummary(cart);
 
     return (
         <div className={classes.page}>

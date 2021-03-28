@@ -11,9 +11,9 @@ import { categoriesReducer, categoryReducer, categoryMapReducer } from './catego
 import { productsReducer, productReducer, comboReducer } from './product/product.reducers';
 import { cartReducer } from './cart/cart.reducers';
 import { pageReducer } from './page/page.reducers';
-import { paymentReducer } from './payment/payment.reducers';
+import { paymentsReducer, paymentReducer } from './payment/payment.reducers';
 import { qrcodeReducer } from './qrcode/qrcode.reducers';
-import { notificationReducer } from './notification/notification.reducers';
+import { notificationReducer, pathReducer } from './notification/notification.reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,8 +32,10 @@ export const rootReducer = combineReducers({
   cart: cartReducer,
   page: pageReducer,
   payment: paymentReducer,
+  payments: paymentsReducer,
   qrcode: qrcodeReducer,
   notification: notificationReducer,
+  path: pathReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

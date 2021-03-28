@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -15,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import {selectAuthUser} from '../redux/auth/auth.selectors';
 import {updateCartItem} from '../redux/cart/cart.actions';
 import { createPayment } from '../redux/payment/payment.actions';
+import { clearNotification } from '../redux/notification/notification.actions';
 import { PaymentStatus } from '../const';
 
 const useStyles = makeStyles((theme) => ({
@@ -97,13 +99,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart, combo, brand, user, categoryMap, setCategory, updateCartItem, createPayment}) {
+function Layout({page, cart, combo, brand, user, categoryMap, notification, setCategory, updateCartItem, createPayment, clearNotification}) {
     const classes = useStyles();
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
     const history = useHistory();
-
+    
     const handleSidebarToggle = (expanded) => {
         setSidebarExpanded(expanded);
     }
@@ -201,6 +203,14 @@ function Layout({page, cart, combo, brand, user, categoryMap, setCategory, updat
     const handleCancelOrder = () => {
         history.push('/');
     }
+
+    const handleNotificationClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        clearNotification();
+      };
+
     return (
         <div className={classes.root}>
             <div className={page.name === BRAND_PAGE ? classes.headerTall : classes.header} >
@@ -221,6 +231,16 @@ function Layout({page, cart, combo, brand, user, categoryMap, setCategory, updat
                     <Routes />
                 {/* </div> */}
             </div>
+            <Snackbar
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+                }}
+                open={notification && notification.show}
+                autoHideDuration={3000}
+                message={notification ? notification.error: ''}
+                onClose={handleNotificationClose}
+            />
             {
                 page.name === PRODUCT_PAGE &&
                 <ActionButtons 
@@ -264,9 +284,10 @@ const mapStateToProps = state => ({
     page: state.page,
     cart: state.cart,
     categoryMap: selectCategoryMap(state),
+    notification: state.notification
 });
 
 export default connect(
     mapStateToProps,
-    {setCategory, updateCartItem, createPayment}
+    {setCategory, updateCartItem, createPayment, clearNotification}
 )(Layout);
