@@ -1,4 +1,5 @@
 import {
+  CLEAR_CART,
   UPDATE_CART_ITEM,
   UPDATE_CART_ITEM_QUANTITY,
   UPDATE_SELECTED_ADDITION
@@ -32,6 +33,8 @@ export const getSummary = (item) => {
  */
 export const cartReducer = (state = { items: [] }, action) => {
   switch (action.type) {
+    case CLEAR_CART:
+      return {items: []};
     case UPDATE_CART_ITEM:
       const item = action.item;
       // if (item && item.quantity > 0) {

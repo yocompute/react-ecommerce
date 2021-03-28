@@ -2,7 +2,7 @@
 export const UPDATE_CART_ITEM = 'cart/UPDATE_CART_ITEM';
 export const UPDATE_CART_ITEM_QUANTITY = 'cart/UPDATE_CART_ITEM_QUANTITY';
 export const UPDATE_SELECTED_ADDITION = 'cart/UPDATE_SELECTED_ADDITION';
-
+export const CLEAR_CART = 'cart/CLEAR_CART';
 
 
 /**
@@ -32,4 +32,8 @@ export const updateSelectedAddition = (refId, addition, quantity) => ({
     refId,
     addition,
     quantity
+})
+
+export const clearCart = () => ({
+    type: CLEAR_CART,
 })

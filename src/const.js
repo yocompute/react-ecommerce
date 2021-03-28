@@ -7,7 +7,8 @@ export const BRAND_PAGE = 'page/brand';
 export const CATEGORY_PAGE = 'page/brand/category';
 export const PRODUCT_PAGE = 'page/product';
 export const CART_PAGE = 'page/cart';
-export const PAYMENT_PAGE = 'pay/payment';
+export const PAYMENT_PAGE = 'page/payment';
+export const PAYMENT_HISTORY_PAGE = 'page/payments';
 export const ORDER_PAGE = 'page/order';
 
 

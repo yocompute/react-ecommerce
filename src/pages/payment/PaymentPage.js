@@ -10,6 +10,7 @@ import { CartSummary } from '../../components/cart/CartSummary';
 // import { PaymentMethodSelect } from '../../components/common/PaymentMethodSelect'
 import { setPage } from  '../../redux/page/page.actions';
 import { PAYMENT_PAGE } from '../../const';
+import { useHistory } from 'react-router-dom';
 
 // import Header from '../../components/common/Header'
 
@@ -69,13 +70,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const PaymentPage = ({cart, setPage}) => {
+const PaymentPage = ({cart, path, setPage}) => {
     const classes = useStyles();
     const items = cart.items;
+    const history = useHistory();
 
     useEffect(() => {
         setPage(PAYMENT_PAGE);
     }, [setPage])
+
+    if(path){
+        history.push(path);
+    }
 
     return (
         <div className={classes.root}>
@@ -119,7 +125,8 @@ PaymentPage.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    cart: state.cart
+    cart: state.cart,
+    path: state.path,
 });
 
 export default connect(
