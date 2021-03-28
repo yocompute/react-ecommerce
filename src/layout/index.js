@@ -192,10 +192,13 @@ function Layout({page, cart, combo, brand, user, categoryMap, notification, setC
                 subTotal: it.subTotal,
                 saleTax: it.saleTax,
             });
-            p.subTotal += Math.round(it.subTotal * (100 + 13)) / 100;
-            p.saleTax += Math.round(it.subTotal * 13) / 100;
+            p.subTotal += it.subTotal;
+            p.saleTax += it.saleTax;
         });
-        p.total = p.subTotal + p.saleTax;
+        
+        p.subTotal = Math.round(p.subTotal * 100) / 100;
+        p.saleTax = Math.round(p.saleTax * 100) / 100;
+        p.total = Math.round((p.subTotal + p.saleTax) * 100) / 100;
 
         createPayment(p);
     }
@@ -262,7 +265,7 @@ function Layout({page, cart, combo, brand, user, categoryMap, notification, setC
             {
                 page.name === CART_PAGE &&
                 <ActionButtons 
-                    showOkButton={true}
+                    showOkButton={cart && cart.items && cart.items.length > 0}
                     okButtonText="Checkout"
                     onOk={handleCheckout}
                     onCancel={handleCancelCart}

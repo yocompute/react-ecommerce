@@ -11,13 +11,15 @@ export const getSummary = (item) => {
 
   if(item.additions && item.additions.length > 0){
     item.additions.forEach(it => {
+      const saleTaxRate = it.product.saleTaxRate ? it.product.saleTaxRate : 0;
       additionTotal += it.product.price * it.quantity;
-      additionSaleTax += Math.round(it.product.price * it.quantity * it.saleTaxRate) / 100;
+      additionSaleTax += Math.round(it.product.price * it.quantity * saleTaxRate) / 100;
     });
   }
 
-  const subTotal = (item.product.price + additionTotal) * item.quantity;
-  const saleTax = ( Math.round(item.product.price * item.saleTaxRate) / 100 + additionSaleTax ) * item.quantity;
+  const subTotal = Math.round((item.product.price + additionTotal) * item.quantity * 100) / 100;
+  const saleTaxRate = item.product.saleTaxRate ? item.product.saleTaxRate : 0;
+  const saleTax =  Math.round(((item.product.price * saleTaxRate) / 100 + additionSaleTax ) * item.quantity * 100) / 100;
   return { subTotal, saleTax };
 }
 /**

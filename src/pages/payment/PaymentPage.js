@@ -101,7 +101,7 @@ const PaymentPage = ({cart, path, setPage}) => {
                         item.additions.map(it =>
                             <div key={it.product._id} className={classes.additionRow}>
                                 <div className={classes.additionNameCol}>{it.product.name}</div>
-                                <div className={classes.additionQuantityCol}>x{item.quantity}</div>
+                                <div className={classes.additionQuantityCol}>x{it.quantity}</div>
                                 <div className={classes.additionPriceCol}>${it.product.price * it.quantity}</div>
                             </div>
                         )
