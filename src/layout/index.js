@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-function Layout({page, cart, combo, brand, user, categoryMap, notification, setCategory, updateCartItem, createPayment, clearNotification}) {
+function Layout({page, cart, combo, brand, user, qrcode, categoryMap, notification, setCategory, updateCartItem, createPayment, clearNotification}) {
     const classes = useStyles();
     // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -161,6 +161,7 @@ function Layout({page, cart, combo, brand, user, categoryMap, notification, setC
             total: 0,
             status: PaymentStatus.NEW,
             user: user._id,
+            qrcode: qrcode._id
         }
 
         cart.items.forEach(it => {
@@ -195,7 +196,7 @@ function Layout({page, cart, combo, brand, user, categoryMap, notification, setC
             p.subTotal += it.subTotal;
             p.saleTax += it.saleTax;
         });
-        
+
         p.subTotal = Math.round(p.subTotal * 100) / 100;
         p.saleTax = Math.round(p.saleTax * 100) / 100;
         p.total = Math.round((p.subTotal + p.saleTax) * 100) / 100;
@@ -281,6 +282,7 @@ function Layout({page, cart, combo, brand, user, categoryMap, notification, setC
 
 const mapStateToProps = state => ({
     user: selectAuthUser(state),
+    qrcode: state.qrcode,
     brand: state.brand,
     product: state.product,
     combo: state.combo,
