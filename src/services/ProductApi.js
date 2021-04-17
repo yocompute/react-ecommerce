@@ -5,22 +5,30 @@ const API_URL = process.env.REACT_APP_API_URL;
 const ProductApi = {
 
   async get(query) {
-    const url = process.env.REACT_APP_MODE === 'local' ? '/products.json' : Api.buildUrl(API_URL, 'products', query);
-
+    const url =
+      process.env.REACT_APP_MODE === "local"
+        ? "/products.json"
+        : Api.buildUrl(API_URL, "products", query);
     return await Api.get(url);
   },
 
   async create(entity) {
-    const url = process.env.REACT_APP_MODE === 'local' ? '/products.json' : Api.buildUrl(API_URL, 'products');
-
+    const url =
+      process.env.REACT_APP_MODE === "local"
+        ? "/products.json"
+        : Api.buildUrl(API_URL, "products");
     return await Api.post(url, entity);
   },
 
-  async update(entity) {
-    const url = process.env.REACT_APP_MODE === 'local' ? '/products.json' : Api.buildUrl(API_URL, 'products');
-
-    return await Api.put(url, entity);
+  async update(data, id) {
+    const url =
+      process.env.REACT_APP_MODE === "local"
+        ? "/products.json"
+        : Api.buildUrl(API_URL, `products/${id}`);
+    return await Api.put(url, data);
   },
+
+
 };
 
 export default ProductApi;

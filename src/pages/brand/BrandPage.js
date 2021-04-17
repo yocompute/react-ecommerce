@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import queryString from "query-string";
-
+import Cookies from 'js-cookie';
 import { makeStyles } from "@material-ui/core/styles";
 
 import ProductList from "../../components/product/ProductList";
@@ -21,7 +21,7 @@ import { login } from "../../redux/auth/auth.actions";
 import { selectAuthUser } from "../../redux/auth/auth.selectors";
 import { setCategory } from "../../redux/category/category.actions";
 
-const DEFAULT_BRAND_ID = "5fdd8c741569e96aeabb68ec";
+import { BRAND_COOKIE, QRCODE_COOKIE, JWT_EXPIRY } from '../../const';
 
 const useStyles = makeStyles(() => ({
   page: {
@@ -66,13 +66,24 @@ const BrandPage = ({
     if (user) {
       setPage(BRAND_PAGE);
       if (params.brandId && params.qrcode) {
-        fetchBrand({ _id: params.brandId });
-        fetchProducts({ brand: params.brandId, type: { $ne: 'A' } });
-        setQrcode({ _id: params.qrcode });
+        const {brandId, qrcode} = params;
+        fetchBrand({ _id: brandId });
+        fetchProducts({ brand: brandId, type: { $ne: 'A' } });
+        setQrcode({ _id: qrcode });
+        Cookies.set(BRAND_COOKIE, brandId, { expires: JWT_EXPIRY });
+        Cookies.set(QRCODE_COOKIE, qrcode, { expires: JWT_EXPIRY });
       } else if (match.params && match.params.id) { // for multi brand
         const brand = match.params.id;
         fetchBrand({ _id: brand });
         fetchProducts({ brand, type: { $ne: 'A' } });
+      } else {
+        const brandId = Cookies.get(BRAND_COOKIE);
+        const qrcode = Cookies.get(QRCODE_COOKIE);
+        if(brandId && qrcode){
+          fetchBrand({ _id: brandId });
+          fetchProducts({ brand: brandId, type: { $ne: 'A' } });
+          setQrcode({ _id: qrcode });
+        }
       }
     }
     // else {

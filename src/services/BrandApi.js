@@ -8,7 +8,6 @@ const BrandApi = {
       process.env.REACT_APP_MODE === "local"
         ? "/brands.json"
         : Api.buildUrl(API_URL, "brands", query);
-
     return await Api.get(url);
   },
 
@@ -17,16 +16,14 @@ const BrandApi = {
       process.env.REACT_APP_MODE === "local"
         ? "/brands.json"
         : Api.buildUrl(API_URL, "brands");
-
     return await Api.post(url, entity);
   },
 
-  async update(data) {
+  async update(data, id) {
     const url =
       process.env.REACT_APP_MODE === "local"
         ? "/brands.json"
-        : Api.buildUrl(API_URL, "brands");
-
+        : Api.buildUrl(API_URL, `brands/${id}`);
     return await Api.put(url, data);
   },
 };

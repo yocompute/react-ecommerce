@@ -1,4 +1,6 @@
 export const JWT_COOKIE = 'shippal_jwt';
+export const BRAND_COOKIE = 'shippal_brand';
+export const QRCODE_COOKIE = 'shippal_qrcode';
 export const JWT_EXPIRY = 7;
 
 
